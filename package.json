@@ -1,0 +1,19 @@
+{
+  "name": "@ai-soft-jp/cdk-lib",
+  "private": true,
+  "type": "module",
+  "packageManager": "yarn@4.13.0+sha512.5c20ba010c99815433e5c8453112165e673f1c7948d8d2b267f4b5e52097538658388ebc9f9580656d9b75c5cc996f990f611f99304a2197d4c56d21eea370e7",
+  "main": "lib/index.ts",
+  "devDependencies": {
+    "@ai-soft-jp/eslint-config": "ai-soft-jp/eslint-config",
+    "aws-cdk-lib": "^2.243.0",
+    "constructs": "^10.5.1",
+    "eslint": "^9.39.4",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "aws-cdk-lib": "^2.243.0",
+    "constructs": "^10.0.0"
+  }
+}
