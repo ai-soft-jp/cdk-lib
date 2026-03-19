@@ -19,6 +19,9 @@ exports.handler = async () => {
   };
 };
 `;
+/**
+ * Defines alarms for SES rate and quota
+ */
 export class SesQuotaAlarms extends cdk.Resource {
     alarms;
     constructor(scope, id, props) {
@@ -93,12 +96,19 @@ export class SesQuotaAlarms extends cdk.Resource {
                 treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
             }),
         ];
+        cdk.RemovalPolicies.of(this).destroy({ applyToResourceTypes: ['AWS::Logs::LogGroup'] });
     }
+    /**
+     * Trigger this action if the alarm fires
+     */
     addAlarmAction(...actions) {
         for (const alarm of this.alarms) {
             alarm.addAlarmAction(...actions);
         }
     }
+    /**
+     * Trigger this action if the alarm returns from breaching state into ok state
+     */
     addOkAction(...actions) {
         for (const alarm of this.alarms) {
             alarm.addOkAction(...actions);

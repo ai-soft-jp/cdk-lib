@@ -5,7 +5,14 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import type { Construct } from 'constructs';
 
+/**
+ * Properties for SesQuotaAlarms
+ */
 export interface SesQuotaAlarmsProps {
+  /**
+   * The version
+   * @default - Current timestamp
+   */
   readonly version?: string;
 }
 
@@ -26,6 +33,9 @@ exports.handler = async () => {
 };
 `;
 
+/**
+ * Defines alarms for SES rate and quota
+ */
 export class SesQuotaAlarms extends cdk.Resource {
   readonly alarms: cloudwatch.Alarm[];
 
@@ -104,14 +114,22 @@ export class SesQuotaAlarms extends cdk.Resource {
         treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
       }),
     ];
+
+    cdk.RemovalPolicies.of(this).destroy({ applyToResourceTypes: ['AWS::Logs::LogGroup'] });
   }
 
+  /**
+   * Trigger this action if the alarm fires
+   */
   addAlarmAction(...actions: cloudwatch.IAlarmAction[]) {
     for (const alarm of this.alarms) {
       alarm.addAlarmAction(...actions);
     }
   }
 
+  /**
+   * Trigger this action if the alarm returns from breaching state into ok state
+   */
   addOkAction(...actions: cloudwatch.IAlarmAction[]) {
     for (const alarm of this.alarms) {
       alarm.addOkAction(...actions);
