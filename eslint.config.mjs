@@ -1,2 +1,3 @@
 import { configs } from '@ai-soft-jp/eslint-config';
-export default configs.aws_cdk;
+import { defineConfig } from 'eslint/config';
+export default defineConfig(configs.aws_cdk, { ignores: ['dist/**/*'] });
