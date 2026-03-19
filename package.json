@@ -6,6 +6,7 @@
   "main": "lib/index.ts",
   "devDependencies": {
     "@ai-soft-jp/eslint-config": "ai-soft-jp/eslint-config",
+    "@types/node": "^24.12.0",
     "aws-cdk-lib": "^2.243.0",
     "constructs": "^10.5.1",
     "eslint": "^9.39.4",
