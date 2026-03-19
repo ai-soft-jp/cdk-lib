@@ -5,11 +5,22 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./cfn-response": {
+      "default": "./dist/cfn-response.js",
+      "types": "./dist/cfn-response.d.ts"
+    }
+  },
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
     "@ai-soft-jp/eslint-config": "ai-soft-jp/eslint-config",
+    "@types/aws-lambda": "^8.10.161",
     "@types/node": "^24.12.0",
     "aws-cdk-lib": "^2.243.0",
     "constructs": "^10.5.1",
