@@ -1,3 +1,4 @@
+export * from './resources/cloudfront-access-control.js';
 export * from './resources/cloudfront-certificate.js';
 export * from './resources/cloudfront-function.js';
 export * from './resources/distribution-records.js';

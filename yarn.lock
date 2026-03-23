@@ -10,6 +10,7 @@ __metadata:
   resolution: "@ai-soft-jp/cdk-lib@workspace:."
   dependencies:
     "@ai-soft-jp/eslint-config": ai-soft-jp/eslint-config
+    "@types/aws-cloudfront-function": "npm:^1.0.8"
     "@types/aws-lambda": "npm:^8.10.161"
     "@types/node": "npm:^24.12.0"
     aws-cdk-lib: "npm:^2.243.0"
@@ -440,6 +441,13 @@ __metadata:
   dependencies:
     tslib: "npm:^2.4.0"
   checksum: 10c0/b255094f293794c6d2289300c5fbcafbb5532a3aed3a5ffd2f8dc1828e639b88d75f6a376dd8f94347a44813fd7a7149d8463477a9a49525c8b2dcaa38c2d1e8
+  languageName: node
+  linkType: hard
+
+"@types/aws-cloudfront-function@npm:^1.0.8":
+  version: 1.0.8
+  resolution: "@types/aws-cloudfront-function@npm:1.0.8"
+  checksum: 10c0/6d29d51b330cfcff2cbd19a57d3e648e12cb17ae341fd5c40036efd5bf3fe687fe0c44783c5f490952a84d2def1c51be98b8d40224d5381728b6b255a6fc9fc2
   languageName: node
   linkType: hard
 

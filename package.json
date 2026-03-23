@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@ai-soft-jp/eslint-config": "ai-soft-jp/eslint-config",
+    "@types/aws-cloudfront-function": "^1.0.8",
     "@types/aws-lambda": "^8.10.161",
     "@types/node": "^24.12.0",
     "aws-cdk-lib": "^2.243.0",
