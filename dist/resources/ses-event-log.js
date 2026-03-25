@@ -1,8 +1,8 @@
-import { Resource } from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ses from 'aws-cdk-lib/aws-ses';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subscriptions from 'aws-cdk-lib/aws-sns-subscriptions';
+import { Construct } from 'constructs';
 const EVENT_HANDLER = `\
 exports.handler = async (event) => {
   for (const record of event.Records) {
@@ -26,7 +26,7 @@ exports.handler = async (event) => {
 /**
  * Creates a SES event destination which logs SES events
  */
-export class SesEventLog extends Resource {
+export class SesEventLog extends Construct {
     /**
      * The SNS topic
      */

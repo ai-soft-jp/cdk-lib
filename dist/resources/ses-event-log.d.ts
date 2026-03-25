@@ -1,8 +1,7 @@
-import { Resource } from 'aws-cdk-lib';
 import type * as logs from 'aws-cdk-lib/aws-logs';
 import * as ses from 'aws-cdk-lib/aws-ses';
 import * as sns from 'aws-cdk-lib/aws-sns';
-import type { Construct } from 'constructs';
+import { Construct } from 'constructs';
 /**
  * Properties for SesEventLog
  */
@@ -25,7 +24,7 @@ export interface SesEventLogProps {
 /**
  * Creates a SES event destination which logs SES events
  */
-export declare class SesEventLog extends Resource {
+export declare class SesEventLog extends Construct {
     /**
      * The SNS topic
      */

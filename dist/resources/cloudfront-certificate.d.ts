@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import type * as route53 from 'aws-cdk-lib/aws-route53';
-import type { Construct } from 'constructs';
+import { Construct } from 'constructs';
 /**
  * Properties for CloudFrontCertificate
  */
@@ -19,7 +19,8 @@ export interface CloudfrontCertificateProps {
 /**
  * Cross-region ACM certificate (us-east-1) for CloudFront distribution
  */
-export declare class CloudfrontCertificate extends cdk.Resource implements acm.ICertificateRef {
+export declare class CloudfrontCertificate extends Construct implements acm.ICertificateRef {
+    readonly env: cdk.interfaces.ResourceEnvironment;
     readonly certificateRef: acm.CertificateReference;
     constructor(scope: Construct, id: string, props: CloudfrontCertificateProps);
 }

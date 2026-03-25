@@ -1,6 +1,5 @@
-import * as cdk from 'aws-cdk-lib';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
-import type { Construct } from 'constructs';
+import { Construct } from 'constructs';
 /**
  * Properties for SesQuotaAlarms
  */
@@ -14,7 +13,7 @@ export interface SesQuotaAlarmsProps {
 /**
  * Defines alarms for SES rate and quota
  */
-export declare class SesQuotaAlarms extends cdk.Resource {
+export declare class SesQuotaAlarms extends Construct {
     readonly alarms: cloudwatch.Alarm[];
     constructor(scope: Construct, id: string, props?: SesQuotaAlarmsProps);
     /**

@@ -1,7 +1,6 @@
-import { Resource } from 'aws-cdk-lib';
 import type * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as route53 from 'aws-cdk-lib/aws-route53';
-import type { Construct } from 'constructs';
+import { Construct } from 'constructs';
 /**
  * Properties for DistributionRecords resource
  */
@@ -54,6 +53,6 @@ export declare enum IpAddressType {
 /**
  * Publish Route53 records for CloudFront distribution
  */
-export declare class DistributionRecords extends Resource {
+export declare class DistributionRecords extends Construct {
     constructor(scope: Construct, id: string, props: DistributionRecordsProps);
 }

@@ -1,6 +1,6 @@
-import { Resource } from 'aws-cdk-lib';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
+import { Construct } from 'constructs';
 /**
  * The IP address type
  */
@@ -16,7 +16,7 @@ export var IpAddressType;
 /**
  * Publish Route53 records for CloudFront distribution
  */
-export class DistributionRecords extends Resource {
+export class DistributionRecords extends Construct {
     constructor(scope, id, props) {
         super(scope, id);
         const { zone, recordName } = props;

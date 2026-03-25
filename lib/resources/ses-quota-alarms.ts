@@ -3,7 +3,7 @@ import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as cr from 'aws-cdk-lib/custom-resources';
-import type { Construct } from 'constructs';
+import { Construct } from 'constructs';
 
 /**
  * Properties for SesQuotaAlarms
@@ -36,7 +36,7 @@ exports.handler = async () => {
 /**
  * Defines alarms for SES rate and quota
  */
-export class SesQuotaAlarms extends cdk.Resource {
+export class SesQuotaAlarms extends Construct {
   readonly alarms: cloudwatch.Alarm[];
 
   constructor(scope: Construct, id: string, props?: SesQuotaAlarmsProps) {

@@ -3,6 +3,7 @@ import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as cr from 'aws-cdk-lib/custom-resources';
+import { Construct } from 'constructs';
 const EVENT_HANDLER = `
 const { SESv2 } = require('@aws-sdk/client-sesv2');
 const ses = new SESv2();
@@ -22,7 +23,7 @@ exports.handler = async () => {
 /**
  * Defines alarms for SES rate and quota
  */
-export class SesQuotaAlarms extends cdk.Resource {
+export class SesQuotaAlarms extends Construct {
     alarms;
     constructor(scope, id, props) {
         super(scope, id);
