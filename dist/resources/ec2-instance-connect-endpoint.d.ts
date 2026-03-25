@@ -34,6 +34,7 @@ export interface Ec2InstanceConnectEndpointProps {
  * EC2 Instance Connect (EIC) Endpoint
  */
 export declare class Ec2InstanceConnectEndpoint extends cdk.Resource implements ec2.IConnectable, ec2.IInstanceConnectEndpointRef {
+    readonly securityGroup: ec2.SecurityGroup;
     readonly connections: ec2.Connections;
     readonly instanceConnectEndpointRef: ec2.InstanceConnectEndpointReference;
     readonly instanceConnectEndpointId: string;

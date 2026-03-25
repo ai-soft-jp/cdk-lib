@@ -39,6 +39,7 @@ export class Ec2InstanceConnectEndpoint
   extends cdk.Resource
   implements ec2.IConnectable, ec2.IInstanceConnectEndpointRef
 {
+  readonly securityGroup: ec2.SecurityGroup;
   readonly connections: ec2.Connections;
   readonly instanceConnectEndpointRef: ec2.InstanceConnectEndpointReference;
   readonly instanceConnectEndpointId: string;
@@ -61,6 +62,7 @@ export class Ec2InstanceConnectEndpoint
       allowAllOutbound: false,
       allowAllIpv6Outbound: false,
     });
+    this.securityGroup = securityGroup;
     this.connections = securityGroup.connections;
 
     const resource = new ec2.CfnInstanceConnectEndpoint(this, 'Resource', {
@@ -84,8 +86,12 @@ export class Ec2InstanceConnectEndpoint
    * @param port SSH Port (default: 22)
    */
   connect(destination: ec2.IConnectable, port?: ec2.Port) {
-    this.connections.allowTo(destination, port ?? ec2.Port.SSH, 'to EC2');
-    destination.connections.allowFrom(this, port ?? ec2.Port.SSH, 'from EIC');
-    destination.connections.allowTo(this, ec2.Port.allTraffic(), 'to EIC');
+    for (const sg of destination.connections.securityGroups) {
+      this.securityGroup.addEgressRule(sg, port ?? ec2.Port.SSH, 'to EC2', true);
+      sg.addIngressRule(this.securityGroup, port ?? ec2.Port.SSH, 'from EIC');
+      if (!sg.allowAllOutbound) {
+        sg.addEgressRule(this.securityGroup, ec2.Port.allTraffic(), 'to EIC');
+      }
+    }
   }
 }
