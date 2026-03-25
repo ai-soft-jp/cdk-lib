@@ -1,10 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as cr from 'aws-cdk-lib/custom-resources';
+import { Construct } from 'constructs';
 /**
  * CloudFront-VPCOrigins-Service-SG security group
  */
-export class VpcOriginSecurityGroup extends cdk.Resource {
+export class VpcOriginSecurityGroup extends Construct {
     connections;
     constructor(scope, id, props) {
         super(scope, id);
@@ -23,10 +25,27 @@ export class VpcOriginSecurityGroup extends cdk.Resource {
             },
             policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: ['*'] }),
             installLatestAwsSdk: false,
+            removalPolicy: cdk.RemovalPolicy.RETAIN,
         });
+        if (props.dependency ?? true) {
+            cdk.Aspects.of(cdk.Stack.of(this)).add(new ApplyVpcOriginDependency(getSg), {
+                priority: cdk.AspectPriority.READONLY,
+            });
+        }
         const securityGroupId = getSg.getResponseField('SecurityGroups.0.GroupId');
         const securityGroup = ec2.SecurityGroup.fromSecurityGroupId(this, 'SecurityGroup', securityGroupId);
         this.connections = securityGroup.connections;
+    }
+}
+class ApplyVpcOriginDependency {
+    construct;
+    constructor(construct) {
+        this.construct = construct;
+    }
+    visit(node) {
+        if (cloudfront.CfnVpcOrigin.isCfnVpcOrigin(node)) {
+            this.construct.node.addDependency(node);
+        }
     }
 }
 //# sourceMappingURL=vpc-origin-security-group.js.map
