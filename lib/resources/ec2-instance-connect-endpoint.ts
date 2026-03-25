@@ -35,8 +35,13 @@ export interface Ec2InstanceConnectEndpointProps {
 /**
  * EC2 Instance Connect (EIC) Endpoint
  */
-export class Ec2InstanceConnectEndpoint extends cdk.Resource implements ec2.IConnectable {
+export class Ec2InstanceConnectEndpoint
+  extends cdk.Resource
+  implements ec2.IConnectable, ec2.IInstanceConnectEndpointRef
+{
   readonly connections: ec2.Connections;
+  readonly instanceConnectEndpointRef: ec2.InstanceConnectEndpointReference;
+  readonly instanceConnectEndpointId: string;
 
   constructor(scope: Construct, id: string, props: Ec2InstanceConnectEndpointProps) {
     super(scope, id);
@@ -58,7 +63,7 @@ export class Ec2InstanceConnectEndpoint extends cdk.Resource implements ec2.ICon
     });
     this.connections = securityGroup.connections;
 
-    new ec2.CfnInstanceConnectEndpoint(this, 'Resource', {
+    const resource = new ec2.CfnInstanceConnectEndpoint(this, 'Resource', {
       subnetId,
       securityGroupIds: [securityGroup.securityGroupId],
       preserveClientIp: props.preserveClientIp,
@@ -68,6 +73,9 @@ export class Ec2InstanceConnectEndpoint extends cdk.Resource implements ec2.ICon
     for (const sg of props.securityGroups ?? []) {
       this.connect(sg, props.port);
     }
+
+    this.instanceConnectEndpointRef = resource.instanceConnectEndpointRef;
+    this.instanceConnectEndpointId = resource.attrId;
   }
 
   /**

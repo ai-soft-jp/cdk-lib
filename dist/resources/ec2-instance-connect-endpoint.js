@@ -5,6 +5,8 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
  */
 export class Ec2InstanceConnectEndpoint extends cdk.Resource {
     connections;
+    instanceConnectEndpointRef;
+    instanceConnectEndpointId;
     constructor(scope, id, props) {
         super(scope, id);
         const subnetId = props.vpc.selectSubnets({
@@ -22,7 +24,7 @@ export class Ec2InstanceConnectEndpoint extends cdk.Resource {
             allowAllIpv6Outbound: false,
         });
         this.connections = securityGroup.connections;
-        new ec2.CfnInstanceConnectEndpoint(this, 'Resource', {
+        const resource = new ec2.CfnInstanceConnectEndpoint(this, 'Resource', {
             subnetId,
             securityGroupIds: [securityGroup.securityGroupId],
             preserveClientIp: props.preserveClientIp,
@@ -31,6 +33,8 @@ export class Ec2InstanceConnectEndpoint extends cdk.Resource {
         for (const sg of props.securityGroups ?? []) {
             this.connect(sg, props.port);
         }
+        this.instanceConnectEndpointRef = resource.instanceConnectEndpointRef;
+        this.instanceConnectEndpointId = resource.attrId;
     }
     /**
      * Connect to EC2 instance security group
