@@ -28,7 +28,7 @@ export class VpcOriginSecurityGroup extends Construct {
             removalPolicy: cdk.RemovalPolicy.RETAIN,
         });
         if (props.dependency ?? true) {
-            cdk.Aspects.of(cdk.Stack.of(this)).add(new ApplyVpcOriginDependency(getSg), {
+            cdk.Aspects.of(cdk.Stack.of(this)).add(new ApplyVpcOriginDependency(getSg.node.defaultChild), {
                 priority: cdk.AspectPriority.READONLY,
             });
         }
