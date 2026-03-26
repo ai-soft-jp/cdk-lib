@@ -72,7 +72,11 @@ export class CloudfrontAccessControl extends cdk.Resource implements cloudfront.
     const satisfy = props.satisfy ?? Satisfy.ALL;
 
     if (!(basicAuth || remoteIp)) {
-      throw new cdk.ValidationError('The basicAuth or the remoteIp must be specified either or both.', this);
+      throw new cdk.ValidationError(
+        'AccessControlRequired',
+        'The basicAuth or the remoteIp must be specified either or both.',
+        this,
+      );
     }
 
     const source = fs.readFileSync(

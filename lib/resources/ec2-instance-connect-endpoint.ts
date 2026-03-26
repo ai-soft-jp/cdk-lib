@@ -53,7 +53,7 @@ export class Ec2InstanceConnectEndpoint
       onePerAz: true,
     }).subnetIds[0];
     if (!subnetId) {
-      throw new cdk.ValidationError('No Subnect Id available', this);
+      throw new cdk.ValidationError('SubnetNotFound', 'No Subnect Id available', this);
     }
 
     const securityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
