@@ -5,7 +5,7 @@ import { Construct } from 'constructs';
 
 interface Ec2PublicDnsNameProps {
   readonly instance?: ec2.IInstanceRef;
-  readonly eip?: ec2.IEIPRef;
+  readonly publicIp?: string;
 }
 
 export class Ec2PublicDnsName extends Construct {
@@ -20,17 +20,17 @@ export class Ec2PublicDnsName extends Construct {
     if (props.instance) {
       filters.push({ Name: 'attachment.instance-id', Values: [props.instance.instanceRef.instanceId] });
     }
-    if (props.eip) {
-      filters.push({ Name: 'association.public-ip', Values: [props.eip.eipRef.publicIp] });
+    if (props.publicIp) {
+      filters.push({ Name: 'association.public-ip', Values: [props.publicIp] });
     }
     if (!filters.length) {
-      throw new ValidationError('TargetMissing', 'At least instance or eip is needed.', this);
+      throw new ValidationError('TargetMissing', 'At least instance or publicIp is needed.', this);
     }
 
     const eni = new cr.AwsCustomResource(this, 'Default', {
       resourceType: 'Custom::DescribeNetworkInterfaces',
       policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: ['*'] }),
-      onCreate: {
+      onUpdate: {
         service: 'ec2',
         action: 'describeNetworkInterfaces',
         parameters: { Filters: filters },
