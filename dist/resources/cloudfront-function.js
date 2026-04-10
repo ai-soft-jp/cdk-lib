@@ -1,6 +1,7 @@
+import * as fs from 'node:fs';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
-import { buildSync } from 'esbuild';
+import { transformSync } from 'esbuild';
 /**
  * CloudFront Function with esbuild bundling
  */
@@ -8,22 +9,83 @@ export class CloudfrontFunction extends cloudfront.Function {
     constructor(scope, id, props) {
         const { entry, define, ...resProps } = props;
         super(scope, id, {
-            code: cloudfront.FunctionCode.fromInline(cdk.Lazy.string({ produce: () => compile(entry, define) })),
+            code: cloudfront.FunctionCode.fromInline(cdk.Lazy.string({ produce: () => compile(entry, define, this.node.path) })),
             runtime: cloudfront.FunctionRuntime.JS_2_0,
             ...resProps,
         });
     }
 }
-function compile(entry, define) {
-    const res = buildSync({
-        entryPoints: [entry],
+function compile(entry, define, banner) {
+    const res = transformSync(fs.readFileSync(entry, { encoding: 'utf8' }), {
         define: Object.fromEntries(Object.entries(define ?? {}).map(([key, value]) => [key, JSON.stringify(value ?? null)])),
-        minify: true,
+        minify: false,
+        banner: `/* ${banner} */`,
         platform: 'neutral',
-        target: 'es5',
+        format: 'esm',
+        target: 'es6',
         charset: 'utf8',
-        write: false,
+        supported: {
+            'arbitrary-module-namespace-names': false,
+            'array-spread': false,
+            arrow: true,
+            'async-await': true,
+            'async-generator': false,
+            bigint: false,
+            class: false,
+            'class-field': false,
+            'class-private-accessor': false,
+            'class-private-brand-check': false,
+            'class-private-field': false,
+            'class-private-method': false,
+            'class-private-static-accessor': false,
+            'class-private-static-field': false,
+            'class-private-static-method': false,
+            'class-static-blocks': false,
+            'class-static-field': false,
+            'const-and-let': true,
+            decorators: false,
+            'default-argument': false,
+            destructuring: false,
+            'dynamic-import': false,
+            'exponent-operator': true,
+            'export-star-as': false,
+            'for-await': false,
+            'for-of': false,
+            'from-base64': false,
+            'function-name-configurable': false,
+            'function-or-class-property-access': false,
+            generator: false,
+            hashbang: false,
+            'import-assertions': false,
+            'import-attributes': false,
+            'import-meta': false,
+            'inline-script': false,
+            'logical-assignment': false,
+            'nested-rest-binding': false,
+            'new-target': false,
+            'node-colon-prefix-import': false,
+            'node-colon-prefix-require': false,
+            'nullish-coalescing': false,
+            'object-accessors': false,
+            'object-extensions': false,
+            'object-rest-spread': false,
+            'optional-catch-binding': false,
+            'optional-chain': false,
+            'regexp-dot-all-flag': false,
+            'regexp-lookbehind-assertions': false,
+            'regexp-match-indices': false,
+            'regexp-named-capture-groups': false,
+            'regexp-set-notation': false,
+            'regexp-sticky-and-unicode-flags': false,
+            'regexp-unicode-property-escapes': false,
+            'rest-argument': false,
+            'template-literal': true,
+            'top-level-await': false,
+            'typeof-exotic-object-is-object': false,
+            'unicode-escapes': true,
+            using: false,
+        },
     });
-    return res.outputFiles[0].text;
+    return res.code;
 }
 //# sourceMappingURL=cloudfront-function.js.map
