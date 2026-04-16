@@ -10,3 +10,4 @@ export * from './resources/ses-event-log.js';
 export * from './resources/ses-quota-alarms.js';
 export * from './resources/vpc-origin-security-group.js';
 export * from './stacks/ses-quota-alarms-stack.js';
+export * from './utils/cpu-credit.js';
