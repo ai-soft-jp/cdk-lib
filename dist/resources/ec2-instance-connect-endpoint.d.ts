@@ -19,16 +19,6 @@ export interface Ec2InstanceConnectEndpointProps {
      * @default false
      */
     readonly preserveClientIp?: boolean;
-    /**
-     * The security groups to be connected
-     * @default - No security groups
-     */
-    readonly securityGroups?: ec2.ISecurityGroup[];
-    /**
-     * The SSH port
-     * @default ec2.Port.SSH
-     */
-    readonly port?: ec2.Port;
 }
 /**
  * EC2 Instance Connect (EIC) Endpoint
@@ -39,10 +29,4 @@ export declare class Ec2InstanceConnectEndpoint extends cdk.Resource implements 
     readonly instanceConnectEndpointRef: ec2.InstanceConnectEndpointReference;
     readonly instanceConnectEndpointId: string;
     constructor(scope: Construct, id: string, props: Ec2InstanceConnectEndpointProps);
-    /**
-     * Connect to EC2 instance security group
-     * @param destination The EC2 instance or the security group
-     * @param port SSH Port (default: 22)
-     */
-    connect(destination: ec2.IConnectable, port?: ec2.Port): void;
 }

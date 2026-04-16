@@ -20,16 +20,6 @@ export interface Ec2InstanceConnectEndpointProps {
    * @default false
    */
   readonly preserveClientIp?: boolean;
-  /**
-   * The security groups to be connected
-   * @default - No security groups
-   */
-  readonly securityGroups?: ec2.ISecurityGroup[];
-  /**
-   * The SSH port
-   * @default ec2.Port.SSH
-   */
-  readonly port?: ec2.Port;
 }
 
 /**
@@ -63,7 +53,10 @@ export class Ec2InstanceConnectEndpoint
       allowAllIpv6Outbound: false,
     });
     this.securityGroup = securityGroup;
-    this.connections = securityGroup.connections;
+    this.connections = new ec2.Connections({
+      securityGroups: [securityGroup],
+      defaultPort: ec2.Port.SSH,
+    });
 
     const resource = new ec2.CfnInstanceConnectEndpoint(this, 'Resource', {
       subnetId,
@@ -72,26 +65,7 @@ export class Ec2InstanceConnectEndpoint
       tags: [{ key: 'Name', value: this.node.path }],
     });
 
-    for (const sg of props.securityGroups ?? []) {
-      this.connect(sg, props.port);
-    }
-
     this.instanceConnectEndpointRef = resource.instanceConnectEndpointRef;
     this.instanceConnectEndpointId = resource.attrId;
-  }
-
-  /**
-   * Connect to EC2 instance security group
-   * @param destination The EC2 instance or the security group
-   * @param port SSH Port (default: 22)
-   */
-  connect(destination: ec2.IConnectable, port?: ec2.Port) {
-    for (const sg of destination.connections.securityGroups) {
-      this.securityGroup.addEgressRule(sg, port ?? ec2.Port.SSH, 'to EC2', true);
-      sg.addIngressRule(this.securityGroup, port ?? ec2.Port.SSH, 'from EIC');
-      if (!sg.allowAllOutbound) {
-        sg.addEgressRule(this.securityGroup, ec2.Port.allTraffic(), 'to EIC');
-      }
-    }
   }
 }
