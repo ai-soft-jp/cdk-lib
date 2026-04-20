@@ -15,6 +15,16 @@ export interface CloudfrontCertificateProps {
      * The domain name of the certificate
      */
     readonly domainName: string;
+    /**
+     * The Certificate name.
+     * @default - absolute path of this construct
+     */
+    readonly certificateName?: string;
+    /**
+     * Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data.
+     * @default KeyAlgorithm.RSA_2048
+     */
+    readonly keyAlgorithm?: acm.KeyAlgorithm;
 }
 /**
  * Cross-region ACM certificate (us-east-1) for CloudFront distribution
