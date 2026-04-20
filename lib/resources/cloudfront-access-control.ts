@@ -2,6 +2,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import type { Construct } from 'constructs';
 
 /**
@@ -73,7 +74,7 @@ export class CloudfrontAccessControl extends cdk.Resource implements cloudfront.
 
     if (!(basicAuth || remoteIp)) {
       throw new cdk.ValidationError(
-        'AccessControlRequired',
+        lit`AccessControlRequired`,
         'The basicAuth or the remoteIp must be specified either or both.',
         this,
       );

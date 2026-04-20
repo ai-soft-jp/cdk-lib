@@ -2,6 +2,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 /**
  * The satisfy of access control
  */
@@ -27,7 +28,7 @@ export class CloudfrontAccessControl extends cdk.Resource {
         const remoteIp = props.remoteIp?.length ? cidrs2pattern(props.remoteIp) : null;
         const satisfy = props.satisfy ?? Satisfy.ALL;
         if (!(basicAuth || remoteIp)) {
-            throw new cdk.ValidationError('AccessControlRequired', 'The basicAuth or the remoteIp must be specified either or both.', this);
+            throw new cdk.ValidationError(lit `AccessControlRequired`, 'The basicAuth or the remoteIp must be specified either or both.', this);
         }
         const source = fs.readFileSync(path.resolve(import.meta.dirname, '../../cloudfront-functions', 'access-control.js'), { encoding: 'utf8' });
         const code = source

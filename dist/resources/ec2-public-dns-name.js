@@ -1,4 +1,5 @@
 import { RemovalPolicy, ValidationError } from 'aws-cdk-lib';
+import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 export class Ec2PublicDnsName extends Construct {
@@ -15,7 +16,7 @@ export class Ec2PublicDnsName extends Construct {
             filters.push({ Name: 'association.public-ip', Values: [props.publicIp] });
         }
         if (!filters.length) {
-            throw new ValidationError('TargetMissing', 'At least instance or publicIp is needed.', this);
+            throw new ValidationError(lit `TargetMissing`, 'At least instance or publicIp is needed.', this);
         }
         const eni = new cr.AwsCustomResource(this, 'Default', {
             resourceType: 'Custom::DescribeNetworkInterfaces',
