@@ -10,7 +10,9 @@ interface Ec2PublicDnsNameProps {
 }
 
 export class Ec2PublicDnsName extends Construct {
+  public readonly publicIpv4Address: string;
   public readonly publicIpv4DnsName: string;
+  public readonly publicIpv6Address: string;
   public readonly publicIpv6DnsName: string;
   public readonly publicDualStackDnsName: string;
 
@@ -40,7 +42,9 @@ export class Ec2PublicDnsName extends Construct {
       removalPolicy: RemovalPolicy.RETAIN,
     });
 
+    this.publicIpv4Address = eni.getResponseField('NetworkInterfaces.0.Association.PublicIp');
     this.publicIpv4DnsName = eni.getResponseField('NetworkInterfaces.0.PublicIpDnsNameOptions.PublicIpv4DnsName');
+    this.publicIpv6Address = eni.getResponseField('NetworkInterfaces.0.Ipv6Address');
     this.publicIpv6DnsName = eni.getResponseField('NetworkInterfaces.0.PublicIpDnsNameOptions.PublicIpv6DnsName');
     this.publicDualStackDnsName = eni.getResponseField(
       'NetworkInterfaces.0.PublicIpDnsNameOptions.PublicDualStackDnsName',

@@ -5,7 +5,9 @@ interface Ec2PublicDnsNameProps {
     readonly publicIp?: string;
 }
 export declare class Ec2PublicDnsName extends Construct {
+    readonly publicIpv4Address: string;
     readonly publicIpv4DnsName: string;
+    readonly publicIpv6Address: string;
     readonly publicIpv6DnsName: string;
     readonly publicDualStackDnsName: string;
     constructor(scope: Construct, id: string, props: Ec2PublicDnsNameProps);

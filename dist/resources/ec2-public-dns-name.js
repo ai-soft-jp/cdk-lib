@@ -3,7 +3,9 @@ import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 export class Ec2PublicDnsName extends Construct {
+    publicIpv4Address;
     publicIpv4DnsName;
+    publicIpv6Address;
     publicIpv6DnsName;
     publicDualStackDnsName;
     constructor(scope, id, props) {
@@ -29,7 +31,9 @@ export class Ec2PublicDnsName extends Construct {
             },
             removalPolicy: RemovalPolicy.RETAIN,
         });
+        this.publicIpv4Address = eni.getResponseField('NetworkInterfaces.0.Association.PublicIp');
         this.publicIpv4DnsName = eni.getResponseField('NetworkInterfaces.0.PublicIpDnsNameOptions.PublicIpv4DnsName');
+        this.publicIpv6Address = eni.getResponseField('NetworkInterfaces.0.Ipv6Address');
         this.publicIpv6DnsName = eni.getResponseField('NetworkInterfaces.0.PublicIpDnsNameOptions.PublicIpv6DnsName');
         this.publicDualStackDnsName = eni.getResponseField('NetworkInterfaces.0.PublicIpDnsNameOptions.PublicDualStackDnsName');
     }
