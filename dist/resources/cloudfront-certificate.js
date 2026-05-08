@@ -23,7 +23,6 @@ export class CloudfrontCertificate extends Construct {
             const stack = scopeStack.node.tryFindChild('CertificateStack') ??
                 new cdk.Stack(scopeStack, 'CertificateStack', {
                     env: { account: scopeStack.account, region: 'us-east-1' },
-                    crossRegionReferences: true,
                 });
             certificate = new acm.Certificate(stack, `${props.domainName}:${this.node.addr}`, {
                 domainName: props.domainName,
