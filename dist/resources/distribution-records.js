@@ -22,7 +22,6 @@ export class DistributionRecords extends Construct {
         const { zone, recordName } = props;
         const target = route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(props.distribution));
         const weight = props.weight != null ? { weight: props.weight } : undefined;
-        const multiValue = props.weight != null ? { multiValueAnswer: true } : undefined;
         const ipAddressType = props.ipAddressType ?? IpAddressType.DUALSTACK;
         if (ipAddressType === IpAddressType.DUALSTACK || ipAddressType === IpAddressType.IPV4_ONLY) {
             new route53.ARecord(this, 'A', { zone, recordName, target, ...weight });
@@ -38,9 +37,9 @@ export class DistributionRecords extends Construct {
                 zone,
                 recordName,
                 values: [{ hostName: '.', priority: 0 }],
-                ...multiValue,
+                ...weight,
             });
-            new route53.TxtRecord(this, 'SPF', { zone, recordName, values: ['v=spf1 -all'], ...multiValue });
+            new route53.TxtRecord(this, 'SPF', { zone, recordName, values: ['v=spf1 -all'], ...weight });
         }
     }
 }
