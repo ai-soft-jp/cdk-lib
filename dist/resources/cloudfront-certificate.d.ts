@@ -12,9 +12,19 @@ export interface CloudfrontCertificateProps {
      */
     readonly zone?: route53.IHostedZone;
     /**
+     * A map of hosted zones where DNS records must be created for the domains in the certificate
+     * @default - Use `zone`
+     */
+    readonly zones?: Record<string, route53.IHostedZone>;
+    /**
      * The domain name of the certificate
      */
     readonly domainName: string;
+    /**
+     * Alternative domain names on your certificate.
+     * @default - no alternative names
+     */
+    readonly subjectAlternativeNames?: string[];
     /**
      * The Certificate name.
      * @default - absolute path of this construct
