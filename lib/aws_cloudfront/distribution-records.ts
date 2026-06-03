@@ -17,9 +17,8 @@ export interface DistributionRecordsProps {
   readonly zone: route53.IHostedZone;
   /**
    * The record name
-   * @default - zone apex
    */
-  readonly recordName?: string;
+  readonly recordName: string;
   /**
    * The IP address type
    * @default IpAddressType.DUALSTACK
