@@ -1,14 +1,7 @@
-export * from './resources/cloudfront-access-control.js';
-export * from './resources/cloudfront-certificate.js';
-export * from './resources/cloudfront-function.js';
-export * from './resources/distribution-records.js';
-export * from './resources/ec2-instance-connect-endpoint.js';
-export * from './resources/ec2-public-dns-name.js';
-export * from './resources/ec2-reboot-alarm.js';
-export * from './resources/nodejs-function.js';
-export * from './resources/ses-event-log.js';
-export * from './resources/ses-quota-alarms.js';
-export * from './resources/vpc-origin-security-group.js';
-export * from './stacks/ses-quota-alarms-stack.js';
-export * from './utils/cpu-credit.js';
+export * as cloudfront from './aws_cloudfront/index.js';
+export * as cloudwatch from './aws_cloudwatch/index.js';
+export * as ec2 from './aws_ec2/index.js';
+export * as lambda from './aws_lambda/index.js';
+export * as ses from './aws_ses/index.js';
+export * as cr from './custom_resource/index.js';
 //# sourceMappingURL=index.js.map

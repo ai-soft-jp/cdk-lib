@@ -9,10 +9,6 @@
     ".": {
       "default": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./cfn-response": {
-      "default": "./dist/cfn-response.js",
-      "types": "./dist/cfn-response.d.ts"
     }
   },
   "scripts": {
