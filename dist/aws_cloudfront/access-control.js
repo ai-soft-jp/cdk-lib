@@ -1,8 +1,7 @@
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
-import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
+import { Function } from './function.js';
 /**
  * The satisfy of access control
  */
@@ -16,35 +15,23 @@ export var Satisfy;
 /**
  * CloudFront Function for access control (BASIC authentication / IP-based access control)
  */
-export class AccessControl extends cdk.Resource {
-    functionRef;
-    functionName;
-    functionArn;
+export class AccessControl extends Function {
     constructor(scope, id, props) {
-        super(scope, id);
         const basicAuth = props.basicAuth?.length
             ? props.basicAuth.map((auth) => Buffer.from(auth).toString('base64'))
             : null;
         const remoteIp = props.remoteIp?.length ? cidrs2pattern(props.remoteIp) : null;
         const satisfy = props.satisfy ?? Satisfy.ALL;
+        super(scope, id, {
+            entry: path.resolve(import.meta.dirname, '../../cloudfront-functions', 'access-control.js'),
+            define: { __BASIC_AUTH: basicAuth, __REMOTE_IP: remoteIp, __SATISFY: satisfy },
+            functionName: props.functionName,
+            comment: props.comment ?? `[${scope.node.path}/${id}] CloudFront Access Control`,
+            autoPublish: props.autoPublish ?? true,
+        });
         if (!(basicAuth || remoteIp)) {
             throw new cdk.ValidationError(lit `AccessControlRequired`, 'The basicAuth or the remoteIp must be specified either or both.', this);
         }
-        const source = fs.readFileSync(path.resolve(import.meta.dirname, '../../cloudfront-functions', 'access-control.js'), { encoding: 'utf8' });
-        const code = source
-            .replace('__BASIC_AUTH', JSON.stringify(basicAuth))
-            .replace('__REMOTE_IP', JSON.stringify(remoteIp))
-            .replace('__SATISFY', JSON.stringify(satisfy));
-        const func = new cloudfront.Function(this, 'Resource', {
-            functionName: props.functionName,
-            comment: props.comment ?? `[${this.node.path}] CloudFront Access Control`,
-            code: cloudfront.FunctionCode.fromInline(code),
-            runtime: cloudfront.FunctionRuntime.JS_2_0,
-            autoPublish: props.autoPublish ?? true,
-        });
-        this.functionRef = func.functionRef;
-        this.functionName = func.functionName;
-        this.functionArn = func.functionArn;
     }
 }
 /**

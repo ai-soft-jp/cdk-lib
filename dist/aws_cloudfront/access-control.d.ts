@@ -1,6 +1,5 @@
-import * as cdk from 'aws-cdk-lib';
-import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import type { Construct } from 'constructs';
+import { Function } from './function.js';
 /**
  * Properties for AccessControl
  */
@@ -50,9 +49,6 @@ export declare enum Satisfy {
 /**
  * CloudFront Function for access control (BASIC authentication / IP-based access control)
  */
-export declare class AccessControl extends cdk.Resource implements cloudfront.IFunction {
-    readonly functionRef: cloudfront.FunctionReference;
-    readonly functionName: string;
-    readonly functionArn: string;
+export declare class AccessControl extends Function {
     constructor(scope: Construct, id: string, props: AccessControlProps);
 }
