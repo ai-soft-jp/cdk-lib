@@ -62,9 +62,7 @@ export class Certificate extends Construct implements acm.ICertificateRef {
       certificateName: props.certificateName ?? this.node.path,
       keyAlgorithm: props.keyAlgorithm,
     });
-    if (crossEnv) {
-      cdk.CrossStackReferences.of(certificate).produce(cdk.ReferenceStrength.WEAK);
-    }
+    cdk.CrossStackReferences.of(certificate).produce(cdk.ReferenceStrength.WEAK);
 
     this.env = certificate.env;
     this.certificateRef = certificate.certificateRef;
