@@ -42,6 +42,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true
   },
-  "include": ["./lib/**/*"],
-  "exclude": ["./dist/**/*"]
+  "exclude": ["./dist/**/*", "./functions/**/*"]
 }

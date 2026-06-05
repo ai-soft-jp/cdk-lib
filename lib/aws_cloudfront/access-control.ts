@@ -66,7 +66,7 @@ export class AccessControl extends Function {
     const satisfy = props.satisfy ?? Satisfy.ALL;
 
     super(scope, id, {
-      entry: path.resolve(import.meta.dirname, '../../cloudfront-functions', 'access-control.js'),
+      entry: path.resolve(import.meta.dirname, '../../functions/cloudfront/access-control.js'),
       define: { __BASIC_AUTH: basicAuth, __REMOTE_IP: remoteIp, __SATISFY: satisfy },
       functionName: props.functionName,
       comment: props.comment ?? `[${scope.node.path}/${id}] CloudFront Access Control`,
