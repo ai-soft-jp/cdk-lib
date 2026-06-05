@@ -10,17 +10,9 @@ export class Certificate extends Construct {
     constructor(scope, id, props) {
         super(scope, id);
         const scopeStack = cdk.Stack.of(scope);
-        let certScope = this; // eslint-disable-line @typescript-eslint/no-this-alias
-        let certId = 'Certificate';
-        if (scopeStack.env.region !== 'us-east-1') {
-            certScope =
-                scopeStack.node.tryFindChild('CertificateStack') ??
-                    new cdk.Stack(scopeStack, 'CertificateStack', {
-                        env: { account: scopeStack.account, region: 'us-east-1' },
-                        crossRegionReferences: true,
-                    });
-            certId = `${props.domainName}:${this.node.addr}`;
-        }
+        const crossEnv = scopeStack.env.region !== 'us-east-1';
+        const certScope = crossEnv ? CertificateStack.lookup(scopeStack) : this;
+        const certId = crossEnv ? `${props.domainName}:${this.node.addr}` : 'Certificate';
         const certificate = new acm.Certificate(certScope, certId, {
             domainName: props.domainName,
             subjectAlternativeNames: props.subjectAlternativeNames,
@@ -30,8 +22,20 @@ export class Certificate extends Construct {
             certificateName: props.certificateName ?? this.node.path,
             keyAlgorithm: props.keyAlgorithm,
         });
+        if (crossEnv) {
+            cdk.CrossStackReferences.of(certificate).produce(cdk.ReferenceStrength.WEAK);
+        }
         this.env = certificate.env;
         this.certificateRef = certificate.certificateRef;
+    }
+}
+class CertificateStack extends cdk.Stack {
+    static lookup(scope) {
+        return scope.node.tryFindChild('CertificateStack') ?? new CertificateStack(scope, 'CertificateStack');
+    }
+    constructor(scope, id) {
+        super(scope, id, { env: { account: scope.account, region: 'us-east-1' }, crossRegionReferences: true });
+        cdk.CrossStackReferences.of(this).consume(cdk.ReferenceStrength.WEAK);
     }
 }
 //# sourceMappingURL=certificate.js.map

@@ -19,7 +19,7 @@
     "@types/aws-cloudfront-function": "^1.0.8",
     "@types/aws-lambda": "^8.10.161",
     "@types/node": "^24.12.3",
-    "aws-cdk-lib": "^2.253.0",
+    "aws-cdk-lib": "^2.258.0",
     "constructs": "^10.6.0",
     "esbuild": "^0.28.0",
     "eslint": "^9.39.4",
@@ -27,7 +27,7 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.244.0",
+    "aws-cdk-lib": "^2.258.0",
     "constructs": "^10.6.0",
     "esbuild": ">=0.23.0"
   },
