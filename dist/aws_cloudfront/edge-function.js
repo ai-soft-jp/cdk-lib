@@ -5,6 +5,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
 import { NodejsFunction } from '../aws_lambda/nodejs-function.js';
+import { VirginiaStack } from '../private/virginia-stack.js';
 export class EdgeFunction extends Construct {
     body;
     _policy;
@@ -12,7 +13,7 @@ export class EdgeFunction extends Construct {
         super(scope, id);
         const scopeStack = cdk.Stack.of(scope);
         const crossEnv = scopeStack.region !== 'us-east-1';
-        const edgeStack = crossEnv ? EdgeFunctionsStack.lookup(scopeStack) : scopeStack;
+        const edgeStack = crossEnv ? VirginiaStack.lookup(scopeStack, 'EdgeFunctions') : scopeStack;
         const edgeId = crossEnv ? `EdgeFunction-${this.node.addr}` : 'EdgeFunction';
         this.body = new EdgeFunctionBody(edgeStack, edgeId, props);
     }
@@ -64,15 +65,6 @@ class EdgeFunctionBody extends Construct {
         CleanupEdgeFunctions.of(this).addEdgeFunction(handler);
         this.role = role;
         this.handler = handler;
-    }
-}
-class EdgeFunctionsStack extends cdk.Stack {
-    static lookup(scope) {
-        return scope.node.tryFindChild('EdgeFunctions') ?? new EdgeFunctionsStack(scope, 'EdgeFunctions');
-    }
-    constructor(scope, id) {
-        super(scope, id, { env: { account: scope.account, region: 'us-east-1' }, crossRegionReferences: true });
-        cdk.CrossStackReferences.of(this).consume(cdk.ReferenceStrength.WEAK);
     }
 }
 class CleanupEdgeFunctions extends Construct {

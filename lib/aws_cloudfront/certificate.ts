@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import type * as route53 from 'aws-cdk-lib/aws-route53';
 import { Construct } from 'constructs';
+import { VirginiaStack } from '../private/virginia-stack.js';
 
 /**
  * Properties for Certificate
@@ -50,7 +51,7 @@ export class Certificate extends Construct implements acm.ICertificateRef {
 
     const scopeStack = cdk.Stack.of(scope);
     const crossEnv = scopeStack.env.region !== 'us-east-1';
-    const certScope = crossEnv ? CertificateStack.lookup(scopeStack) : this;
+    const certScope = crossEnv ? VirginiaStack.lookup(scopeStack, 'CertificateStack') : this;
     const certId = crossEnv ? `${props.domainName}:${this.node.addr}` : 'Certificate';
 
     const certificate = new acm.Certificate(certScope, certId, {
@@ -66,16 +67,5 @@ export class Certificate extends Construct implements acm.ICertificateRef {
 
     this.env = certificate.env;
     this.certificateRef = certificate.certificateRef;
-  }
-}
-
-class CertificateStack extends cdk.Stack {
-  static lookup(scope: cdk.Stack) {
-    return scope.node.tryFindChild('CertificateStack') ?? new CertificateStack(scope, 'CertificateStack');
-  }
-
-  constructor(scope: cdk.Stack, id: string) {
-    super(scope, id, { env: { account: scope.account, region: 'us-east-1' }, crossRegionReferences: true });
-    cdk.CrossStackReferences.of(this).consume(cdk.ReferenceStrength.WEAK);
   }
 }
