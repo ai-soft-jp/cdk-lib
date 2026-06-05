@@ -67,7 +67,7 @@ class EdgeFunctionBody extends Construct {
     if (bundling.nodeModules) {
       bundling.commandHooks ??= {
         beforeInstall: (inputDir, outputDir) => [
-          `cp ${path.resolve(import.meta.dirname, '../../functions/edge/.yarnrc.yml')} ${path.join(outputDir, '.yarnrc.yml')}`,
+          `cp ${path.resolve(import.meta.dirname, '../../functions/edge/yarnrc.yml')} ${path.join(outputDir, '.yarnrc.yml')}`,
         ],
         beforeBundling: () => [],
         afterBundling: (inputDir, outputDir) => [`rm -rf ${path.join(outputDir, '.yarn')}`],

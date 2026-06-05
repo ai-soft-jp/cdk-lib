@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../lib/aws_cloudfront/index.ts"],"names":[],"mappings":"AAAA,cAAc,qBAAqB,CAAC;AACpC,cAAc,kBAAkB,CAAC;AACjC,cAAc,2BAA2B,CAAC;AAC1C,cAAc,eAAe,CAAC;AAC9B,cAAc,gCAAgC,CAAC"}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../lib/aws_cloudfront/index.ts"],"names":[],"mappings":"AAAA,cAAc,qBAAqB,CAAC;AACpC,cAAc,kBAAkB,CAAC;AACjC,cAAc,2BAA2B,CAAC;AAC1C,cAAc,oBAAoB,CAAC;AACnC,cAAc,eAAe,CAAC;AAC9B,cAAc,gCAAgC,CAAC"}
