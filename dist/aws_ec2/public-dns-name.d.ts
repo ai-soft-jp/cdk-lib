@@ -1,3 +1,4 @@
+import * as cdk from 'aws-cdk-lib';
 import type * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 interface PublicDnsNameProps {
@@ -11,7 +12,7 @@ export declare class PublicDnsName extends Construct {
     private resource;
     constructor(scope: Construct, id: string, props: PublicDnsNameProps);
     getResponseField(dataPath: string): string;
-    getResponseFieldReference(dataPath: string): import("aws-cdk-lib").Reference;
+    getResponseFieldReference(dataPath: string): cdk.Reference;
     get publicIpv4Address(): string;
     get publicIpv4DnsName(): string;
     get publicIpv6Address(): string;

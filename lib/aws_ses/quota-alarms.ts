@@ -57,6 +57,7 @@ export class QuotaAlarms extends Construct {
       resourceType: 'Custom::GetSesQuota',
       serviceToken: provider.serviceToken,
       properties: { version: props?.version ?? `${Date.now()}` },
+      serviceTimeout: cdk.Duration.minutes(1),
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
 

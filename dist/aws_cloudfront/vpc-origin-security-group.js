@@ -25,6 +25,7 @@ export class VpcOriginSecurityGroup extends Construct {
             },
             policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: ['*'] }),
             installLatestAwsSdk: false,
+            serviceTimeout: cdk.Duration.minutes(1),
             removalPolicy: cdk.RemovalPolicy.RETAIN,
         });
         if (props.dependency ?? true) {

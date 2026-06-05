@@ -103,6 +103,7 @@ class CleanupEdgeFunctions extends Construct {
                     produce: () => this.functions.map(({ functionName, version }) => ({ functionName, version })),
                 }),
             },
+            serviceTimeout: cdk.Duration.minutes(3),
         });
     }
     addEdgeFunction(handler) {

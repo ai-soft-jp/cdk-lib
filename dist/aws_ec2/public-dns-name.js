@@ -1,4 +1,4 @@
-import { RemovalPolicy, ValidationError } from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import * as cr from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
@@ -26,7 +26,7 @@ export class PublicDnsName extends Construct {
             filters.push({ Name: 'addresses.private-ip-address', Values: [props.privateIp] });
         }
         if (!filters.length) {
-            throw new ValidationError(lit `TargetMissing`, 'At least instance or publicIp is needed.', this);
+            throw new cdk.ValidationError(lit `TargetMissing`, 'At least instance or publicIp is needed.', this);
         }
         this.resource = new cr.AwsCustomResource(this, 'Default', {
             resourceType: 'Custom::DescribeNetworkInterfaces',
@@ -37,7 +37,8 @@ export class PublicDnsName extends Construct {
                 parameters: { Filters: filters },
                 physicalResourceId: cr.PhysicalResourceId.fromResponse('NetworkInterfaces.0.NetworkInterfaceId'),
             },
-            removalPolicy: RemovalPolicy.RETAIN,
+            serviceTimeout: cdk.Duration.minutes(1),
+            removalPolicy: cdk.RemovalPolicy.RETAIN,
         });
     }
     getResponseField(dataPath) {
