@@ -9,6 +9,10 @@
     ".": {
       "default": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./cfn-response": {
+      "default": "./dist/custom_resource/cfn-response.js",
+      "types": "./dist/custom_resource/cfn-response.d.ts"
     }
   },
   "scripts": {
