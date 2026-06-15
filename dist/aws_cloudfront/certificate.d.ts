@@ -35,6 +35,16 @@ export interface CertificateProps {
      * @default KeyAlgorithm.RSA_2048
      */
     readonly keyAlgorithm?: acm.KeyAlgorithm;
+    /**
+     * Specifies the removal policy.
+     * @default RemovalPolicy.DESTROY
+     */
+    readonly removalPolicy?: cdk.RemovalPolicy;
+    /**
+     * Specifies how cross-stack references to a resource are resolved.
+     * @default ReferenceStrength.WEAK
+     */
+    readonly crossStackReferehceStrength?: cdk.ReferenceStrength;
 }
 /**
  * Cross-region ACM certificate (us-east-1) for CloudFront distribution

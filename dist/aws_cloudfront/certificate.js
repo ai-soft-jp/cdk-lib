@@ -12,7 +12,7 @@ export class Certificate extends Construct {
         super(scope, id);
         const scopeStack = cdk.Stack.of(scope);
         const crossEnv = scopeStack.env.region !== 'us-east-1';
-        const certScope = crossEnv ? VirginiaStack.lookup(scopeStack, 'CertificateStack') : this;
+        const certScope = crossEnv ? VirginiaStack.lookup(scopeStack, 'CertificateStack', props) : this;
         const certId = crossEnv ? `${props.domainName}:${this.node.addr}` : 'Certificate';
         const certificate = new acm.Certificate(certScope, certId, {
             domainName: props.domainName,
@@ -23,7 +23,9 @@ export class Certificate extends Construct {
             certificateName: props.certificateName ?? this.node.path,
             keyAlgorithm: props.keyAlgorithm,
         });
-        cdk.CrossStackReferences.of(certificate).produce(cdk.ReferenceStrength.WEAK);
+        if (props.removalPolicy)
+            certificate.applyRemovalPolicy(props.removalPolicy);
+        cdk.CrossStackReferences.of(certificate).produce(props.crossStackReferehceStrength ?? cdk.ReferenceStrength.WEAK);
         this.env = certificate.env;
         this.certificateRef = certificate.certificateRef;
     }
