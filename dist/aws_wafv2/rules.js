@@ -10,36 +10,39 @@ export function awsManagedRule(name, overrides) {
 export function prioritizeRules(...rules) {
     return rules.map((rule, priority) => ({ priority, ...rule }));
 }
-export function blockCommonRulesBody(pathRegex) {
-    return {
-        name: 'BlockCommonRulesBody',
-        statement: {
-            andStatement: {
-                statements: [
-                    {
-                        labelMatchStatement: {
-                            key: 'awswaf:managed:aws:core-rule-set:',
-                            scope: 'NAMESPACE',
-                        },
+export function blockLabeledExceptPath(name, labels) {
+    if (!labels.length)
+        throw new Error('labels is empty');
+    const statements = labels.map((label) => ({
+        andStatement: {
+            statements: [
+                {
+                    labelMatchStatement: {
+                        key: label.namespace ?? label.label,
+                        scope: label.namespace ? 'NAMESPACE' : 'LABEL',
                     },
-                    {
-                        notStatement: {
-                            statement: {
-                                regexMatchStatement: {
-                                    fieldToMatch: { uriPath: {} },
-                                    regexString: pathRegex,
-                                    textTransformations: [{ priority: 0, type: 'NORMALIZE_PATH' }],
-                                },
+                },
+                ...label.pathRegexes.map((regexString) => ({
+                    notStatement: {
+                        statement: {
+                            regexMatchStatement: {
+                                fieldToMatch: { uriPath: {} },
+                                regexString,
+                                textTransformations: [{ priority: 0, type: 'NORMALIZE_PATH' }],
                             },
                         },
                     },
-                ],
-            },
+                })),
+            ],
         },
+    }));
+    return {
+        name,
+        statement: statements.length === 1 ? statements[0] : { orStatement: { statements } },
         action: { block: {} },
         visibilityConfig: {
             cloudWatchMetricsEnabled: true,
-            metricName: 'BlockCommonRulesBody',
+            metricName: name,
             sampledRequestsEnabled: true,
         },
     };

@@ -1,5 +1,17 @@
 import type * as wafv2 from 'aws-cdk-lib/aws-wafv2';
 
+export interface BlockLabel {
+  readonly label: string;
+  readonly namespace?: never;
+  readonly pathRegexes: readonly string[];
+}
+export interface BlockNamespace {
+  readonly label?: never;
+  readonly namespace: string;
+  readonly pathRegexes: readonly string[];
+}
+export type BlockLabeled = BlockLabel | BlockNamespace;
+
 export function awsManagedRule(
   name: string,
   overrides?: Record<string, wafv2.CfnWebACL.RuleActionProperty>,
@@ -20,36 +32,47 @@ export function prioritizeRules(
   return rules.map((rule, priority) => ({ priority, ...rule }));
 }
 
-export function blockCommonRulesBody(pathRegex: string): Omit<wafv2.CfnWebACL.RuleProperty, 'priority'> {
-  return {
-    name: 'BlockCommonRulesBody',
-    statement: {
+export function blockLabeledExceptPath(
+  name: string,
+  labels: readonly BlockLabeled[],
+): Omit<wafv2.CfnWebACL.RuleProperty, 'priority'> {
+  if (!labels.length) throw new Error('labels is empty');
+
+  const statements = labels.map(
+    (label): wafv2.CfnWebACL.StatementProperty => ({
       andStatement: {
         statements: [
           {
             labelMatchStatement: {
-              key: 'awswaf:managed:aws:core-rule-set:',
-              scope: 'NAMESPACE',
+              key: label.namespace ?? label.label,
+              scope: label.namespace ? 'NAMESPACE' : 'LABEL',
             },
           },
-          {
-            notStatement: {
-              statement: {
-                regexMatchStatement: {
-                  fieldToMatch: { uriPath: {} },
-                  regexString: pathRegex,
-                  textTransformations: [{ priority: 0, type: 'NORMALIZE_PATH' }],
+          ...label.pathRegexes.map(
+            (regexString): wafv2.CfnWebACL.StatementProperty => ({
+              notStatement: {
+                statement: {
+                  regexMatchStatement: {
+                    fieldToMatch: { uriPath: {} },
+                    regexString,
+                    textTransformations: [{ priority: 0, type: 'NORMALIZE_PATH' }],
+                  },
                 },
               },
-            },
-          },
+            }),
+          ),
         ],
       },
-    },
+    }),
+  );
+
+  return {
+    name,
+    statement: statements.length === 1 ? statements[0]! : { orStatement: { statements } },
     action: { block: {} },
     visibilityConfig: {
       cloudWatchMetricsEnabled: true,
-      metricName: 'BlockCommonRulesBody',
+      metricName: name,
       sampledRequestsEnabled: true,
     },
   };
