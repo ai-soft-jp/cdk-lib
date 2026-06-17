@@ -3,5 +3,6 @@ export * as cloudwatch from './aws_cloudwatch/index.js';
 export * as ec2 from './aws_ec2/index.js';
 export * as lambda from './aws_lambda/index.js';
 export * as ses from './aws_ses/index.js';
+export * as wafv2 from './aws_wafv2/index.js';
 
 export * as cr from './custom_resource/index.js';
