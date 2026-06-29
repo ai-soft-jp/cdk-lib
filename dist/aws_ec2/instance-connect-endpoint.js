@@ -1,6 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
-import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 /**
  * EC2 Instance Connect (EIC) Endpoint
  */
@@ -11,14 +10,12 @@ export class InstanceConnectEndpoint extends cdk.Resource {
     instanceConnectEndpointId;
     constructor(scope, id, props) {
         super(scope, id);
-        const subnetId = props.vpc.selectSubnets({
+        const subnets = props.vpc.selectSubnets({
             availabilityZones: props.availabilityZone ? [props.availabilityZone] : undefined,
             subnetType: ec2.SubnetType.PUBLIC,
             onePerAz: true,
-        }).subnetIds[0];
-        if (!subnetId) {
-            throw new cdk.ValidationError(lit `SubnetNotFound`, 'No Subnect Id available', this);
-        }
+        });
+        const subnetId = subnets.isPendingLookup ? 'subnet-deadbeef' : subnets.subnetIds[0];
         const securityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
             vpc: props.vpc,
             description: 'EIC Endpoint Security Group',
