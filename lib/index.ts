@@ -6,3 +6,4 @@ export * as ses from './aws_ses';
 export * as wafv2 from './aws_wafv2';
 
 export * as cr from './custom_resource';
+export * as utils from './utils';

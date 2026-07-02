@@ -3,7 +3,9 @@ import * as cdk from 'aws-cdk-lib';
 import type * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
+import type * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
+import type { IArrayBox } from 'aws-cdk-lib/core/lib/helpers-internal';
+import { Box } from 'aws-cdk-lib/core/lib/helpers-internal';
 import { Construct } from 'constructs';
 import { NodejsFunction } from '../aws_lambda/nodejs-function';
 import { VirginiaStack } from '../private/virginia-stack';
@@ -94,7 +96,7 @@ class EdgeFunctionBody extends Construct {
 }
 
 class CleanupEdgeFunctions extends Construct {
-  private functions: EdgeFunctionOptions[] = [];
+  private functions: IArrayBox<EdgeFunctionOptions> = Box.fromArray([]);
 
   static of(scope: Construct): CleanupEdgeFunctions {
     const scopeStack = cdk.Stack.of(scope);
@@ -107,24 +109,21 @@ class CleanupEdgeFunctions extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const handler = new nodejs.NodejsFunction(this, 'Handler', {
-      entry: path.resolve(__dirname, '../../functions/custom-resource/cleanup-lambda-edge-versions.ts'),
+    const handler = new lambda.Function(this, 'Handler', {
       description: `[${this.node.path}] Cleanup Lambda@Edge function versions`,
-      timeout: cdk.Duration.minutes(1),
+      code: lambda.Code.fromAsset(path.resolve(__dirname, 'functions/cleanup-lambda-edge-versions')),
+      handler: 'index.handler',
+      timeout: cdk.Duration.seconds(30),
       architecture: lambda.Architecture.ARM_64,
       runtime: lambda.Runtime.NODEJS_24_X,
       loggingFormat: lambda.LoggingFormat.TEXT,
-      bundling: {
-        format: nodejs.OutputFormat.ESM,
-        mainFields: ['module', 'main'],
-      },
     });
     handler.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ['lambda:ListVersionsByFunction', 'lambda:DeleteFunction'],
-        resources: cdk.Lazy.list({
-          produce: () => this.functions.flatMap(({ functionArn }) => [functionArn, `${functionArn}:*`]),
-        }),
+        resources: cdk.Token.asList(
+          this.functions.derive((fns) => fns.flatMap((fn) => [fn.functionArn, `${fn.functionArn}:*`])),
+        ),
       }),
     );
     cdk.RemovalPolicies.of(handler).destroy({ applyToResourceTypes: ['AWS::Logs::LogGroup'] });
@@ -133,11 +132,9 @@ class CleanupEdgeFunctions extends Construct {
       resourceType: 'Custom::CleanupEdgeFunctions',
       serviceToken: handler.functionArn,
       properties: {
-        Lambdas: cdk.Lazy.any({
-          produce: () => this.functions.map(({ functionName, version }) => ({ functionName, version })),
-        }),
+        Lambdas: this.functions.derive((fns) => fns.map(({ functionName, version }) => ({ functionName, version }))),
       },
-      serviceTimeout: cdk.Duration.minutes(3),
+      serviceTimeout: cdk.Duration.seconds(35),
     });
   }
 

@@ -1,21 +1,17 @@
-/**
- * CloudFormationカスタムリソース - Lambda@Edgeのクリンナップ
- */
 import { DeleteFunctionCommand, LambdaClient, paginateListVersionsByFunction } from '@aws-sdk/client-lambda';
-import { CfnHandler } from '../../lib/custom_resource/cfn-response';
+import type { CloudFormationCustomResourceHandler, CloudFormationCustomResourceResponse } from 'aws-lambda';
 
 const lambda = new LambdaClient({ region: 'us-east-1' });
 
-interface ResourceProperties {
+export interface ResourceProperties {
   /** Lambda@Edge */
   readonly Lambdas: { functionName: string; version: string }[];
 }
 
-class Handler extends CfnHandler<ResourceProperties> {
-  physicalResourceId = process.env.AWS_LAMBDA_FUNCTION_NAME;
-
-  async handleUpdate() {
-    for (const { functionName } of this.props.Lambdas) {
+export const handler: CloudFormationCustomResourceHandler = async (event) => {
+  if (event.RequestType === 'Create' || event.RequestType === 'Update') {
+    const props = event.ResourceProperties as unknown as ResourceProperties;
+    for (const { functionName } of props.Lambdas) {
       const versions = await getFunctionVersions(functionName);
 
       const keepVersions = versions.splice(0, 3);
@@ -26,9 +22,16 @@ class Handler extends CfnHandler<ResourceProperties> {
       }
     }
   }
-}
 
-export const handler = Handler.handler();
+  await respondToCloudFormation(event.ResponseURL, {
+    Status: 'SUCCESS',
+    PhysicalResourceId: event.RequestType !== 'Create' ? event.PhysicalResourceId : event.RequestId,
+    StackId: event.StackId,
+    RequestId: event.RequestId,
+    LogicalResourceId: event.LogicalResourceId,
+    NoEcho: false,
+  });
+};
 
 async function getFunctionVersions(functionName: string) {
   const versions: number[] = [];
@@ -49,4 +52,12 @@ async function deleteVersion(functionName: string, version: number) {
   } catch (err) {
     console.log(`${functionName}: failed to delete version ${version}: ${err}`);
   }
+}
+
+async function respondToCloudFormation(url: string, body: CloudFormationCustomResourceResponse) {
+  await fetch(url, {
+    method: 'PUT',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
 }

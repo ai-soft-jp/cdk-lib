@@ -7,34 +7,38 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./cfn-response": {
-      "default": "./dist/custom_resource/cfn-response.js",
-      "types": "./dist/custom_resource/cfn-response.d.ts"
+      "types": "./dist/custom_resource/cfn-response.d.ts",
+      "default": "./dist/custom_resource/cfn-response.js"
     }
   },
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+    "./dist/**/*",
+    "./functions/**/*"
+  ],
   "devDependencies": {
-    "@ai-soft-jp/eslint-config": "ai-soft-jp/eslint-config",
-    "@aws-sdk/client-lambda": "^3.1062.0",
+    "@ai-soft-jp/eslint-config": "*",
+    "@aws-sdk/client-lambda": "^3.1078.0",
     "@types/aws-cloudfront-function": "^1.0.8",
-    "@types/aws-lambda": "^8.10.161",
-    "@types/node": "^24.12.3",
-    "aws-cdk-lib": "^2.258.0",
+    "@types/aws-lambda": "^8.10.162",
+    "@types/node": "^24.13.2",
+    "aws-cdk-lib": "^2.260.0",
     "constructs": "^10.6.0",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "eslint": "^9.39.4",
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.4",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.258.0",
+    "aws-cdk-lib": "^2.260.0",
     "constructs": "^10.6.0",
-    "esbuild": ">=0.23.0"
+    "esbuild": ">=0.28.1"
   },
   "peerDependenciesMeta": {
     "esbuild": {
@@ -43,5 +47,9 @@
   },
   "dependencies": {
     "tslib": "^2.8.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   }
 }
