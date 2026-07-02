@@ -1,1 +1,1 @@
-export * from './nodejs-function.js';
+export * from './nodejs-function';

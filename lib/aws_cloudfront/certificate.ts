@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import type * as route53 from 'aws-cdk-lib/aws-route53';
 import { Construct } from 'constructs';
-import { VirginiaStack } from '../private/virginia-stack.js';
+import { VirginiaStack } from '../private/virginia-stack';
 
 /**
  * Properties for Certificate

@@ -5,8 +5,8 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
-import { NodejsFunction } from '../aws_lambda/nodejs-function.js';
-import { VirginiaStack } from '../private/virginia-stack.js';
+import { NodejsFunction } from '../aws_lambda/nodejs-function';
+import { VirginiaStack } from '../private/virginia-stack';
 
 interface EdgeFunctionOptions {
   readonly functionName: string;
@@ -67,7 +67,7 @@ class EdgeFunctionBody extends Construct {
     if (bundling.nodeModules) {
       bundling.commandHooks ??= {
         beforeInstall: (inputDir, outputDir) => [
-          `cp ${path.resolve(import.meta.dirname, '../../functions/edge/yarnrc.yml')} ${path.join(outputDir, '.yarnrc.yml')}`,
+          `cp ${path.resolve(__dirname, '../../functions/edge/yarnrc.yml')} ${path.join(outputDir, '.yarnrc.yml')}`,
         ],
         beforeBundling: () => [],
         afterBundling: (inputDir, outputDir) => [`rm -rf ${path.join(outputDir, '.yarn')}`],
@@ -108,7 +108,7 @@ class CleanupEdgeFunctions extends Construct {
     super(scope, id);
 
     const handler = new nodejs.NodejsFunction(this, 'Handler', {
-      entry: path.resolve(import.meta.dirname, '../../functions/custom-resource/cleanup-lambda-edge-versions.ts'),
+      entry: path.resolve(__dirname, '../../functions/custom-resource/cleanup-lambda-edge-versions.ts'),
       description: `[${this.node.path}] Cleanup Lambda@Edge function versions`,
       timeout: cdk.Duration.minutes(1),
       architecture: lambda.Architecture.ARM_64,

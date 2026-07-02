@@ -1,3 +1,3 @@
-export * from './event-log.js';
-export * from './quota-alarms-stack.js';
-export * from './quota-alarms.js';
+export * from './event-log';
+export * from './quota-alarms-stack';
+export * from './quota-alarms';

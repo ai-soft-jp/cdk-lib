@@ -4,7 +4,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as scheduler from 'aws-cdk-lib/aws-scheduler';
 import * as targets from 'aws-cdk-lib/aws-scheduler-targets';
 import type { Construct } from 'constructs';
-import { QuotaAlarms } from './quota-alarms.js';
+import { QuotaAlarms } from './quota-alarms';
 
 /**
  * Properties for QuotaAlarmsStack

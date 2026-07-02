@@ -1,1 +1,1 @@
-export * from './alarm-action.js';
+export * from './alarm-action';

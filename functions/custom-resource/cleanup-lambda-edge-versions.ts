@@ -2,7 +2,7 @@
  * CloudFormationカスタムリソース - Lambda@Edgeのクリンナップ
  */
 import { DeleteFunctionCommand, LambdaClient, paginateListVersionsByFunction } from '@aws-sdk/client-lambda';
-import { CfnHandler } from '../../lib/custom_resource/cfn-response.js';
+import { CfnHandler } from '../../lib/custom_resource/cfn-response';
 
 const lambda = new LambdaClient({ region: 'us-east-1' });
 

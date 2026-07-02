@@ -1,1 +1,1 @@
-export * from './cfn-response.js';
+export * from './cfn-response';
