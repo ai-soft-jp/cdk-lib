@@ -1,0 +1,25 @@
+name: Publish package to GitHub Packages
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v7
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: corepack enable yarn
+      - run: yarn config set 'npmScopes.ai-soft-jp.npmAuthToken' ${{ secrets.GITHUB_TOKEN }}
+      - run: yarn install --immutable
+      - run: yarn build
+      - uses: softprops/action-gh-release@v3
+        with:
+          generate_release_notes: true
+      - run: yarn npm publish
