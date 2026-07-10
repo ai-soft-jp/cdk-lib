@@ -1,3 +1,7 @@
 /dist
 /node_modules
 /.yarn
+!/functions/**/*.js
+*.tsbuildinfo
+cdk-integ.*
+.envrc

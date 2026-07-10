@@ -1,21 +1,22 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
+    "composite": true,
+
     // File Layout
-    "rootDir": "./lib",
-    "outDir": "./dist",
+    "rootDir": ".",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "es2022",
-    "lib": ["es2022"],
+    "module": "node20",
+    "target": "es2023",
+    "lib": ["ESNext"],
     "types": ["node"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
+    "esModuleInterop": true,
 
     // Other Outputs
     "sourceMap": true,
@@ -43,5 +44,6 @@
     "moduleDetection": "force",
     "skipLibCheck": true
   },
+  "references": [{ "path": "./tsconfig.test.json" }],
   "exclude": ["./dist/**/*", "./functions/**/*"]
 }
