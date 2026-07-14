@@ -1,0 +1,280 @@
+{
+ "Resources": {
+  "EdgeLogsRetentionHandlerServiceRoleCF348271": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "EdgeLogsRetentionHandlerServiceRoleDefaultPolicyF6B8A8FB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:DescribeRegions",
+        "logs:DescribeLogGroups"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "logs:PutRetentionPolicy",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":logs:*:",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":log-group:/aws/lambda/us-east-1.*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "EdgeLogsRetentionHandlerServiceRoleDefaultPolicyF6B8A8FB",
+    "Roles": [
+     {
+      "Ref": "EdgeLogsRetentionHandlerServiceRoleCF348271"
+     }
+    ]
+   }
+  },
+  "EdgeLogsRetentionHandler5A61189F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "36196476cddc5a60191a151dc7fdc72f7b0dc7f0bd9e5433a5f65ddc6b82bda1.zip"
+    },
+    "Description": "[EdgeLogsRetentionIntegTest/EdgeLogsRetention] Update Lambda@Edge logs retention",
+    "Handler": "index.handler",
+    "LoggingConfig": {
+     "LogFormat": "Text"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "EdgeLogsRetentionHandlerServiceRoleCF348271",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Timeout": 60
+   },
+   "DependsOn": [
+    "EdgeLogsRetentionHandlerServiceRoleDefaultPolicyF6B8A8FB",
+    "EdgeLogsRetentionHandlerServiceRoleCF348271"
+   ]
+  },
+  "EdgeLogsRetentionHandlerLogGroup00C65CC3": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "EdgeLogsRetentionHandler5A61189F"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "EdgeLogsRetentionSchedule7E9298CE": {
+   "Type": "AWS::Scheduler::Schedule",
+   "Properties": {
+    "Description": "[EdgeLogsRetentionIntegTest/EdgeLogsRetention] Update Lambda@Edge logs retention",
+    "FlexibleTimeWindow": {
+     "MaximumWindowInMinutes": 1440,
+     "Mode": "FLEXIBLE"
+    },
+    "ScheduleExpression": "rate(7 days)",
+    "ScheduleExpressionTimezone": "Etc/UTC",
+    "State": "ENABLED",
+    "Target": {
+     "Arn": {
+      "Fn::GetAtt": [
+       "EdgeLogsRetentionHandler5A61189F",
+       "Arn"
+      ]
+     },
+     "RetryPolicy": {
+      "MaximumEventAgeInSeconds": 86400,
+      "MaximumRetryAttempts": 0
+     },
+     "RoleArn": {
+      "Fn::GetAtt": [
+       "SchedulerRoleForTargetf0100dBAA91F15",
+       "Arn"
+      ]
+     }
+    }
+   }
+  },
+  "SchedulerRoleForTargetf0100dBAA91F15": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Condition": {
+        "StringEquals": {
+         "aws:SourceAccount": {
+          "Ref": "AWS::AccountId"
+         },
+         "aws:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":scheduler:",
+            {
+             "Ref": "AWS::Region"
+            },
+            ":",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":schedule-group/default"
+           ]
+          ]
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "scheduler.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "SchedulerRoleForTargetf0100dDefaultPolicy5951AA6D": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "EdgeLogsRetentionHandler5A61189F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "EdgeLogsRetentionHandler5A61189F",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "SchedulerRoleForTargetf0100dDefaultPolicy5951AA6D",
+    "Roles": [
+     {
+      "Ref": "SchedulerRoleForTargetf0100dBAA91F15"
+     }
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

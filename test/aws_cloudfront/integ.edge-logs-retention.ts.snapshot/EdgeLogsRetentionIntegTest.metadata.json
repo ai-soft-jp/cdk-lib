@@ -1,0 +1,249 @@
+{
+  "/EdgeLogsRetentionIntegTest/SchedulerRoleForTarget-f0100d": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "roleName": "*",
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        }
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addToPrincipalPolicy": [
+          {}
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "description": "*",
+        "code": "*",
+        "handler": "*",
+        "timeout": "*",
+        "architecture": "*",
+        "runtime": "*",
+        "loggingFormat": "Text"
+      }
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Schedule": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "description": "*",
+        "schedule": "*",
+        "timeWindow": "*",
+        "scheduleGroup": "*",
+        "target": "*",
+        "enabled": "*"
+      }
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/SchedulerRoleForTarget-f0100d/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SchedulerRoleForTargetf0100dBAA91F15"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/SchedulerRoleForTarget-f0100d/DefaultPolicy": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addStatements": [
+          {}
+        ]
+      }
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addToPrincipalPolicy": [
+          {}
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addToPrincipalPolicy": [
+          {}
+        ]
+      }
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EdgeLogsRetentionHandler5A61189F"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Schedule/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EdgeLogsRetentionSchedule7E9298CE"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/SchedulerRoleForTarget-f0100d/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SchedulerRoleForTargetf0100dDefaultPolicy5951AA6D"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EdgeLogsRetentionHandlerServiceRoleCF348271"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/ServiceRole/DefaultPolicy": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addStatements": [
+          {}
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addStatements": [
+          {}
+        ]
+      }
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EdgeLogsRetentionHandlerLogGroup00C65CC3"
+    }
+  ],
+  "/EdgeLogsRetentionIntegTest/EdgeLogsRetention/Handler/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EdgeLogsRetentionHandlerServiceRoleDefaultPolicyF6B8A8FB"
+    }
+  ]
+}
