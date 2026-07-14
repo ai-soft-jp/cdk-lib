@@ -1,4 +1,5 @@
 import { defineConfig } from 'jest';
+
 export default defineConfig({
   testEnvironment: 'node',
   roots: ['<rootDir>/test'],
