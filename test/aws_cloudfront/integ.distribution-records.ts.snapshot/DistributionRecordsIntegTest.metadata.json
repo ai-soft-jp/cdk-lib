@@ -1,0 +1,180 @@
+{
+  "/DistributionRecordsIntegTest/HostedZone": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zoneName": "*"
+      }
+    }
+  ],
+  "/DistributionRecordsIntegTest/Distribution": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "defaultBehavior": {
+          "origin": "*"
+        }
+      }
+    }
+  ],
+  "/DistributionRecordsIntegTest/AWSCloudFrontPartitionHostedZoneIdMap": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWSCloudFrontPartitionHostedZoneIdMap"
+    }
+  ],
+  "/DistributionRecordsIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/DistributionRecordsIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/DistributionRecordsIntegTest/HostedZone/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HostedZoneDB99F866"
+    }
+  ],
+  "/DistributionRecordsIntegTest/Distribution/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Distribution830FAC52"
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/A": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "target": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "target": "*"
+      }
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/AAAA": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "target": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "target": "*"
+      }
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/HTTPS": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "target": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "target": "*"
+      }
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/MX": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "values": [
+          {
+            "hostName": "*",
+            "priority": "*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "values": [
+          {
+            "hostName": "*",
+            "priority": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/SPF": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "values": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "zone": "*",
+        "recordName": "*",
+        "values": "*"
+      }
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/A/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RecordsA992E9128"
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/AAAA/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RecordsAAAAE0BC3FFA"
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/HTTPS/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RecordsHTTPS318818AE"
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/MX/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RecordsMXC946C262"
+    }
+  ],
+  "/DistributionRecordsIntegTest/Records/SPF/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RecordsSPFB57B3591"
+    }
+  ]
+}
