@@ -1,0 +1,54 @@
+{
+  "/AccessControlIntegTest/Function": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "runtime": "*",
+        "functionName": "*",
+        "comment": "*",
+        "autoPublish": true
+      }
+    }
+  ],
+  "/AccessControlIntegTest/Distribution": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "defaultBehavior": {
+          "origin": "*",
+          "functionAssociations": [
+            {
+              "eventType": "viewer-request",
+              "function": "*"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "/AccessControlIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/AccessControlIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/AccessControlIntegTest/Function/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Function76856677"
+    }
+  ],
+  "/AccessControlIntegTest/Distribution/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Distribution830FAC52"
+    }
+  ]
+}
