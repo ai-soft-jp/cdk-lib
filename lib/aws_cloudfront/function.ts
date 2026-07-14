@@ -42,6 +42,8 @@ export class Function extends cloudfront.Function {
 
 function compile(entry: string, define: Record<string, unknown> | undefined, banner: string) {
   const res = transformSync(fs.readFileSync(entry, { encoding: 'utf8' }), {
+    sourcefile: entry,
+    loader: entry.endsWith('.ts') ? 'ts' : 'js',
     define: Object.fromEntries(
       Object.entries(define ?? {}).map(([key, value]) => [key, JSON.stringify(value ?? null)]),
     ),
