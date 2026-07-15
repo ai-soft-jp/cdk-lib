@@ -10,5 +10,69 @@
       "type": "aws:cdk:logicalId",
       "data": "CheckBootstrapVersion"
     }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/HttpApiCallea771528354e646355b00b0021a40e08/Default": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/HttpApiCallea771528354e646355b00b0021a40e08/AssertionResults": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssertionResultsHttpApiCallea771528354e646355b00b0021a40e08"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/HttpApiCall194921b9f8e972e8b54ac7a979de2f16/Default": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/HttpApiCall194921b9f8e972e8b54ac7a979de2f16/AssertionResults": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssertionResultsHttpApiCall194921b9f8e972e8b54ac7a979de2f16"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/HttpApiCallea771528354e646355b00b0021a40e08/Default/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HttpApiCallea771528354e646355b00b0021a40e08"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/HttpApiCall194921b9f8e972e8b54ac7a979de2f16/Default/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HttpApiCall194921b9f8e972e8b54ac7a979de2f16"
+    }
   ]
 }

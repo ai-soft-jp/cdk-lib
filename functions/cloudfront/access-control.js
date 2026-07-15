@@ -30,7 +30,7 @@ function handler(event) {
   const ipValid = REMOTE_IP ? checkRemoteIp(event.viewer.ip) : true;
   const authValid = BASIC_AUTH ? checkBasicAuth(request) : true;
   if (SATISFY === 'ANY') {
-    if (!ipValid || !authValid) return UNAUTHORIZED_RESPONSE;
+    if (!ipValid && !authValid) return UNAUTHORIZED_RESPONSE;
   } else {
     if (!ipValid) return FORBIDDEN_RESPONSE;
     if (!authValid) return UNAUTHORIZED_RESPONSE;

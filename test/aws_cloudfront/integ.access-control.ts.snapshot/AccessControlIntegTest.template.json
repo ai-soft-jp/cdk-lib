@@ -1,10 +1,420 @@
 {
  "Resources": {
+  "Bucket83908E77": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     },
+     {
+      "Key": "aws-cdk:cr-owned:9bca0d66",
+      "Value": "true"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "BucketPolicyE9A3008A": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "Bucket83908E77"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:PutBucketPolicy"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Bucket83908E77",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Bucket83908E77",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "s3:GetObject",
+       "Condition": {
+        "StringEquals": {
+         "AWS:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":cloudfront::",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":distribution/",
+            {
+             "Ref": "Distribution830FAC52"
+            }
+           ]
+          ]
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudfront.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "Bucket83908E77",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "BucketAutoDeleteObjectsCustomResourceBAFD23C2": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "Bucket83908E77"
+    }
+   },
+   "DependsOn": [
+    "BucketPolicyE9A3008A"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "Bucket83908E77"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ]
+  },
+  "DeploymentAwsCliLayerB82B26A3": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "Content": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "a72522445441e9b66c2f16956c54d4786af8c61c156b80c48a6e7c32fcc49023.zip"
+    },
+    "Description": "/opt/awscli/aws"
+   }
+  },
+  "DeploymentCustomResource47E8B2E6": {
+   "Type": "Custom::CDKBucketDeployment",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+      "Arn"
+     ]
+    },
+    "SourceBucketNames": [
+     {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     }
+    ],
+    "SourceObjectKeys": [
+     "ccf5970575b8a0b1bf6dc3190dd22c1f2da26de0a5273574c9a9e8e282790de9.zip"
+    ],
+    "SourceMarkers": [
+     {}
+    ],
+    "DestinationBucketName": {
+     "Ref": "Bucket83908E77"
+    },
+    "WaitForDistributionInvalidation": true,
+    "Prune": true,
+    "OutputObjectKeys": true
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::",
+           {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+           },
+           "/*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::",
+           {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+           }
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:DeleteObject*",
+        "s3:GetBucket*",
+        "s3:GetObject*",
+        "s3:List*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Bucket83908E77",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Bucket83908E77",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+    "Roles": [
+     {
+      "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+     }
+    ]
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "97e9ebf0b174a5c8f7faa505739022b7f509edddffcab9211dcd08b759944c4f.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AWS_CA_BUNDLE": "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+     }
+    },
+    "Handler": "index.handler",
+    "Layers": [
+     {
+      "Ref": "DeploymentAwsCliLayerB82B26A3"
+     }
+    ],
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+   ]
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CLogGroup817B64E9": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
   "Function76856677": {
    "Type": "AWS::CloudFront::Function",
    "Properties": {
     "AutoPublish": true,
-    "FunctionCode": "/* AccessControlIntegTest/Function - Generated by CDK & esbuild; DO NOT EDIT MANUALLY */\nvar define_BASIC_AUTH_default = [\"dXNlcjpwYXNz\"];\nvar define_REMOTE_IP_default = { \"4\": \"^(?:0000101000000000)\", \"6\": \"^(?:00100000000000010000110110111000)\" };\nconst BASIC_AUTH = define_BASIC_AUTH_default;\nconst REMOTE_IP = define_REMOTE_IP_default;\nconst SATISFY = \"ANY\";\nconst REMOTE_IPv4 = REMOTE_IP && REMOTE_IP[4] ? new RegExp(REMOTE_IP[4]) : null;\nconst REMOTE_IPv6 = REMOTE_IP && REMOTE_IP[6] ? new RegExp(REMOTE_IP[6]) : null;\nconst FORBIDDEN_RESPONSE = {\n  statusCode: 403,\n  statusDescription: \"Forbidden\",\n  headers: { \"content-type\": { value: \"text/html\" } },\n  body: httpErrorPage(\"403 Forbidden\")\n};\nconst UNAUTHORIZED_RESPONSE = {\n  statusCode: 401,\n  statusDescription: \"Unauthorized\",\n  headers: { \"content-type\": { value: \"text/html\" }, \"www-authenticate\": { value: \"Basic\" } },\n  body: httpErrorPage(\"401 Unauthorized\")\n};\nfunction handler(event) {\n  const request = event.request;\n  const ipValid = REMOTE_IP ? checkRemoteIp(event.viewer.ip) : true;\n  const authValid = BASIC_AUTH ? checkBasicAuth(request) : true;\n  if (SATISFY === \"ANY\") {\n    if (!ipValid || !authValid) return UNAUTHORIZED_RESPONSE;\n  } else {\n    if (!ipValid) return FORBIDDEN_RESPONSE;\n    if (!authValid) return UNAUTHORIZED_RESPONSE;\n  }\n  return request;\n}\nfunction checkBasicAuth(request) {\n  const authorization = request.headers.authorization;\n  if (authorization) {\n    const auth = authorization.value.split(/\\s+/);\n    return auth.length === 2 && auth[0].toLowerCase() === \"basic\" && matchAuth(auth[1]);\n  }\n}\nfunction httpErrorPage(status) {\n  let mesg = `<html>\n<head><title>${status}</title></head>\n<body>\n<center><h1>${status}</h1></center>\n</body>\n</html>\n`;\n  for (let i = 0; i < 6; ++i) mesg += \"<!-- a padding to disable MSIE and Chrome friendly error page -->\\n\";\n  return mesg;\n}\nfunction matchAuth(actual) {\n  return BASIC_AUTH.some((expected) => expected === actual);\n}\nfunction checkRemoteIp(ip) {\n  return ip.includes(\":\") ? REMOTE_IPv6 && REMOTE_IPv6.test(ip6bin(ip)) : REMOTE_IPv4 && REMOTE_IPv4.test(ip4bin(ip));\n}\nfunction ip4bin(ip) {\n  return ip.split(\".\").map((c) => (+c).toString(2).padStart(8, \"0\")).join(\"\");\n}\nfunction ip6bin(ip) {\n  return ip.replace(/^::/, \"0::\").replace(/::$/, \"::0\").split(\":\").map((c) => c && parseInt(c, 16).toString(2).padStart(16, \"0\")).map((c, i, array) => c || \"0\".repeat(128 - array.join(\"\").length)).join(\"\");\n}\n",
+    "FunctionCode": "/* AccessControlIntegTest/Function - Generated by CDK & esbuild; DO NOT EDIT MANUALLY */\nvar define_BASIC_AUTH_default = [\"dXNlcjpwYXNz\"];\nvar define_REMOTE_IP_default = { \"4\": \"^(?:0000101000000000)\", \"6\": \"^(?:00100000000000010000110110111000)\" };\nconst BASIC_AUTH = define_BASIC_AUTH_default;\nconst REMOTE_IP = define_REMOTE_IP_default;\nconst SATISFY = \"ANY\";\nconst REMOTE_IPv4 = REMOTE_IP && REMOTE_IP[4] ? new RegExp(REMOTE_IP[4]) : null;\nconst REMOTE_IPv6 = REMOTE_IP && REMOTE_IP[6] ? new RegExp(REMOTE_IP[6]) : null;\nconst FORBIDDEN_RESPONSE = {\n  statusCode: 403,\n  statusDescription: \"Forbidden\",\n  headers: { \"content-type\": { value: \"text/html\" } },\n  body: httpErrorPage(\"403 Forbidden\")\n};\nconst UNAUTHORIZED_RESPONSE = {\n  statusCode: 401,\n  statusDescription: \"Unauthorized\",\n  headers: { \"content-type\": { value: \"text/html\" }, \"www-authenticate\": { value: \"Basic\" } },\n  body: httpErrorPage(\"401 Unauthorized\")\n};\nfunction handler(event) {\n  const request = event.request;\n  const ipValid = REMOTE_IP ? checkRemoteIp(event.viewer.ip) : true;\n  const authValid = BASIC_AUTH ? checkBasicAuth(request) : true;\n  if (SATISFY === \"ANY\") {\n    if (!ipValid && !authValid) return UNAUTHORIZED_RESPONSE;\n  } else {\n    if (!ipValid) return FORBIDDEN_RESPONSE;\n    if (!authValid) return UNAUTHORIZED_RESPONSE;\n  }\n  return request;\n}\nfunction checkBasicAuth(request) {\n  const authorization = request.headers.authorization;\n  if (authorization) {\n    const auth = authorization.value.split(/\\s+/);\n    return auth.length === 2 && auth[0].toLowerCase() === \"basic\" && matchAuth(auth[1]);\n  }\n}\nfunction httpErrorPage(status) {\n  let mesg = `<html>\n<head><title>${status}</title></head>\n<body>\n<center><h1>${status}</h1></center>\n</body>\n</html>\n`;\n  for (let i = 0; i < 6; ++i) mesg += \"<!-- a padding to disable MSIE and Chrome friendly error page -->\\n\";\n  return mesg;\n}\nfunction matchAuth(actual) {\n  return BASIC_AUTH.some((expected) => expected === actual);\n}\nfunction checkRemoteIp(ip) {\n  return ip.includes(\":\") ? REMOTE_IPv6 && REMOTE_IPv6.test(ip6bin(ip)) : REMOTE_IPv4 && REMOTE_IPv4.test(ip4bin(ip));\n}\nfunction ip4bin(ip) {\n  return ip.split(\".\").map((c) => (+c).toString(2).padStart(8, \"0\")).join(\"\");\n}\nfunction ip6bin(ip) {\n  return ip.replace(/^::/, \"0::\").replace(/::$/, \"::0\").split(\":\").map((c) => c && parseInt(c, 16).toString(2).padStart(16, \"0\")).map((c, i, array) => c || \"0\".repeat(128 - array.join(\"\").length)).join(\"\");\n}\n",
     "FunctionConfig": {
      "Comment": "[AccessControlIntegTest/Function] CloudFront Access Control",
      "Runtime": "cloudfront-js-2.0"
@@ -19,6 +429,17 @@
        "AccessControlIntegTestFunctionA5612496"
       ]
      ]
+    }
+   }
+  },
+  "DistributionOrigin1S3OriginAccessControlEB606076": {
+   "Type": "AWS::CloudFront::OriginAccessControl",
+   "Properties": {
+    "OriginAccessControlConfig": {
+     "Name": "AccessControlIntegTestDistriOrigin1S3OriginAccessControl3C6F6013",
+     "OriginAccessControlOriginType": "s3",
+     "SigningBehavior": "always",
+     "SigningProtocol": "sigv4"
     }
    }
   },
@@ -43,22 +464,41 @@
       "TargetOriginId": "AccessControlIntegTestDistributionOrigin149717C44",
       "ViewerProtocolPolicy": "allow-all"
      },
+     "DefaultRootObject": "index.html",
      "Enabled": true,
      "HttpVersion": "http2",
      "IPV6Enabled": true,
      "Origins": [
       {
-       "CustomOriginConfig": {
-        "OriginProtocolPolicy": "https-only",
-        "OriginSSLProtocols": [
-         "TLSv1.2"
+       "DomainName": {
+        "Fn::GetAtt": [
+         "Bucket83908E77",
+         "RegionalDomainName"
         ]
        },
-       "DomainName": "integ.aws",
-       "Id": "AccessControlIntegTestDistributionOrigin149717C44"
+       "Id": "AccessControlIntegTestDistributionOrigin149717C44",
+       "OriginAccessControlId": {
+        "Fn::GetAtt": [
+         "DistributionOrigin1S3OriginAccessControlEB606076",
+         "Id"
+        ]
+       },
+       "S3OriginConfig": {
+        "OriginAccessIdentity": ""
+       }
       }
      ]
     }
+   }
+  }
+ },
+ "Outputs": {
+  "PublishOutputFnGetAttDistribution830FAC52DomainName4AF90296": {
+   "Value": {
+    "Fn::GetAtt": [
+     "Distribution830FAC52",
+     "DomainName"
+    ]
    }
   }
  },

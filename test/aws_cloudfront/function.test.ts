@@ -53,7 +53,9 @@ describe('Function', () => {
     });
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
       FunctionCode: Match.stringLikeRegexp(
-        '^import cf from "cloudfront";\nconst crypto = require\\("crypto"\\);\nconst querystring = require\\("querystring"\\);',
+        '^import cf from "cloudfront";\n' +
+          'const crypto = require\\("crypto"\\);\n' +
+          'const querystring = require\\("querystring"\\);',
       ),
     });
   });
