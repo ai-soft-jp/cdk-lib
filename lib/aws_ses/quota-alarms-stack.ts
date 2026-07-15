@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
@@ -27,29 +28,6 @@ export interface QuotaAlarmsStackProps extends cdk.StackProps {
   readonly enabled?: boolean;
 }
 
-const EVENT_HANDLER = `
-const { SESv2 } = require('@aws-sdk/client-sesv2');
-const { CloudFormation } = require('@aws-sdk/client-cloudformation');
-const ses = new SESv2();
-const cfn = new CloudFormation();
-exports.handler = async (event) => {
-  const { SendQuota } = await ses.getAccount({});
-  const version = [SendQuota.Max24HourSend, SendQuota.MaxSendRate].join('/');
-  const res = await cfn.describeStacks({ StackName: event.StackName });
-  const versionParameter = res.Stacks[0].Parameters.find((p) => p.ParameterKey === 'Version');
-  const prevVersion = versionParameter?.ResolvedValue ?? versionParameter?.ParameterValue;
-  if (prevVersion !== version) {
-    console.log(\`Update stack \${event.StackName}: \${prevVersion} => \${version}\`);
-    await cfn.updateStack({
-      StackName: event.StackName,
-      UsePreviousTemplate: true,
-      Capabilities: ['CAPABILITY_IAM'],
-      Parameters: [{ ParameterKey: 'Version', ParameterValue: version }],
-    });
-  }
-};
-`;
-
 /**
  * Defines self-update alarms for SES rate and quota
  */
@@ -71,7 +49,7 @@ export class QuotaAlarmsStack extends cdk.Stack {
     });
 
     const handler = new lambda.Function(this, 'Handler', {
-      code: lambda.Code.fromInline(EVENT_HANDLER),
+      code: lambda.Code.fromAsset(path.resolve(__dirname, 'functions/quota-alarms-schedule')),
       runtime: lambda.Runtime.NODEJS_24_X,
       architecture: lambda.Architecture.ARM_64,
       handler: 'index.handler',
@@ -90,7 +68,9 @@ export class QuotaAlarmsStack extends cdk.Stack {
       enabled: props?.enabled,
       target: new targets.LambdaInvoke(handler, {
         retryAttempts: 0,
-        input: scheduler.ScheduleTargetInput.fromObject({ StackName: this.stackName }),
+        input: scheduler.ScheduleTargetInput.fromObject({
+          StackName: this.stackName,
+        } satisfies import('./functions/quota-alarms-schedule').InputPayload),
       }),
     });
 
