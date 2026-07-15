@@ -1,0 +1,805 @@
+{
+  "/PublicDnsNameIntegTest/Vpc": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "natGateways": "*",
+        "restrictDefaultSecurityGroup": false,
+        "ipProtocol": "Dual_Stack",
+        "subnetConfiguration": [
+          {
+            "subnetType": "Public",
+            "name": "*",
+            "mapPublicIpOnLaunch": true
+          }
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "vpc": "*",
+        "vpcSubnets": {
+          "subnetType": "Public"
+        },
+        "instanceType": "*",
+        "machineImage": "*",
+        "init": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "applyCloudFormationInit": [
+          {},
+          "*"
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/SsmParameterValue:--aws--service--ami-amazon-linux-latest--al2023-ami-kernel-6.1-arm64:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61arm64C96584B6F00A464EAD1953AFF4B05118Parameter"
+    }
+  ],
+  "/PublicDnsNameIntegTest/AWS679f53fac002430cb0da5b7982bd2287": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "memorySize": "*",
+        "timeout": "*",
+        "role": "*",
+        "logGroup": "*",
+        "functionName": "*",
+        "vpc": "*",
+        "vpcSubnets": "*",
+        "code": "*",
+        "handler": "*",
+        "runtime": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:is-custom-resource-handler-singleton",
+      "data": true
+    },
+    {
+      "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+      "data": 0
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "natGateways": "*",
+        "restrictDefaultSecurityGroup": false,
+        "ipProtocol": "Dual_Stack",
+        "subnetConfiguration": [
+          {
+            "subnetType": "Private",
+            "name": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/FetcherSG": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "vpc": "*",
+        "allowAllOutbound": true,
+        "allowAllIpv6Outbound": true
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/Fetcher": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "handler": "*",
+        "architecture": "*",
+        "runtime": "*",
+        "vpc": "*",
+        "vpcSubnets": {
+          "subnetType": "Private"
+        },
+        "securityGroups": [
+          "*"
+        ],
+        "ipv6AllowedForDualStack": true
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/PublicDnsNameIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Vpc8378EB38"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/ipv6cidr": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Vpcipv6cidr40D3CB78"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet1": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": true,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": true,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet2": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": true,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": true,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/IGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIGWD7BA715C"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/VPCGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcVPCGWBF912B6E"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/InstanceSecurityGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "vpc": "*",
+        "allowAllOutbound": true,
+        "allowAllIpv6Outbound": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addIngressRule": [
+          {
+            "canInlineRule": true,
+            "connections": "*",
+            "uniqueId": "*"
+          },
+          {},
+          "*",
+          false
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addIngressRule": [
+          {
+            "canInlineRule": true,
+            "connections": "*",
+            "uniqueId": "*"
+          },
+          {},
+          "*",
+          false
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/InstanceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        }
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addToPrincipalPolicy": [
+          {}
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/InstanceProfile": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InstanceInstanceProfileAB5AEF02"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InstanceC1063A87"
+    }
+  ],
+  "/PublicDnsNameIntegTest/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/AWS679f53fac002430cb0da5b7982bd2287/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWS679f53fac002430cb0da5b7982bd22872D164C4C"
+    }
+  ],
+  "/PublicDnsNameIntegTest/AWS679f53fac002430cb0da5b7982bd2287/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaA0BE2F03"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/ipv6cidr": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaipv6cidr2D419889"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet1": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet2": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/IGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaIGWF413A1BE"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/VPCGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaVPCGWF2DADCC1"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/EIGW6": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaEIGW6E39E9C3C"
+    }
+  ],
+  "/PublicDnsNameIntegTest/FetcherSG/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherSG371AD25B"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Fetcher/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          },
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/Fetcher/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherEE1BEC21"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Fetcher/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/Publish/Output{\"Fn::GetAtt\":[\"PublicDnsNameDAA23EC5\",\"NetworkInterfaces.0.PublicIpDnsNameOptions.PublicIpv4DnsName\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputFnGetAttPublicDnsNameDAA23EC5NetworkInterfaces0PublicIpDnsNameOptionsPublicIpv4DnsName0C723BFA"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Publish/Output{\"Ref\":\"FetcherEE1BEC21\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefFetcherEE1BEC214BDBFA85"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Publish/Output{\"Fn::GetAtt\":[\"PublicDnsNameDAA23EC5\",\"NetworkInterfaces.0.PublicIpDnsNameOptions.PublicIpv6DnsName\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputFnGetAttPublicDnsNameDAA23EC5NetworkInterfaces0PublicIpDnsNameOptionsPublicIpv6DnsNameCDECF8D2"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Publish/Output{\"Fn::GetAtt\":[\"PublicDnsNameDAA23EC5\",\"NetworkInterfaces.0.PublicIpDnsNameOptions.PublicDualStackDnsName\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputFnGetAttPublicDnsNameDAA23EC5NetworkInterfaces0PublicIpDnsNameOptionsPublicDualStackDnsName37C6ABE0"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1Subnet5C2D37C4"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1RouteTable6C95E38E"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1RouteTableAssociation97140677"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet1/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1DefaultRoute3DA9E72A"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet1/DefaultRoute6": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1DefaultRoute6A21265FB"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2Subnet691E08A3"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2RouteTable94F7E489"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2RouteTableAssociationDD5762D8"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet2/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2DefaultRoute97F91067"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Vpc/PublicSubnet2/DefaultRoute6": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2DefaultRoute63E63096C"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/InstanceSecurityGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InstanceInstanceSecurityGroupF0E2D5BE"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/InstanceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InstanceInstanceRoleE9785DE5"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/InstanceRole/DefaultPolicy": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addStatements": [
+          {}
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/PublicDnsName/Default/Provider": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "uuid": "*",
+        "lambdaPurpose": "*",
+        "memorySize": "*",
+        "timeout": "*",
+        "role": "*",
+        "logGroup": "*",
+        "functionName": "*",
+        "vpc": "*",
+        "vpcSubnets": "*",
+        "code": "*",
+        "handler": "*",
+        "runtime": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addMetadata": [
+          "*",
+          true
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addMetadata": [
+          "*",
+          "*"
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/PublicDnsName/Default/Resource": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/PublicDnsNameIntegTest/PublicDnsName/Default/CustomResourcePolicy": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "statements": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addStatements": [
+          {}
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/PublicDnsNameIntegTest/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+    }
+  ],
+  "/PublicDnsNameIntegTest/AWS679f53fac002430cb0da5b7982bd2287/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/PublicDnsNameIntegTest/AWS679f53fac002430cb0da5b7982bd2287/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AWS679f53fac002430cb0da5b7982bd2287LogGroup449FB7C2"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet1Subnet6FEA9F81"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet1RouteTable2781C28D"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet1RouteTableAssociation30C85CD3"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet1/DefaultRoute6": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet1DefaultRoute6BA657384"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet2SubnetB08D6E6C"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet2RouteTable80B5F71F"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet2RouteTableAssociation4CBC9038"
+    }
+  ],
+  "/PublicDnsNameIntegTest/VpcLambda/PrivateSubnet2/DefaultRoute6": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcLambdaPrivateSubnet2DefaultRoute6D0BD8DED"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Fetcher/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherServiceRole4B89FD47"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Fetcher/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherLogGroup1C725430"
+    }
+  ],
+  "/PublicDnsNameIntegTest/Instance/InstanceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InstanceInstanceRoleDefaultPolicy4ACE9290"
+    }
+  ],
+  "/PublicDnsNameIntegTest/PublicDnsName/Default/Resource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublicDnsNameDAA23EC5"
+    }
+  ],
+  "/PublicDnsNameIntegTest/PublicDnsName/Default/CustomResourcePolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublicDnsNameCustomResourcePolicyC3EFFB4E"
+    }
+  ]
+}

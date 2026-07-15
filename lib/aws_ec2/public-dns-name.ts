@@ -38,7 +38,7 @@ export class PublicDnsName extends Construct {
       filters.push({ Name: 'addresses.private-ip-address', Values: [props.privateIp] });
     }
     if (!filters.length) {
-      throw new cdk.ValidationError(lit`TargetMissing`, 'At least instance or publicIp is needed.', this);
+      throw new cdk.ValidationError(lit`TargetMissing`, 'At least one criterion is needed.', this);
     }
 
     this.resource = new cr.AwsCustomResource(this, 'Default', {
