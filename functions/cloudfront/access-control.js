@@ -1,6 +1,6 @@
 /* CloudFront Access Control */
 
-/* global __BASIC_AUTH __REMOTE_IP __SATISFY */
+/* global __BASIC_AUTH __REMOTE_IP __SATISFY FORBIDDEN_HTML UNAUTHORIZED_HTML */
 const BASIC_AUTH = __BASIC_AUTH;
 const REMOTE_IP = __REMOTE_IP;
 const SATISFY = __SATISFY;
@@ -11,13 +11,13 @@ const FORBIDDEN_RESPONSE = {
   statusCode: 403,
   statusDescription: 'Forbidden',
   headers: { 'content-type': { value: 'text/html' } },
-  body: httpErrorPage('403 Forbidden'),
+  body: FORBIDDEN_HTML,
 };
 const UNAUTHORIZED_RESPONSE = {
   statusCode: 401,
   statusDescription: 'Unauthorized',
   headers: { 'content-type': { value: 'text/html' }, 'www-authenticate': { value: 'Basic' } },
-  body: httpErrorPage('401 Unauthorized'),
+  body: UNAUTHORIZED_HTML,
 };
 
 /**
@@ -48,15 +48,6 @@ function checkBasicAuth(request) {
     const auth = authorization.value.split(/\s+/);
     return auth.length === 2 && auth[0].toLowerCase() === 'basic' && matchAuth(auth[1]);
   }
-}
-
-/**
- * @param {string} status
- */
-function httpErrorPage(status) {
-  let mesg = `<html>\n<head><title>${status}</title></head>\n<body>\n<center><h1>${status}</h1></center>\n</body>\n</html>\n`;
-  for (let i = 0; i < 6; ++i) mesg += '<!-- a padding to disable MSIE and Chrome friendly error page -->\n';
-  return mesg;
 }
 
 /**

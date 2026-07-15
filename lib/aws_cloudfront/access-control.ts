@@ -41,6 +41,16 @@ export interface AccessControlProps {
    * @default Satisfy.ALL
    */
   readonly satisfy?: Satisfy;
+  /**
+   * The response HTML for 403 Forbidden.
+   * @default - Predefined HTML for 403 Forbidden
+   */
+  readonly forbiddenHtml?: string;
+  /**
+   * The response HTML for 401 Unauthorized.
+   * @default - Predefined HTML for 401 Unauthorized
+   */
+  readonly unauthorizedHtml?: string;
 }
 
 /**
@@ -66,7 +76,13 @@ export class AccessControl extends Function {
 
     super(scope, id, {
       entry: path.resolve(__dirname, '../../functions/cloudfront/access-control.js'),
-      define: { __BASIC_AUTH: basicAuth, __REMOTE_IP: remoteIp, __SATISFY: satisfy },
+      define: {
+        __BASIC_AUTH: basicAuth,
+        __REMOTE_IP: remoteIp,
+        __SATISFY: satisfy,
+        FORBIDDEN_HTML: props.forbiddenHtml ?? httpErrorPage('403 Forbidden'),
+        UNAUTHORIZED_HTML: props.unauthorizedHtml ?? httpErrorPage('401 Unauthorized'),
+      },
       functionName: props.functionName,
       comment: props.comment ?? `[${scope.node.path}/${id}] CloudFront Access Control`,
       autoPublish: props.autoPublish ?? true,
@@ -80,4 +96,10 @@ export class AccessControl extends Function {
       );
     }
   }
+}
+
+function httpErrorPage(status: string) {
+  let mesg = `<html>\n<head><title>${status}</title></head>\n<body>\n<center><h1>${status}</h1></center>\n</body>\n</html>\n`;
+  for (let i = 0; i < 6; ++i) mesg += '<!-- a padding to disable MSIE and Chrome friendly error page -->\n';
+  return mesg;
 }

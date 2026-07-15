@@ -35,6 +35,26 @@ describe('AccessControl', () => {
         FunctionCode: Match.stringLikeRegexp('\\?:00100{8}000100001101101110000{24}\\|0{127}1'),
       });
     });
+
+    test('forbidden html', () => {
+      new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        remoteIp: ['2001:db8::/56', '::1'],
+        forbiddenHtml: '<html><body>Forbidden</body></html>',
+      });
+      Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
+        FunctionCode: Match.stringLikeRegexp('"<html><body>Forbidden</body></html>"'),
+      });
+    });
+
+    test('forbidden html', () => {
+      new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        remoteIp: ['2001:db8::/56', '::1'],
+        unauthorizedHtml: '<html><body>Unauthorized</body></html>',
+      });
+      Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
+        FunctionCode: Match.stringLikeRegexp('"<html><body>Unauthorized</body></html>"'),
+      });
+    });
   });
 
   describe('execution', () => {
@@ -190,6 +210,24 @@ describe('AccessControl', () => {
         expect(handler(event('127.0.0.1', 'user:pass'))).toMatchObject({ method: 'GET' });
         expect(handler(event('2001:db8:2::33:4', 'another:p@ss'))).toMatchObject({ method: 'GET' });
       });
+    });
+
+    test('custom 403 html', () => {
+      new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        remoteIp: ['192.0.2.0/24'],
+        forbiddenHtml: '<html><body>Forbidden</body></html>',
+      });
+      const handler = getHandler('AccessControlF74EEFB5');
+      expect(handler(event('127.0.0.1'))).toMatchObject({ body: '<html><body>Forbidden</body></html>' });
+    });
+
+    test('custom 401 html', () => {
+      new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        basicAuth: ['user:pass'],
+        unauthorizedHtml: '<html><body>Unauthorized</body></html>',
+      });
+      const handler = getHandler('AccessControlF74EEFB5');
+      expect(handler(event('127.0.0.1', 'bad:pass'))).toMatchObject({ body: '<html><body>Unauthorized</body></html>' });
     });
   });
 });
