@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import type * as logs from 'aws-cdk-lib/aws-logs';
 import * as ses from 'aws-cdk-lib/aws-ses';
@@ -25,27 +26,6 @@ export interface EventLogProps {
   readonly logGroup?: logs.ILogGroupRef;
 }
 
-const EVENT_HANDLER = `\
-exports.handler = async (event) => {
-  for (const record of event.Records) {
-    try {
-      console.log(JSON.parse(record.Sns.Message));
-    } catch (err) {
-      console.log({
-        error: String(err),
-        record: {
-          Type: record.Sns.Type,
-          Subject: record.Sns.Subject,
-          Message: record.Sns.Message,
-          MessageAttributes: record.Sns.MessageAttributes,
-          MessageId: record.Sns.MessageId,
-        },
-      });
-    }
-  }
-};
-`;
-
 /**
  * Creates a SES event destination which logs SES events
  */
@@ -62,7 +42,7 @@ export class EventLog extends Construct {
 
     const handler = new lambda.Function(this, 'LogHandler', {
       description: 'SES event logger handler',
-      code: lambda.Code.fromInline(EVENT_HANDLER),
+      code: lambda.Code.fromAsset(path.resolve(__dirname, 'functions/event-log')),
       architecture: lambda.Architecture.ARM_64,
       runtime: lambda.Runtime.NODEJS_24_X,
       handler: 'index.handler',

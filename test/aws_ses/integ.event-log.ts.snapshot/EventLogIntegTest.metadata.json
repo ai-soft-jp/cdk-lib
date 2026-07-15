@@ -1,0 +1,167 @@
+{
+  "/EventLogIntegTest/ConfigurationSet": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/EventLogIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/EventLogIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/EventLogIntegTest/ConfigurationSet/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ConfigurationSet3DD38186"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/Topic": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "description": "*",
+        "code": "*",
+        "architecture": "*",
+        "runtime": "*",
+        "handler": "*",
+        "loggingFormat": "JSON",
+        "systemLogLevelV2": "WARN",
+        "logGroup": "*"
+      }
+    }
+  ],
+  "/EventLogIntegTest/EventLog/EventDestination": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "configurationSet": "*",
+        "events": [
+          "send",
+          "delivery",
+          "deliveryDelay",
+          "bounce",
+          "complaint",
+          "reject",
+          "renderingFailure"
+        ],
+        "destination": "*"
+      }
+    }
+  ],
+  "/EventLogIntegTest/EventLog/Topic/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogTopicD6F9D6C8"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/Topic/Policy": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "topics": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogLogHandler9197738C"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/AllowInvoke:EventLogIntegTestEventLogTopicA96A1BCF": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogLogHandlerAllowInvokeEventLogIntegTestEventLogTopicA96A1BCFA0EF3B6C"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/Topic": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "topic": "*",
+        "endpoint": "*",
+        "protocol": "lambda",
+        "filterPolicy": "*",
+        "filterPolicyWithMessageBody": "*",
+        "region": "*",
+        "deadLetterQueue": "*"
+      }
+    }
+  ],
+  "/EventLogIntegTest/EventLog/EventDestination/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogEventDestinationBA8AAFD3"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/Topic/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogTopicPolicyE39D4F65"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogLogHandlerServiceRole1FE452F2"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogLogHandlerLogGroup08B085FB"
+    }
+  ],
+  "/EventLogIntegTest/EventLog/LogHandler/Topic/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EventLogLogHandlerTopicEB8E3379"
+    }
+  ]
+}
