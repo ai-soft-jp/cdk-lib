@@ -19,6 +19,8 @@ jobs:
       - run: yarn config set 'npmScopes.ai-soft-jp.npmAuthToken' ${{ secrets.GITHUB_TOKEN }}
       - run: yarn install --immutable
       - run: yarn build
+      - run: yarn test
+      - run: yarn integ
       - uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
