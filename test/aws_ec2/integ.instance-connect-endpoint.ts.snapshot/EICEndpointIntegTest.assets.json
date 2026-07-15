@@ -1,0 +1,20 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "47827b46769cc11181a9e975904940dec3d9fff95fc9794b87aa6ce238a8b30c": {
+      "displayName": "EICEndpointIntegTest Template",
+      "source": {
+        "path": "EICEndpointIntegTest.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-0da0c1a2": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "47827b46769cc11181a9e975904940dec3d9fff95fc9794b87aa6ce238a8b30c.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
