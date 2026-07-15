@@ -1,0 +1,128 @@
+{
+ "Resources": {
+  "NodejsFunctionServiceRole92FAD13F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "NodejsFunction09C1F20F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "3d91542e1f2beea72813c31390fc5f70d4a1ebea9aadd4c8e8aa64984285aa3c.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "NODE_OPTIONS": "--enable-source-maps"
+     }
+    },
+    "Handler": "index.handler",
+    "LoggingConfig": {
+     "LogFormat": "JSON"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "NodejsFunctionServiceRole92FAD13F",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x"
+   },
+   "DependsOn": [
+    "NodejsFunctionServiceRole92FAD13F"
+   ]
+  },
+  "NodejsFunctionLogGroup5EDF7F7E": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "NodejsFunction09C1F20F"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  }
+ },
+ "Outputs": {
+  "PublishOutputRefNodejsFunction09C1F20F26F65EB7": {
+   "Value": {
+    "Ref": "NodejsFunction09C1F20F"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

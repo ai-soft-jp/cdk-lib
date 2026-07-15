@@ -1,0 +1,110 @@
+{
+  "/NodejsFunctionIntegTest/NodejsFunction": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "architecture": "*",
+        "runtime": "*",
+        "loggingFormat": "JSON",
+        "bundling": {
+          "charset": "utf8",
+          "format": "esm",
+          "mainFields": "*",
+          "sourceMap": true,
+          "banner": "*",
+          "externalModules": "*"
+        },
+        "entry": "*",
+        "code": "*",
+        "handler": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "architecture": "*",
+        "runtime": "*",
+        "loggingFormat": "JSON",
+        "bundling": {
+          "charset": "utf8",
+          "format": "esm",
+          "mainFields": "*",
+          "sourceMap": true,
+          "banner": "*",
+          "externalModules": "*"
+        },
+        "entry": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    }
+  ],
+  "/NodejsFunctionIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/NodejsFunctionIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/NodejsFunctionIntegTest/NodejsFunction/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/NodejsFunction/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NodejsFunction09C1F20F"
+    }
+  ],
+  "/NodejsFunctionIntegTest/NodejsFunction/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/Publish/Output{\"Ref\":\"NodejsFunction09C1F20F\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefNodejsFunction09C1F20F26F65EB7"
+    }
+  ],
+  "/NodejsFunctionIntegTest/NodejsFunction/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NodejsFunctionServiceRole92FAD13F"
+    }
+  ],
+  "/NodejsFunctionIntegTest/NodejsFunction/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/NodejsFunctionIntegTest/NodejsFunction/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NodejsFunctionLogGroup5EDF7F7E"
+    }
+  ]
+}
