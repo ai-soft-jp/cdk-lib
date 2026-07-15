@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as iam from 'aws-cdk-lib/aws-iam';
@@ -16,23 +17,6 @@ export interface QuotaAlarmsProps {
   readonly version?: string;
 }
 
-const EVENT_HANDLER = `
-const { SESv2 } = require('@aws-sdk/client-sesv2');
-const ses = new SESv2();
-exports.handler = async () => {
-  const res = await ses.getAccount({});
-  const { Max24HourSend, MaxSendRate } = res.SendQuota;
-  return {
-    Data: {
-      Max24HourSend: Max24HourSend,
-      Max24HourSendThreshold: Max24HourSend * 0.8,
-      MaxSendRate: MaxSendRate,
-      MaxSendRateThreshold: MaxSendRate * 0.9 * 60 * 5,
-    },
-  };
-};
-`;
-
 /**
  * Defines alarms for SES rate and quota
  */
@@ -43,7 +27,7 @@ export class QuotaAlarms extends Construct {
     super(scope, id);
 
     const handler = new lambda.Function(this, 'Handler', {
-      code: lambda.Code.fromInline(EVENT_HANDLER),
+      code: lambda.Code.fromAsset(path.resolve(__dirname, 'functions/ses-quota')),
       runtime: lambda.Runtime.NODEJS_24_X,
       architecture: lambda.Architecture.ARM_64,
       handler: 'index.handler',
