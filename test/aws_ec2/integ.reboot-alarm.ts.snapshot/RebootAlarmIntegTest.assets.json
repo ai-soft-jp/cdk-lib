@@ -1,0 +1,20 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "1c8577ea118e6e1c8cf194022bf2bfc78e12f4aeb08096121c7c23b0d8ffe6f4": {
+      "displayName": "RebootAlarmIntegTest Template",
+      "source": {
+        "path": "RebootAlarmIntegTest.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-a07758f1": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "1c8577ea118e6e1c8cf194022bf2bfc78e12f4aeb08096121c7c23b0d8ffe6f4.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
