@@ -67,11 +67,27 @@ export class ChromiumLayer extends lambda.LayerVersion {
 
 function getChromiumVersion(): string {
   let dir = path.resolve(require.resolve('@sparticuz/chromium'));
-  while (!fs.existsSync(path.join(dir, 'package.json'))) {
+  let version: string | undefined = undefined;
+  while (dir !== '/' && !(version = getPackageVersion(dir))) {
     dir = path.dirname(dir);
   }
-  const packageJson = JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), { encoding: 'utf8' }));
-  return packageJson.version;
+  if (!version) {
+    throw new cdk.UnscopedValidationError(
+      lit`ChromiumVersionNotFound`,
+      'Cannot determine the version of @sparticuz/chromium package',
+    );
+  }
+  return version;
+}
+
+function getPackageVersion(dir: string): string | undefined {
+  const fname = path.join(dir, 'package.json');
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(fname, { encoding: 'utf8' }));
+    if (packageJson.name === '@sparticuz/chromium' && packageJson.version) return packageJson.version;
+  } catch (_err) {
+    // ignore
+  }
 }
 
 function getArchitecture(arch: lambda.Architecture) {
