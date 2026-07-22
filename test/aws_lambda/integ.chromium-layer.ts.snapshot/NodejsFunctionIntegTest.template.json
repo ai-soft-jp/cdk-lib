@@ -1,0 +1,248 @@
+{
+ "Resources": {
+  "ChromiumLayer505381F6": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "CompatibleArchitectures": [
+     "arm64"
+    ],
+    "CompatibleRuntimes": [
+     "nodejs22.x",
+     "nodejs24.x"
+    ],
+    "Content": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "db173183073fac1f1dcd899f3cfff05ba15f031e6c909865aa2e90dec3aef58f.zip"
+    },
+    "Description": "@sparticuz/chromium v149.0.0 (arm64)",
+    "LayerName": "NodejsFunctionIntegTest-ChromeLayer-arm64"
+   }
+  },
+  "ChromiumLayerx8664D3FC6825": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "CompatibleArchitectures": [
+     "x86_64"
+    ],
+    "CompatibleRuntimes": [
+     "nodejs22.x",
+     "nodejs24.x"
+    ],
+    "Content": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "e895c4bf24bf86147348f6c62d967619018929e693c2d8b7cd64811293734c12.zip"
+    },
+    "Description": "@sparticuz/chromium v149.0.0 (x86_64)",
+    "LayerName": "NodejsFunctionIntegTest-ChromeLayer-x86_64"
+   }
+  },
+  "FunctionArm64ServiceRole594EFC13": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "FunctionArm6468692841": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "ZipFile": "exports.handler = () => import(\"@sparticuz/chromium\").then((c) => c.default.executablePath());"
+    },
+    "Handler": "index.handler",
+    "Layers": [
+     {
+      "Ref": "ChromiumLayer505381F6"
+     }
+    ],
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "FunctionArm64ServiceRole594EFC13",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "FunctionArm64ServiceRole594EFC13"
+   ]
+  },
+  "FunctionArm64LogGroupDA73274C": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "FunctionArm6468692841"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "FunctionX64ServiceRole03E3A90F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "FunctionX64DD879AFE": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "x86_64"
+    ],
+    "Code": {
+     "ZipFile": "exports.handler = () => import(\"@sparticuz/chromium\").then((c) => c.default.executablePath());"
+    },
+    "Handler": "index.handler",
+    "Layers": [
+     {
+      "Ref": "ChromiumLayerx8664D3FC6825"
+     }
+    ],
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "FunctionX64ServiceRole03E3A90F",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "FunctionX64ServiceRole03E3A90F"
+   ]
+  },
+  "FunctionX64LogGroupAD6F1C2F": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "FunctionX64DD879AFE"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  }
+ },
+ "Outputs": {
+  "PublishOutputRefFunctionArm64686928418BAD32DB": {
+   "Value": {
+    "Ref": "FunctionArm6468692841"
+   }
+  },
+  "PublishOutputRefFunctionX64DD879AFEF81940D5": {
+   "Value": {
+    "Ref": "FunctionX64DD879AFE"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

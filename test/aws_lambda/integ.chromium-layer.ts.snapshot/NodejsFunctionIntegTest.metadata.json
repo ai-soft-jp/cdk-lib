@@ -1,0 +1,206 @@
+{
+  "/NodejsFunctionIntegTest/ChromiumLayer": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "layerVersionName": "*",
+        "description": "*",
+        "compatibleArchitectures": "*",
+        "compatibleRuntimes": "*",
+        "code": "*"
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/ChromiumLayer-x86_64": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "layerVersionName": "*",
+        "description": "*",
+        "compatibleArchitectures": "*",
+        "compatibleRuntimes": "*",
+        "code": "*"
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionArm64": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "handler": "*",
+        "architecture": "*",
+        "runtime": "*",
+        "layers": [
+          "*"
+        ],
+        "memorySize": "*",
+        "timeout": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addLayers": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionX64": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "handler": "*",
+        "architecture": "*",
+        "runtime": "*",
+        "layers": [
+          "*"
+        ],
+        "memorySize": "*",
+        "timeout": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addLayers": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/NodejsFunctionIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/NodejsFunctionIntegTest/ChromiumLayer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ChromiumLayer505381F6"
+    }
+  ],
+  "/NodejsFunctionIntegTest/ChromiumLayer-x86_64/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ChromiumLayerx8664D3FC6825"
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionArm64/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionArm64/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FunctionArm6468692841"
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionArm64/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionX64/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionX64/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FunctionX64DD879AFE"
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionX64/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/NodejsFunctionIntegTest/Publish/Output{\"Ref\":\"FunctionArm6468692841\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefFunctionArm64686928418BAD32DB"
+    }
+  ],
+  "/NodejsFunctionIntegTest/Publish/Output{\"Ref\":\"FunctionX64DD879AFE\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefFunctionX64DD879AFEF81940D5"
+    }
+  ],
+  "/NodejsFunctionIntegTest/ChromiumLayer/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/NodejsFunctionIntegTest/ChromiumLayer-x86_64/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionArm64/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FunctionArm64ServiceRole594EFC13"
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionArm64/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FunctionArm64LogGroupDA73274C"
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionX64/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FunctionX64ServiceRole03E3A90F"
+    }
+  ],
+  "/NodejsFunctionIntegTest/FunctionX64/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FunctionX64LogGroupAD6F1C2F"
+    }
+  ]
+}
