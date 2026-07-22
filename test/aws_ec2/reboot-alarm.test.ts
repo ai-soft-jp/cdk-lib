@@ -3,7 +3,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ais from '../../lib';
 
-describe('InstanceConnectEndpoint', () => {
+describe('RebootAlarm', () => {
   let stack: cdk.Stack;
   let vpc: ec2.Vpc;
   beforeEach(() => {

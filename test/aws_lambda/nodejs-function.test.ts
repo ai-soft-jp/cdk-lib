@@ -3,7 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as ais from '../../lib';
 
-describe('InstanceConnectEndpoint', () => {
+describe('NodejsFunction', () => {
   let stack: cdk.Stack;
   beforeEach(() => {
     stack = new cdk.Stack();
