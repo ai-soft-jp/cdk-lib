@@ -15,4 +15,12 @@ const integ = new IntegTest(app, 'integ-test', {
 });
 integ.assertions
   .invokeFunction({ functionName: func.functionName })
-  .expect(ExpectedResult.objectLike({ Payload: JSON.stringify(cdk.Aws.ACCOUNT_ID) }));
+  .expect(
+    ExpectedResult.objectLike({
+      Payload: JSON.stringify({
+        account: cdk.Aws.ACCOUNT_ID,
+        __filename: '/var/task/index.mjs',
+        __dirname: '/var/task',
+      }),
+    }),
+  );

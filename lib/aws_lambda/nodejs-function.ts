@@ -3,7 +3,7 @@ import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import type { Construct } from 'constructs';
 
 const CJS_PROLOGUE =
-  "const require = (await import('node:module')).createRequire(import.meta.url);const __filename = (await import('node:url')).fileURLToPath(import.meta.url);const __dirname = (await import('node:path')).dirname(__filename);";
+  "var require=(await import('node:module')).createRequire(import.meta.url);var __filename=(await import('node:url')).fileURLToPath(import.meta.url);var __dirname=(await import('node:path')).dirname(__filename);";
 const DEFAULT_EXTERNAL_MODULES = [
   '@aws-sdk/credential-provider-cognito-identity',
   '@aws-sdk/credential-provider-http',

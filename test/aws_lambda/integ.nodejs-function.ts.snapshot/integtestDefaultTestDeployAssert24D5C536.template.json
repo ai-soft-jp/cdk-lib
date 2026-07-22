@@ -15,11 +15,11 @@
      "Fn::Join": [
       "",
       [
-       "{\"$ObjectLike\":{\"Payload\":\"\\\"",
+       "{\"$ObjectLike\":{\"Payload\":\"{\\\"account\\\":\\\"",
        {
         "Ref": "AWS::AccountId"
        },
-       "\\\"\"}}"
+       "\\\",\\\"__filename\\\":\\\"/var/task/index.mjs\\\",\\\"__dirname\\\":\\\"/var/task\\\"}\"}}"
       ]
      ]
     },
@@ -44,7 +44,7 @@
      }
     },
     "flattenResponse": "false",
-    "salt": "1784107786897"
+    "salt": "1784713661586"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"

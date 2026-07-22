@@ -1,4 +1,4 @@
-/* NodejsFunction /home/tietew/projects/ai-soft/cdk-lib/test/aws_lambda/function/integ.ts */  const require = (await import('node:module')).createRequire(import.meta.url);const __filename = (await import('node:url')).fileURLToPath(import.meta.url);const __dirname = (await import('node:path')).dirname(__filename);
+/* NodejsFunction /home/tietew/projects/ai-soft/cdk-lib/test/aws_lambda/function/integ.ts */  var require=(await import('node:module')).createRequire(import.meta.url);var __filename=(await import('node:url')).fileURLToPath(import.meta.url);var __dirname=(await import('node:path')).dirname(__filename);
 var __defProp = Object.defineProperty;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __esm = (fn, res, err) => function __init() {
@@ -3099,6 +3099,8 @@ var init_config2 = __esm({
     init_ProviderError();
     init_CredentialsProviderError();
     init_chain();
+    init_booleanSelector();
+    init_types();
     init_getProfileName();
     init_constants();
     init_configLoader();
@@ -3129,14 +3131,16 @@ var init_getEndpointUrlConfig = __esm({
         return void 0;
       },
       configFileSelector: (profile, config) => {
-        if (config && profile.services) {
-          const servicesSection = config[["services", profile.services].join(CONFIG_PREFIX_SEPARATOR)];
-          if (servicesSection) {
-            const servicePrefixParts = serviceId.split(" ").map((w) => w.toLowerCase());
-            const endpointUrl2 = servicesSection[[servicePrefixParts.join("_"), CONFIG_ENDPOINT_URL].join(CONFIG_PREFIX_SEPARATOR)];
-            if (endpointUrl2)
-              return endpointUrl2;
+        if (profile.services) {
+          const servicesSectionKey = ["services", profile.services].join(CONFIG_PREFIX_SEPARATOR);
+          if (!config || !config[servicesSectionKey]) {
+            throw new Error(`The services section "${profile.services}" specified in the profile is not present in the shared configuration file.`);
           }
+          const servicesSection = config[servicesSectionKey];
+          const servicePrefixParts = serviceId.split(" ").map((w) => w.toLowerCase());
+          const endpointUrl2 = servicesSection[[servicePrefixParts.join("_"), CONFIG_ENDPOINT_URL].join(CONFIG_PREFIX_SEPARATOR)];
+          if (endpointUrl2)
+            return endpointUrl2;
         }
         const endpointUrl = profile[CONFIG_ENDPOINT_URL];
         if (endpointUrl)
@@ -3148,13 +3152,35 @@ var init_getEndpointUrlConfig = __esm({
   }
 });
 
+// node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getIgnoreConfiguredEndpointUrls.js
+var ENV_IGNORE_CONFIGURED_ENDPOINT_URLS, CONFIG_IGNORE_CONFIGURED_ENDPOINT_URLS, ignoreConfiguredEndpointUrlsConfigSelectors;
+var init_getIgnoreConfiguredEndpointUrls = __esm({
+  "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getIgnoreConfiguredEndpointUrls.js"() {
+    init_config2();
+    ENV_IGNORE_CONFIGURED_ENDPOINT_URLS = "AWS_IGNORE_CONFIGURED_ENDPOINT_URLS";
+    CONFIG_IGNORE_CONFIGURED_ENDPOINT_URLS = "ignore_configured_endpoint_urls";
+    ignoreConfiguredEndpointUrlsConfigSelectors = {
+      environmentVariableSelector: (env2) => booleanSelector(env2, ENV_IGNORE_CONFIGURED_ENDPOINT_URLS, SelectorType.ENV),
+      configFileSelector: (profile) => booleanSelector(profile, CONFIG_IGNORE_CONFIGURED_ENDPOINT_URLS, SelectorType.CONFIG),
+      default: false
+    };
+  }
+});
+
 // node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.js
 var getEndpointFromConfig;
 var init_getEndpointFromConfig = __esm({
   "node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromConfig.js"() {
     init_config2();
     init_getEndpointUrlConfig();
-    getEndpointFromConfig = async (serviceId) => loadConfig(getEndpointUrlConfig(serviceId ?? ""))();
+    init_getIgnoreConfiguredEndpointUrls();
+    getEndpointFromConfig = async (serviceId) => {
+      const ignore = await loadConfig(ignoreConfiguredEndpointUrlsConfigSelectors)();
+      if (ignore) {
+        return void 0;
+      }
+      return loadConfig(getEndpointUrlConfig(serviceId ?? ""))();
+    };
   }
 });
 
@@ -3269,7 +3295,7 @@ var init_toEndpointV12 = __esm({
 // node_modules/@smithy/core/dist-es/submodules/endpoints/middleware-endpoint/adaptors/getEndpointFromInstructions.js
 function bindGetEndpointFromInstructions(getEndpointFromConfig2) {
   return async (commandInput, instructionsSupplier, clientConfig, context) => {
-    if (!clientConfig.isCustomEndpoint) {
+    if (!clientConfig.isCustomEndpoint && !clientConfig.ignoreConfiguredEndpointUrls) {
       let endpointFromConfig;
       if (clientConfig.serviceConfiguredEndpoint) {
         endpointFromConfig = await clientConfig.serviceConfiguredEndpoint();
@@ -3279,6 +3305,7 @@ function bindGetEndpointFromInstructions(getEndpointFromConfig2) {
       if (endpointFromConfig) {
         clientConfig.endpoint = () => Promise.resolve(toEndpointV1(endpointFromConfig));
         clientConfig.isCustomEndpoint = true;
+        context?.logger?.debug?.(`@smithy/core/endpoints - resolved endpoint from config: ${endpointFromConfig}`);
       }
     }
     const endpointParams = await resolveParams(commandInput, instructionsSupplier, clientConfig);
@@ -3434,7 +3461,8 @@ function bindResolveEndpointConfig(getEndpointFromConfig2) {
       tls,
       isCustomEndpoint,
       useDualstackEndpoint: normalizeProvider(useDualstackEndpoint ?? false),
-      useFipsEndpoint: normalizeProvider(useFipsEndpoint ?? false)
+      useFipsEndpoint: normalizeProvider(useFipsEndpoint ?? false),
+      ignoreConfiguredEndpointUrls: !!input.ignoreConfiguredEndpointUrls
     });
     let configuredEndpointPromise = void 0;
     resolvedConfig.serviceConfiguredEndpoint = async () => {
@@ -5307,6 +5335,7 @@ var init_EventStreamSerdeConfig = __esm({
 var EventStreamSerde;
 var init_EventStreamSerde = __esm({
   "node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js"() {
+    init_schema();
     init_serde();
     EventStreamSerde = class {
       marshaller;
@@ -5314,12 +5343,14 @@ var init_EventStreamSerde = __esm({
       deserializer;
       serdeContext;
       defaultContentType;
-      constructor({ marshaller, serializer, deserializer, serdeContext, defaultContentType }) {
+      compositeErrorRegistry;
+      constructor({ marshaller, serializer, deserializer, serdeContext, defaultContentType, compositeErrorRegistry }) {
         this.marshaller = marshaller;
         this.serializer = serializer;
         this.deserializer = deserializer;
         this.serdeContext = serdeContext;
         this.defaultContentType = defaultContentType;
+        this.compositeErrorRegistry = compositeErrorRegistry;
       }
       async serializeEventStream({ eventStream, requestSchema, initialRequest }) {
         const marshaller = this.marshaller;
@@ -5429,16 +5460,9 @@ var init_EventStreamSerde = __esm({
                   }
                 }
               }
-              if (hasBindings) {
-                return {
-                  [unionMember]: out
-                };
-              }
-              if (body.byteLength === 0) {
-                return {
-                  [unionMember]: {}
-                };
-              }
+              return {
+                [unionMember]: await this.readEventMember(eventStreamSchema, body, hasBindings, out)
+              };
             }
             return {
               [unionMember]: await this.deserializer.read(eventStreamSchema, body)
@@ -5476,6 +5500,29 @@ var init_EventStreamSerde = __esm({
             }
           }
         };
+      }
+      async readEventMember(eventStreamSchema, body, hasBindings, out) {
+        let ErrCtor;
+        const staticStructuralSchema = eventStreamSchema.getSchema();
+        if (Array.isArray(staticStructuralSchema) && staticStructuralSchema[0] === -3) {
+          const namespace = staticStructuralSchema[1];
+          const nsRegistry = TypeRegistry.for(namespace);
+          this.compositeErrorRegistry?.copyFrom(nsRegistry);
+          ErrCtor = (this.compositeErrorRegistry ?? nsRegistry)?.getErrorCtor(staticStructuralSchema);
+        }
+        const dataObject = hasBindings ? out : body.byteLength === 0 ? {} : await this.deserializer.read(eventStreamSchema, body);
+        if (ErrCtor) {
+          const message = dataObject.message ?? dataObject.Message ?? "Unknown";
+          const metadata = {};
+          const $fault = eventStreamSchema.getMergedTraits().error;
+          if ($fault) {
+            metadata.$fault = $fault;
+          }
+          return Object.assign(new ErrCtor({}), metadata, {
+            message
+          }, dataObject);
+        }
+        return dataObject;
       }
       writeEventBody(unionMember, unionSchema, event) {
         const serializer = this.serializer;
@@ -5789,7 +5836,8 @@ var HttpProtocol = class extends SerdeContext {
       serializer: this.serializer,
       deserializer: this.deserializer,
       serdeContext: this.serdeContext,
-      defaultContentType: this.getDefaultContentType()
+      defaultContentType: this.getDefaultContentType(),
+      compositeErrorRegistry: this.compositeErrorRegistry
     });
   }
   resolveEventStreamMarshaller(importedProvider) {
@@ -9073,8 +9121,39 @@ var commonParams = {
 // node_modules/@aws-sdk/client-sts/package.json
 var package_default = {
   name: "@aws-sdk/client-sts",
+  version: "3.1092.0",
   description: "AWS SDK for JavaScript Sts Client for Node.js, Browser and React Native",
-  version: "3.1087.0",
+  homepage: "https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sts",
+  license: "Apache-2.0",
+  author: {
+    name: "AWS SDK for JavaScript Team",
+    url: "https://aws.amazon.com/sdk-for-javascript/"
+  },
+  repository: {
+    type: "git",
+    url: "https://github.com/aws/aws-sdk-js-v3.git",
+    directory: "clients/client-sts"
+  },
+  files: [
+    "dist-*/**"
+  ],
+  sideEffects: false,
+  main: "./dist-cjs/index.js",
+  module: "./dist-es/index.js",
+  browser: {
+    "./dist-es/runtimeConfig": "./dist-es/runtimeConfig.browser"
+  },
+  types: "./dist-types/index.d.ts",
+  typesVersions: {
+    "<4.5": {
+      "dist-types/*": [
+        "dist-types/ts3.4/*"
+      ]
+    }
+  },
+  "react-native": {
+    "./dist-es/runtimeConfig": "./dist-es/runtimeConfig.native"
+  },
   scripts: {
     build: "concurrently 'yarn:build:types' 'yarn:build:es' && yarn build:cjs",
     "build:cjs": "node ../../scripts/compilation/inline",
@@ -9093,23 +9172,19 @@ var package_default = {
     "test:e2e:watch": "yarn g:vitest watch -c vitest.config.e2e.mts",
     "test:index": "tsc --noEmit ./test/index-types.ts && node ./test/index-objects.spec.mjs"
   },
-  main: "./dist-cjs/index.js",
-  types: "./dist-types/index.d.ts",
-  module: "./dist-es/index.js",
-  sideEffects: false,
   dependencies: {
-    "@aws-sdk/core": "^3.975.2",
-    "@aws-sdk/credential-provider-node": "^3.972.68",
-    "@aws-sdk/signature-v4-multi-region": "^3.996.40",
-    "@aws-sdk/types": "^3.974.1",
-    "@smithy/core": "^3.29.3",
-    "@smithy/fetch-http-handler": "^5.6.5",
-    "@smithy/node-http-handler": "^4.9.5",
+    "@aws-sdk/core": "^3.976.0",
+    "@aws-sdk/credential-provider-node": "^3.972.71",
+    "@aws-sdk/signature-v4-multi-region": "^3.996.41",
+    "@aws-sdk/types": "^3.974.2",
+    "@smithy/core": "^3.29.4",
+    "@smithy/fetch-http-handler": "^5.6.6",
+    "@smithy/node-http-handler": "^4.9.6",
     "@smithy/types": "^4.16.1",
     tslib: "^2.6.2"
   },
   devDependencies: {
-    "@smithy/snapshot-testing": "^2.2.8",
+    "@smithy/snapshot-testing": "^2.2.9",
     "@tsconfig/node20": "20.1.8",
     "@types/node": "^20.14.8",
     concurrently: "7.0.0",
@@ -9120,33 +9195,6 @@ var package_default = {
   },
   engines: {
     node: ">=20.0.0"
-  },
-  typesVersions: {
-    "<4.5": {
-      "dist-types/*": [
-        "dist-types/ts3.4/*"
-      ]
-    }
-  },
-  files: [
-    "dist-*/**"
-  ],
-  author: {
-    name: "AWS SDK for JavaScript Team",
-    url: "https://aws.amazon.com/sdk-for-javascript/"
-  },
-  license: "Apache-2.0",
-  browser: {
-    "./dist-es/runtimeConfig": "./dist-es/runtimeConfig.browser"
-  },
-  "react-native": {
-    "./dist-es/runtimeConfig": "./dist-es/runtimeConfig.native"
-  },
-  homepage: "https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sts",
-  repository: {
-    type: "git",
-    url: "https://github.com/aws/aws-sdk-js-v3.git",
-    directory: "clients/client-sts"
   }
 };
 
@@ -11235,9 +11283,10 @@ var GetCallerIdentityCommand = class extends command(_ep0, _mw0, "GetCallerIdent
 
 // test/aws_lambda/function/integ.ts
 var sts = new STSClient();
+var __filename;
 var handler = async () => {
   const res = await sts.send(new GetCallerIdentityCommand());
-  return res.Account;
+  return { account: res.Account, __filename, __dirname };
 };
 export {
   handler
