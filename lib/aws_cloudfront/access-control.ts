@@ -1,5 +1,6 @@
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
+import type * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import type { Construct } from 'constructs';
 import { cidrs2pattern } from '../utils/ipaddress';
@@ -8,22 +9,7 @@ import { Function } from './function';
 /**
  * Properties for AccessControl
  */
-export interface AccessControlProps {
-  /**
-   * The function name.
-   * @default - Automatically generated
-   */
-  readonly functionName?: string;
-  /**
-   * The comment of the function.
-   * @default - Predefined comment
-   */
-  readonly comment?: string;
-  /**
-   * Indicates whether the function will be automatically published.
-   * @default true
-   */
-  readonly autoPublish?: boolean;
+export interface AccessControlProps extends Pick<cloudfront.FunctionProps, 'functionName' | 'comment' | 'autoPublish'> {
   /**
    * The credentials of BASIC authentication.
    * @example ['user:pass']

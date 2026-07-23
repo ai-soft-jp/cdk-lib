@@ -1,0 +1,209 @@
+{
+  "/SimpleRedirectIntegTest/RedirectNoKeep": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "runtime": "*",
+        "functionName": "*",
+        "comment": "*",
+        "autoPublish": "*"
+      }
+    }
+  ],
+  "/SimpleRedirectIntegTest/RedirectKeep": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "runtime": "*",
+        "functionName": "*",
+        "comment": "*",
+        "autoPublish": "*"
+      }
+    }
+  ],
+  "/SimpleRedirectIntegTest/Redirect302": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "runtime": "*",
+        "functionName": "*",
+        "comment": "*",
+        "autoPublish": "*"
+      }
+    }
+  ],
+  "/SimpleRedirectIntegTest/Fetcher": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "handler": "*",
+        "runtime": "*",
+        "architecture": "*",
+        "timeout": "*"
+      }
+    }
+  ],
+  "/SimpleRedirectIntegTest/Distribution": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "defaultBehavior": {
+          "origin": "*",
+          "functionAssociations": [
+            {
+              "eventType": "viewer-request",
+              "function": "*"
+            }
+          ]
+        },
+        "additionalBehaviors": "*",
+        "defaultRootObject": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addBehavior": [
+          "*",
+          {},
+          {
+            "functionAssociations": [
+              {
+                "eventType": "viewer-request",
+                "function": "*"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addBehavior": [
+          "*",
+          {},
+          {
+            "functionAssociations": [
+              {
+                "eventType": "viewer-request",
+                "function": "*"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "/SimpleRedirectIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/SimpleRedirectIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/SimpleRedirectIntegTest/RedirectNoKeep/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedirectNoKeepBECB29B3"
+    }
+  ],
+  "/SimpleRedirectIntegTest/RedirectKeep/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedirectKeep29F19F9E"
+    }
+  ],
+  "/SimpleRedirectIntegTest/Redirect302/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Redirect3027D140695"
+    }
+  ],
+  "/SimpleRedirectIntegTest/Fetcher/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/SimpleRedirectIntegTest/Fetcher/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherEE1BEC21"
+    }
+  ],
+  "/SimpleRedirectIntegTest/Fetcher/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/SimpleRedirectIntegTest/Distribution/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Distribution830FAC52"
+    },
+    {
+      "type": "aws:cdk:acknowledged-rules",
+      "data": {
+        "CloudFormation-Validate::W9009": "distributionConfig is deprecated, but still in use for historical reasons"
+      },
+      "trace": [
+        "    ...new Distribution2 in aws-cdk-lib...",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.simple-redirect.ts:33:22)",
+        "    ...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/SimpleRedirectIntegTest/Publish/Output{\"Ref\":\"FetcherEE1BEC21\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefFetcherEE1BEC214BDBFA85"
+    }
+  ],
+  "/SimpleRedirectIntegTest/Publish/Output{\"Fn::GetAtt\":[\"Distribution830FAC52\",\"DomainName\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputFnGetAttDistribution830FAC52DomainName4AF90296"
+    }
+  ],
+  "/SimpleRedirectIntegTest/Fetcher/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherServiceRole4B89FD47"
+    }
+  ],
+  "/SimpleRedirectIntegTest/Fetcher/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/SimpleRedirectIntegTest/Fetcher/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherLogGroup1C725430"
+    }
+  ]
+}
