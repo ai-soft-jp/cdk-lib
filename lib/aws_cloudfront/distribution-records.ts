@@ -1,3 +1,4 @@
+import * as cdk from 'aws-cdk-lib';
 import type * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
@@ -84,5 +85,8 @@ export class DistributionRecords extends Construct {
       });
       new route53.TxtRecord(this, 'SPF', { zone, recordName, values: ['v=spf1 -all'], ...weight });
     }
+
+    // AliasTarget: AliasTarget cannot be used with record type 'HTTPS' (CloudFormation Validate)
+    cdk.Validations.of(this).acknowledge({ id: 'CloudFormation-Validate::E3029', reason: 'false positive' });
   }
 }

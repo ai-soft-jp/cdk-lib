@@ -62,6 +62,7 @@ describe('EdgeFunction', () => {
     });
 
     test('defines a lambda function in the EdgeFunctions stack', () => {
+      cdk.Validations.of(stack).acknowledge({ id: 'CloudFormation-Validate::F0001', reason: 'expected' });
       new ais.cloudfront.EdgeFunction(stack, 'Function', { entry: path.join(__dirname, 'function/edge.ts') });
       const edgeStack = stack.node.tryFindChild('EdgeFunctions') as cdk.Stack;
       Template.fromStack(edgeStack).hasResourceProperties('AWS::IAM::Role', {
