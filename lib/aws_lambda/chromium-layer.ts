@@ -1,10 +1,10 @@
-import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import type { Construct } from 'constructs';
 import * as semver from 'semver';
+import { lookupPackageVersion } from '../private/package-version';
 
 export interface ChromiumLayerProps {
   /**
@@ -39,12 +39,18 @@ export class ChromiumLayer extends lambda.LayerVersion {
   }
 
   constructor(scope: Construct, id: string, props?: ChromiumLayerProps) {
-    const version = props?.version ?? getChromiumVersion();
+    const version = props?.version ?? lookupPackageVersion('@sparticuz/chromium');
     const arch = props?.architecture ?? lambda.Architecture.ARM_64;
     const zipname = `chromium-v${version}-layer.${getArchitecture(arch)}.zip`;
     const assetPath = path.join(cdk.Stage.of(scope)!.assetOutdir, zipname);
     const url = `https://github.com/Sparticuz/chromium/releases/download/v${version}/${zipname}`;
 
+    if (!version) {
+      throw new cdk.UnscopedValidationError(
+        lit`ChromiumVersionNotFound`,
+        'Cannot determine the version of @sparticuz/chromium package',
+      );
+    }
     if (!semver.satisfies(version, '>= 137.0.0')) {
       throw new cdk.UnscopedValidationError(
         lit`ChromiumVersionIncompatible`,
@@ -62,31 +68,6 @@ export class ChromiumLayer extends lambda.LayerVersion {
 
     this.architecture = arch;
     this.chromiumVersion = version;
-  }
-}
-
-function getChromiumVersion(): string {
-  let dir = path.resolve(require.resolve('@sparticuz/chromium'));
-  let version: string | undefined = undefined;
-  while (dir !== '/' && !(version = getPackageVersion(dir))) {
-    dir = path.dirname(dir);
-  }
-  if (!version) {
-    throw new cdk.UnscopedValidationError(
-      lit`ChromiumVersionNotFound`,
-      'Cannot determine the version of @sparticuz/chromium package',
-    );
-  }
-  return version;
-}
-
-function getPackageVersion(dir: string): string | undefined {
-  const fname = path.join(dir, 'package.json');
-  try {
-    const packageJson = JSON.parse(fs.readFileSync(fname, { encoding: 'utf8' }));
-    if (packageJson.name === '@sparticuz/chromium' && packageJson.version) return packageJson.version;
-  } catch (_err) {
-    // ignore
   }
 }
 

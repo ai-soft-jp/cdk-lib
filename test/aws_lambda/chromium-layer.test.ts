@@ -1,14 +1,19 @@
 import child_process from 'node:child_process';
 import * as fs from 'node:fs';
+import * as os from 'node:os';
+import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as ais from '../../lib';
+import { lookupPackageVersionInternal } from '../../lib/private/package-version';
 
 describe('ChromiumLayer', () => {
   let stack: cdk.Stack;
+  let tmpdir: string | undefined;
   beforeEach(() => {
     stack = new cdk.Stack();
+    tmpdir = undefined;
     // mock spawnSync (called from lambda.Code.fromCustomCommand) not to download actual layer zip
     jest.spyOn(child_process, 'spawnSync').mockImplementation((...args) => {
       const index = args[1]?.findIndex((s) => s === '-o') ?? -1;
@@ -25,6 +30,7 @@ describe('ChromiumLayer', () => {
     });
   });
   afterEach(() => {
+    if (tmpdir) fs.rmSync(tmpdir, { recursive: true, force: true });
     jest.restoreAllMocks();
   });
 
@@ -83,5 +89,16 @@ describe('ChromiumLayer', () => {
     const layer_stack2 = ais.lambda.ChromiumLayer.of(stack2);
     expect(layer_dup).toBe(layer);
     expect(layer_stack2).not.toBe(layer);
+  });
+
+  test('lookupPackageName', () => {
+    tmpdir = fs.mkdtempSync(path.resolve(os.tmpdir(), 'jest'));
+    const packageDir = path.join(tmpdir, 'a/b/c');
+    fs.mkdirSync(packageDir, { recursive: true });
+    fs.writeFileSync(path.join(packageDir, 'package.json'), JSON.stringify({ type: 'commonjs' }));
+    fs.writeFileSync(path.join(tmpdir, 'a/b', 'package.json'), JSON.stringify({ version: '3.3.4' }));
+    fs.writeFileSync(path.join(tmpdir, 'a', 'package.json'), JSON.stringify({ name: 'skn' }));
+    fs.writeFileSync(path.join(tmpdir, 'package.json'), JSON.stringify({ name: '@dead/beef', version: '44.5' }));
+    expect(lookupPackageVersionInternal(packageDir, '@dead/beef')).toEqual('44.5');
   });
 });
