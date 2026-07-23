@@ -1,0 +1,316 @@
+{
+ "Resources": {
+  "AwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab": {
+   "Type": "Custom::DeployAssert@SdkCallec2describeSubnets",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F",
+      "Arn"
+     ]
+    },
+    "service": "ec2",
+    "api": "describeSubnets",
+    "expected": "{\"$ObjectLike\":{\"Subnets\":[{\"PrivateDnsNameOptionsOnLaunch\":{\"HostnameType\":\"resource-name\",\"EnableResourceNameDnsARecord\":true,\"EnableResourceNameDnsAAAARecord\":true}}]}}",
+    "parameters": {
+     "SubnetIds": {
+      "Fn::Join": [
+       "",
+       [
+        "[\"",
+        {
+         "Fn::GetStackOutput": {
+          "StackName": "SubnetHostnameTypeIntegTest",
+          "Region": {
+           "Ref": "AWS::Region"
+          },
+          "OutputName": "PublishOutputRefVpcPublicSubnet1Subnet5C2D37C4F5EE3F2D"
+         }
+        },
+        "\"]"
+       ]
+      ]
+     }
+    },
+    "flattenResponse": "false",
+    "salt": "1784782540024"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Action": [
+          "ec2:DescribeSubnets"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        },
+        {
+         "Action": [
+          "ec2:DescribeSubnets"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        },
+        {
+         "Action": [
+          "ec2:DescribeSubnets"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        },
+        {
+         "Action": [
+          "ec2:DescribeSubnets"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+          "*"
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Runtime": "nodejs24.x",
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "6ffc47b88143a52aa50e26c31da776854b28dff0e45b1a97d7c1e530d59590ad.zip"
+    },
+    "Timeout": 120,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73",
+      "Arn"
+     ]
+    },
+    "LoggingConfig": {
+     "LogFormat": "JSON",
+     "ApplicationLogLevel": "FATAL"
+    }
+   }
+  },
+  "AwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79": {
+   "Type": "Custom::DeployAssert@SdkCallec2describeSubnets",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F",
+      "Arn"
+     ]
+    },
+    "service": "ec2",
+    "api": "describeSubnets",
+    "expected": "{\"$ObjectLike\":{\"Subnets\":[{\"PrivateDnsNameOptionsOnLaunch\":{\"HostnameType\":\"resource-name\",\"EnableResourceNameDnsARecord\":true,\"EnableResourceNameDnsAAAARecord\":true}}]}}",
+    "parameters": {
+     "SubnetIds": {
+      "Fn::Join": [
+       "",
+       [
+        "[\"",
+        {
+         "Fn::GetStackOutput": {
+          "StackName": "SubnetHostnameTypeIntegTest",
+          "Region": {
+           "Ref": "AWS::Region"
+          },
+          "OutputName": "PublishOutputRefVpcPublicSubnet2Subnet691E08A328131BFA"
+         }
+        },
+        "\"]"
+       ]
+      ]
+     }
+    },
+    "flattenResponse": "false",
+    "salt": "1784782540026"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "AwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0": {
+   "Type": "Custom::DeployAssert@SdkCallec2describeSubnets",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F",
+      "Arn"
+     ]
+    },
+    "service": "ec2",
+    "api": "describeSubnets",
+    "expected": "{\"$ObjectLike\":{\"Subnets\":[{\"PrivateDnsNameOptionsOnLaunch\":{\"HostnameType\":\"resource-name\",\"EnableResourceNameDnsARecord\":true,\"EnableResourceNameDnsAAAARecord\":true}}]}}",
+    "parameters": {
+     "SubnetIds": {
+      "Fn::Join": [
+       "",
+       [
+        "[\"",
+        {
+         "Fn::GetStackOutput": {
+          "StackName": "SubnetHostnameTypeIntegTest",
+          "Region": {
+           "Ref": "AWS::Region"
+          },
+          "OutputName": "PublishOutputRefVpcIsolatedSubnet1SubnetE48C57370776373F"
+         }
+        },
+        "\"]"
+       ]
+      ]
+     }
+    },
+    "flattenResponse": "false",
+    "salt": "1784782540026"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "AwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00": {
+   "Type": "Custom::DeployAssert@SdkCallec2describeSubnets",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F",
+      "Arn"
+     ]
+    },
+    "service": "ec2",
+    "api": "describeSubnets",
+    "expected": "{\"$ObjectLike\":{\"Subnets\":[{\"PrivateDnsNameOptionsOnLaunch\":{\"HostnameType\":\"resource-name\",\"EnableResourceNameDnsARecord\":true,\"EnableResourceNameDnsAAAARecord\":true}}]}}",
+    "parameters": {
+     "SubnetIds": {
+      "Fn::Join": [
+       "",
+       [
+        "[\"",
+        {
+         "Fn::GetStackOutput": {
+          "StackName": "SubnetHostnameTypeIntegTest",
+          "Region": {
+           "Ref": "AWS::Region"
+          },
+          "OutputName": "PublishOutputRefVpcIsolatedSubnet2Subnet16364B913FABD1A1"
+         }
+        },
+        "\"]"
+       ]
+      ]
+     }
+    },
+    "flattenResponse": "false",
+    "salt": "1784782540026"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  }
+ },
+ "Outputs": {
+  "AssertionResultsAwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab",
+     "assertion"
+    ]
+   }
+  },
+  "AssertionResultsAwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79",
+     "assertion"
+    ]
+   }
+  },
+  "AssertionResultsAwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0",
+     "assertion"
+    ]
+   }
+  },
+  "AssertionResultsAwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00",
+     "assertion"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

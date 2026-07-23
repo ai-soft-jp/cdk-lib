@@ -1,0 +1,130 @@
+{
+  "/integ-test/DefaultTest/DeployAssert/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab/Default": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab/AssertionResults": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssertionResultsAwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SingletonFunction1488541a7b23466481b69b4408076b81Role37ABCE73"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/SingletonFunction1488541a7b23466481b69b4408076b81/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SingletonFunction1488541a7b23466481b69b4408076b81HandlerCD40AE9F"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79/Default": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79/AssertionResults": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssertionResultsAwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0/Default": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0/AssertionResults": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssertionResultsAwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00/Default": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00/AssertionResults": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssertionResultsAwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab/Default/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AwsApiCallec2describeSubnets9ac1126c6d5a94875d36c145593ad4ab"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79/Default/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AwsApiCallec2describeSubnets12ecc2bc01d106dc845ca0735c3c0d79"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0/Default/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AwsApiCallec2describeSubnets9d63bc25f53f7354c0b4ddf7fab0bba0"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/AwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00/Default/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AwsApiCallec2describeSubnetsd154b45fa9c7cacb5a47593fed2cea00"
+    }
+  ]
+}

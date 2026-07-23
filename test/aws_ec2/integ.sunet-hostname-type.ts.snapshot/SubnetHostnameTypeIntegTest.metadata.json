@@ -1,0 +1,312 @@
+{
+  "/SubnetHostnameTypeIntegTest/Vpc": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "natGateways": "*",
+        "ipProtocol": "Dual_Stack",
+        "restrictDefaultSecurityGroup": false
+      }
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Vpc8378EB38"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/ipv6cidr": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Vpcipv6cidr40D3CB78"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet1": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet2": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet1": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet2": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "availabilityZone": "*",
+        "vpcId": "*",
+        "cidrBlock": "*",
+        "mapPublicIpOnLaunch": false,
+        "ipv6CidrBlock": "*",
+        "assignIpv6AddressOnCreation": true
+      }
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIGWD7BA715C"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/VPCGW": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcVPCGWBF912B6E"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Publish/Output{\"Ref\":\"VpcPublicSubnet1Subnet5C2D37C4\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefVpcPublicSubnet1Subnet5C2D37C4F5EE3F2D"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Publish/Output{\"Ref\":\"VpcPublicSubnet2Subnet691E08A3\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefVpcPublicSubnet2Subnet691E08A328131BFA"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Publish/Output{\"Ref\":\"VpcIsolatedSubnet1SubnetE48C5737\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefVpcIsolatedSubnet1SubnetE48C57370776373F"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Publish/Output{\"Ref\":\"VpcIsolatedSubnet2Subnet16364B91\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefVpcIsolatedSubnet2Subnet16364B913FABD1A1"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1Subnet5C2D37C4"
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.Mixin"
+      }
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1RouteTable6C95E38E"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1RouteTableAssociation97140677"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet1/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1DefaultRoute3DA9E72A"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet1/DefaultRoute6": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet1DefaultRoute6A21265FB"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2Subnet691E08A3"
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.Mixin"
+      }
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2RouteTable94F7E489"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2RouteTableAssociationDD5762D8"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet2/DefaultRoute": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2DefaultRoute97F91067"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet2/DefaultRoute6": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcPublicSubnet2DefaultRoute63E63096C"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet1/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIsolatedSubnet1SubnetE48C5737"
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.Mixin"
+      }
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet1/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIsolatedSubnet1RouteTable4771E3E5"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet1/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIsolatedSubnet1RouteTableAssociationD300FCBB"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet2/Subnet": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIsolatedSubnet2Subnet16364B91"
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.Mixin"
+      }
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet2/RouteTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIsolatedSubnet2RouteTable1D30AF7D"
+    }
+  ],
+  "/SubnetHostnameTypeIntegTest/Vpc/IsolatedSubnet2/RouteTableAssociation": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "VpcIsolatedSubnet2RouteTableAssociationF7B18CCA"
+    }
+  ]
+}

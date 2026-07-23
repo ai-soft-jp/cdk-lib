@@ -1,0 +1,20 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "89dbc3bb4af1d4c4b33d8369ad10509588bfa36b837b6aece6d4e0e55102d17c": {
+      "displayName": "SubnetHostnameTypeIntegTest Template",
+      "source": {
+        "path": "SubnetHostnameTypeIntegTest.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-54aec1ad": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "89dbc3bb4af1d4c4b33d8369ad10509588bfa36b837b6aece6d4e0e55102d17c.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
