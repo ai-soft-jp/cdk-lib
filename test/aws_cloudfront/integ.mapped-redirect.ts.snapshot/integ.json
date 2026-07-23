@@ -1,0 +1,14 @@
+{
+  "version": "54.0.0",
+  "testCases": {
+    "integ-test/DefaultTest": {
+      "stacks": [
+        "MappedRedirectIntegTest"
+      ],
+      "assertionStack": "integ-test/DefaultTest/DeployAssert",
+      "assertionStackName": "integtestDefaultTestDeployAssert24D5C536"
+    }
+  },
+  "enableLookups": true,
+  "minimumCliVersion": "2.1132.1"
+}

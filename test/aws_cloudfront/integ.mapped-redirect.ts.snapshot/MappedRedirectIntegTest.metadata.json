@@ -1,0 +1,206 @@
+{
+  "/MappedRedirectIntegTest/Fetcher": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "handler": "*",
+        "runtime": "*",
+        "architecture": "*",
+        "timeout": "*"
+      }
+    }
+  ],
+  "/MappedRedirectIntegTest/Distribution": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "defaultBehavior": {
+          "origin": "*",
+          "functionAssociations": [
+            {
+              "eventType": "viewer-request",
+              "function": "*"
+            }
+          ]
+        },
+        "additionalBehaviors": "*",
+        "defaultRootObject": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addBehavior": [
+          "*",
+          {},
+          {
+            "functionAssociations": [
+              {
+                "eventType": "viewer-request",
+                "function": "*"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "/MappedRedirectIntegTest/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/MappedRedirectIntegTest/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect/KeyValueStore": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {}
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect/Resource": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "runtime": "*",
+        "keyValueStore": "*",
+        "functionName": "*",
+        "comment": "*",
+        "autoPublish": "*"
+      }
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect302/KeyValueStore": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {}
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect302/Resource": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "runtime": "*",
+        "keyValueStore": "*",
+        "functionName": "*",
+        "comment": "*",
+        "autoPublish": "*"
+      }
+    }
+  ],
+  "/MappedRedirectIntegTest/Fetcher/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/MappedRedirectIntegTest/Fetcher/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherEE1BEC21"
+    }
+  ],
+  "/MappedRedirectIntegTest/Fetcher/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/MappedRedirectIntegTest/Distribution/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Distribution830FAC52"
+    },
+    {
+      "type": "aws:cdk:acknowledged-rules",
+      "data": {
+        "CloudFormation-Validate::W9009": "distributionConfig is deprecated, but still in use for historical reasons"
+      },
+      "trace": [
+        "    ...new Distribution2 in aws-cdk-lib...",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.mapped-redirect.ts:33:22)",
+        "    ...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/MappedRedirectIntegTest/Publish/Output{\"Ref\":\"FetcherEE1BEC21\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputRefFetcherEE1BEC214BDBFA85"
+    }
+  ],
+  "/MappedRedirectIntegTest/Publish/Output{\"Fn::GetAtt\":[\"Distribution830FAC52\",\"DomainName\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PublishOutputFnGetAttDistribution830FAC52DomainName4AF90296"
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect/KeyValueStore/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RedirectKeyValueStore1E539843"
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect/Resource/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Redirect90F84D65"
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect302/KeyValueStore/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Redirect302KeyValueStoreD4A03FF6"
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect302/Resource/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Redirect3023EE8B7F0"
+    }
+  ],
+  "/MappedRedirectIntegTest/Fetcher/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherServiceRole4B89FD47"
+    }
+  ],
+  "/MappedRedirectIntegTest/Fetcher/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/MappedRedirectIntegTest/Fetcher/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FetcherLogGroup1C725430"
+    }
+  ],
+  "/MappedRedirectIntegTest/Redirect/KeyValueStore/ImportSource/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ]
+}
