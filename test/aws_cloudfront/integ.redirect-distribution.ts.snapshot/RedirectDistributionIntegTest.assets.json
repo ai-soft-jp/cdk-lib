@@ -1,0 +1,20 @@
+{
+  "version": "54.0.0",
+  "files": {
+    "efd28b61614c0754545237bcd519440008646c40e23dfbe5c5af6e6b0dd0d59c": {
+      "displayName": "RedirectDistributionIntegTest Template",
+      "source": {
+        "path": "RedirectDistributionIntegTest.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-067df8e7": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "efd28b61614c0754545237bcd519440008646c40e23dfbe5c5af6e6b0dd0d59c.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

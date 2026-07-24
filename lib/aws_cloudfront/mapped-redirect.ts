@@ -12,7 +12,6 @@ export interface MappedRedirectProps extends Pick<
   readonly prefixTargets?: Record<string, string>;
   readonly statusCode?: number;
   readonly keyValueStoreName?: string;
-  readonly keyValueStoreComment?: string;
   readonly source?: cloudfront.ImportSource;
 }
 
@@ -27,7 +26,7 @@ export class MappedRedirect extends cdk.Resource implements cloudfront.IFunction
 
     const keyValueStore = new cloudfront.KeyValueStore(this, 'KeyValueStore', {
       keyValueStoreName: props.keyValueStoreName,
-      comment: props.keyValueStoreComment ?? `[${this.node.path}] Redirection mapping`,
+      comment: props.comment ?? `[${this.node.path}] MappedRedirect`,
       source: props.source,
     });
 
@@ -40,7 +39,7 @@ export class MappedRedirect extends cdk.Resource implements cloudfront.IFunction
       },
       keyValueStore,
       functionName: props.functionName,
-      comment: props.comment ?? `[${this.node.path}] Mapped Redirector`,
+      comment: props.comment ?? `[${this.node.path}] MappedRedirect: ${props.fallback}`,
       autoPublish: props.autoPublish,
     });
 

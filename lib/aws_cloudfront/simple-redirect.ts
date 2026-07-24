@@ -22,7 +22,7 @@ export class SimpleRedirect extends Function {
         STATUS_CODE: props.statusCode ?? 301,
       },
       functionName: props.functionName,
-      comment: props.comment ?? `[${scope.node.path}] Redirector: ${props.target}`,
+      comment: props.comment ?? `[${scope.node.path}] SimpleRedirect: ${props.target}`,
       autoPublish: props.autoPublish,
     });
   }

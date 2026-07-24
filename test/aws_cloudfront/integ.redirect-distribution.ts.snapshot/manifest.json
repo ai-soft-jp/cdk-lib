@@ -1,28 +1,28 @@
 {
   "version": "54.0.0",
   "artifacts": {
-    "SimpleRedirectIntegTest.assets": {
+    "RedirectDistributionIntegTest.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "SimpleRedirectIntegTest.assets.json",
+        "file": "RedirectDistributionIntegTest.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "SimpleRedirectIntegTest": {
+    "RedirectDistributionIntegTest": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://unknown-account/unknown-region",
       "properties": {
-        "templateFile": "SimpleRedirectIntegTest.template.json",
+        "templateFile": "RedirectDistributionIntegTest.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/37d8c3eb4240252d373495e411c2fbd69c4fbc7a6f9619ef0522f0a4fa74fab2.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/efd28b61614c0754545237bcd519440008646c40e23dfbe5c5af6e6b0dd0d59c.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "SimpleRedirectIntegTest.assets"
+          "RedirectDistributionIntegTest.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
@@ -31,10 +31,10 @@
         }
       },
       "dependencies": [
-        "SimpleRedirectIntegTest.assets"
+        "RedirectDistributionIntegTest.assets"
       ],
-      "additionalMetadataFile": "SimpleRedirectIntegTest.metadata.json",
-      "displayName": "SimpleRedirectIntegTest"
+      "additionalMetadataFile": "RedirectDistributionIntegTest.metadata.json",
+      "displayName": "RedirectDistributionIntegTest"
     },
     "integtestDefaultTestDeployAssert24D5C536.assets": {
       "type": "cdk:asset-manifest",
@@ -53,7 +53,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/fc9aef9f99def06bcef3786f1ce629a62e3129e9f813624c6f5b8874503b0541.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/21fbb51d7b23f6a6c262b46a9caee79d744a3ac019fd45422d988b96d44b2a22.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -66,7 +66,6 @@
         }
       },
       "dependencies": [
-        "SimpleRedirectIntegTest",
         "integtestDefaultTestDeployAssert24D5C536.assets"
       ],
       "additionalMetadataFile": "integtestDefaultTestDeployAssert24D5C536.metadata.json",

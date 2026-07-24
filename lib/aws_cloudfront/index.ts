@@ -5,5 +5,6 @@ export * from './edge-function';
 export * from './edge-logs-retention';
 export * from './function';
 export * from './mapped-redirect';
+export * from './redirect-distribution';
 export * from './simple-redirect';
 export * from './vpc-origin-security-group';
