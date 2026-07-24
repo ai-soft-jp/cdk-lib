@@ -1,7 +1,7 @@
 /* CloudFront Simple Redirector */
 import cf from 'cloudfront';
 
-/* global PREFIX_TARGETS FALLBACK_TARGET STATUS_CODE */
+/* global PREFIX_TARGETS FALLBACK_TARGET BASE_URL STATUS_CODE */
 
 /**
  * @param {AWSCloudFrontFunction.Event} event
@@ -9,10 +9,10 @@ import cf from 'cloudfront';
  */
 async function handler(event) {
   const request = event.request;
-  const location = (await getMappedTarget(request)) || getPrefixTarget(request) || FALLBACK_TARGET;
+  const target = (await getMappedTarget(request)) || getPrefixTarget(request) || FALLBACK_TARGET;
   return {
     statusCode: STATUS_CODE ?? 301,
-    headers: { location: { value: location } },
+    headers: { location: { value: makeUrl(target, BASE_URL) } },
   };
 }
 
@@ -34,4 +34,13 @@ async function getMappedTarget(request) {
   if (await kvs.exists(request.uri)) {
     return await kvs.get(request.uri);
   }
+}
+
+/**
+ * @param {string} location
+ * @param {string} baseUrl
+ * @returns {string}
+ */
+function makeUrl(location, baseUrl) {
+  return /^\w+:/.test(location) ? location : baseUrl.replace(/\/$/, '') + location;
 }

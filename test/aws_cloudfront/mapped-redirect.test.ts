@@ -20,13 +20,14 @@ describe('MappedRedirect', () => {
     });
   });
 
-  describe('execution', () => {
-    test('mapped target', async () => {
-      new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+  describe('mapped target', () => {
+    test('absolute URI', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
         fallback: 'https://redirect.test/',
         prefixTargets: { '/dead/': 'https://prefix.redirect.test/' },
+        baseUrl: 'https://base.redirect.test',
       });
-      const handler = await getHandlerAsync(stack, /^MappedRedirect/, {
+      const handler = await getHandlerAsync(stack, func, {
         '/dead/beef': 'https://mapped.redirect.test/soy/sauce',
       });
       expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
@@ -35,38 +36,109 @@ describe('MappedRedirect', () => {
       });
     });
 
-    test('prefix target', async () => {
-      new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+    test('relative URI with fallback', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: 'https://redirect.test/',
+      });
+      const handler = await getHandlerAsync(stack, func, {
+        '/dead/beef': '/soy/sauce',
+      });
+      expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://redirect.test/soy/sauce' } },
+      });
+    });
+
+    test('relative URI with base', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: 'https://redirect.test/',
+        baseUrl: 'https://base.redirect.test',
+      });
+      const handler = await getHandlerAsync(stack, func, {
+        '/dead/beef': '/soy/sauce',
+      });
+      expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://base.redirect.test/soy/sauce' } },
+      });
+    });
+  });
+
+  describe('prefix target', () => {
+    test('absolute URI', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
         fallback: 'https://redirect.test/',
         prefixTargets: { '/dead/': 'https://prefix.redirect.test/beef' },
+        baseUrl: 'https://base.redirect.test',
       });
-      const handler = await getHandlerAsync(stack, /^MappedRedirect/, {});
+      const handler = await getHandlerAsync(stack, func, {});
       expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
         statusCode: 301,
         headers: { location: { value: 'https://prefix.redirect.test/beef' } },
       });
     });
 
-    test('fallback', async () => {
-      new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+    test('relative URI with base', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
         fallback: 'https://redirect.test/',
+        prefixTargets: { '/dead/': '/soy/sauce' },
+        baseUrl: 'https://base.redirect.test',
       });
-      const handler = await getHandlerAsync(stack, /^MappedRedirect/, {});
+      const handler = await getHandlerAsync(stack, func, {});
+      expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://base.redirect.test/soy/sauce' } },
+      });
+    });
+
+    test('relative URI with fallback', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: 'https://redirect.test/',
+        prefixTargets: { '/dead/': '/soy/sauce' },
+      });
+      const handler = await getHandlerAsync(stack, func, {});
+      expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://redirect.test/soy/sauce' } },
+      });
+    });
+  });
+
+  describe('fallback target', () => {
+    test('absolute URI', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: 'https://redirect.test/',
+        prefixTargets: { '/prefixed/': 'https://prefix.redirect.test/' },
+      });
+      const handler = await getHandlerAsync(stack, func, {});
       expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
         statusCode: 301,
         headers: { location: { value: 'https://redirect.test/' } },
       });
     });
 
-    test('status code 302', async () => {
-      new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
-        fallback: 'https://redirect.test/',
-        statusCode: 302,
+    test('relative URI with base', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: '/fallback',
+        prefixTargets: { '/prefixed/': 'https://prefix.redirect.test/' },
+        baseUrl: 'https://base.redirect.test',
       });
-      const handler = await getHandlerAsync(stack, /^MappedRedirect/, {});
-      expect(await handler(event({}))).toMatchObject({
-        statusCode: 302,
+      const handler = await getHandlerAsync(stack, func, {});
+      expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://base.redirect.test/fallback' } },
       });
+    });
+  });
+
+  test('status code 302', async () => {
+    const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+      fallback: 'https://redirect.test/',
+      statusCode: 302,
+    });
+    const handler = await getHandlerAsync(stack, func, {});
+    expect(await handler(event({}))).toMatchObject({
+      statusCode: 302,
     });
   });
 });

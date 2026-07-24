@@ -61,20 +61,22 @@ describe('AccessControl', () => {
   describe('execution', () => {
     describe('basic auth', () => {
       test('returns 401 for no credentials', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', { basicAuth: ['user:pass'] });
-        const handler = getHandler(stack, /^AccessControl/);
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', { basicAuth: ['user:pass'] });
+        const handler = getHandler(stack, func);
         expect(handler(event({}))).toMatchObject({ statusCode: 401 });
       });
 
       test('returns 401 for incorrect credential', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', { basicAuth: ['user:pass'] });
-        const handler = getHandler(stack, /^AccessControl/);
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', { basicAuth: ['user:pass'] });
+        const handler = getHandler(stack, func);
         expect(handler(event({ auth: 'bad:pass' }))).toMatchObject({ statusCode: 401 });
       });
 
       test('passthrough request for correct credential', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', { basicAuth: ['user:pass', 'another:p@ass'] });
-        const handler = getHandler(stack, /^AccessControl/);
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+          basicAuth: ['user:pass', 'another:p@ass'],
+        });
+        const handler = getHandler(stack, func);
         expect(handler(event({ auth: 'user:pass' }))).toMatchObject({ method: 'GET' });
         expect(handler(event({ auth: 'another:p@ass' }))).toMatchObject({ method: 'GET' });
       });
@@ -82,15 +84,19 @@ describe('AccessControl', () => {
 
     describe('remote ip', () => {
       test('returns 403 for blocked ip', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', { remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'] });
-        const handler = getHandler(stack, /^AccessControl/);
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+          remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
+        });
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '127.0.0.1' }))).toMatchObject({ statusCode: 403 });
         expect(handler(event({ ip: '2001:db8:2::33:4' }))).toMatchObject({ statusCode: 403 });
       });
 
       test('passthrough request for allowed ip', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', { remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'] });
-        const handler = getHandler(stack, /^AccessControl/);
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+          remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
+        });
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '192.0.2.54' }))).toMatchObject({ method: 'GET' });
         expect(handler(event({ ip: '2001:db8:1::44:5' }))).toMatchObject({ method: 'GET' });
       });
@@ -98,23 +104,23 @@ describe('AccessControl', () => {
 
     describe('satisfy all', () => {
       test('returns 403 for blocked ip with correct credential', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
           basicAuth: ['user:pass', 'another:p@ss'],
           remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
           satisfy: ais.cloudfront.Satisfy.ALL,
         });
-        const handler = getHandler(stack, /^AccessControl/);
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '127.0.0.1', auth: 'user:pass' }))).toMatchObject({ statusCode: 403 });
         expect(handler(event({ ip: '2001:db8:2::33:4', auth: 'another:p@ss' }))).toMatchObject({ statusCode: 403 });
       });
 
       test('returns 401 for allowed ip with incorrect credential', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
           basicAuth: ['user:pass', 'another:p@ss'],
           remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
           satisfy: ais.cloudfront.Satisfy.ALL,
         });
-        const handler = getHandler(stack, /^AccessControl/);
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '192.0.2.27' }))).toMatchObject({ statusCode: 401 });
         expect(handler(event({ ip: '192.0.2.27', auth: 'bad:pass' }))).toMatchObject({ statusCode: 401 });
         expect(handler(event({ ip: '2001:db8:1::563' }))).toMatchObject({ statusCode: 401 });
@@ -122,12 +128,12 @@ describe('AccessControl', () => {
       });
 
       test('passthrough request for allowed ip with correct credential', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
           basicAuth: ['user:pass', 'another:p@ss'],
           remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
           satisfy: ais.cloudfront.Satisfy.ALL,
         });
-        const handler = getHandler(stack, /^AccessControl/);
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '192.0.2.54', auth: 'user:pass' }))).toMatchObject({ method: 'GET' });
         expect(handler(event({ ip: '2001:db8:1::fb9', auth: 'another:p@ss' }))).toMatchObject({ method: 'GET' });
       });
@@ -135,65 +141,65 @@ describe('AccessControl', () => {
 
     describe('satisfy any', () => {
       test('returns 401 for blocked ip', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
           basicAuth: ['user:pass', 'another:p@ss'],
           remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
           satisfy: ais.cloudfront.Satisfy.ANY,
         });
-        const handler = getHandler(stack, /^AccessControl/);
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '127.0.0.1' }))).toMatchObject({ statusCode: 401 });
         expect(handler(event({ ip: '2001:db8:2::33:4' }))).toMatchObject({ statusCode: 401 });
       });
 
       test('returns 401 for blocked ip with incorrect credential', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
           basicAuth: ['user:pass', 'another:p@ss'],
           remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
           satisfy: ais.cloudfront.Satisfy.ANY,
         });
-        const handler = getHandler(stack, /^AccessControl/);
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '127.0.0.1', auth: 'bad:pass' }))).toMatchObject({ statusCode: 401 });
         expect(handler(event({ ip: '2001:db8:2::33:4', auth: 'mea:aqua' }))).toMatchObject({ statusCode: 401 });
       });
 
       test('passthrough request for allowed ip without credentials', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
           basicAuth: ['user:pass', 'another:p@ss'],
           remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
           satisfy: ais.cloudfront.Satisfy.ANY,
         });
-        const handler = getHandler(stack, /^AccessControl/);
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '192.0.2.27' }))).toMatchObject({ method: 'GET' });
         expect(handler(event({ ip: '2001:db8:1::563' }))).toMatchObject({ method: 'GET' });
       });
 
       test('passthrough request for blocked ip but with correct credential', () => {
-        new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
           basicAuth: ['user:pass', 'another:p@ss'],
           remoteIp: ['192.0.2.0/24', '2001:db8:1::/56'],
           satisfy: ais.cloudfront.Satisfy.ANY,
         });
-        const handler = getHandler(stack, /^AccessControl/);
+        const handler = getHandler(stack, func);
         expect(handler(event({ ip: '127.0.0.1', auth: 'user:pass' }))).toMatchObject({ method: 'GET' });
         expect(handler(event({ ip: '2001:db8:2::33:4', auth: 'another:p@ss' }))).toMatchObject({ method: 'GET' });
       });
     });
 
     test('custom 403 html', () => {
-      new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+      const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
         remoteIp: ['192.0.2.0/24'],
         forbiddenHtml: '<html><body>Forbidden</body></html>',
       });
-      const handler = getHandler(stack, /^AccessControl/);
+      const handler = getHandler(stack, func);
       expect(handler(event({}))).toMatchObject({ body: '<html><body>Forbidden</body></html>' });
     });
 
     test('custom 401 html', () => {
-      new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+      const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
         basicAuth: ['user:pass'],
         unauthorizedHtml: '<html><body>Unauthorized</body></html>',
       });
-      const handler = getHandler(stack, /^AccessControl/);
+      const handler = getHandler(stack, func);
       expect(handler(event({ auth: 'bad:pass' }))).toMatchObject({ body: '<html><body>Unauthorized</body></html>' });
     });
   });

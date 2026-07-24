@@ -10,6 +10,7 @@ export interface MappedRedirectProps extends Pick<
 > {
   readonly fallback: string;
   readonly prefixTargets?: Record<string, string>;
+  readonly baseUrl?: string;
   readonly statusCode?: number;
   readonly keyValueStoreName?: string;
   readonly source?: cloudfront.ImportSource;
@@ -35,6 +36,7 @@ export class MappedRedirect extends cdk.Resource implements cloudfront.IFunction
       define: {
         FALLBACK_TARGET: props.fallback,
         PREFIX_TARGETS: props.prefixTargets ? Object.entries(props.prefixTargets) : null,
+        BASE_URL: props.baseUrl ?? props.fallback,
         STATUS_CODE: props.statusCode ?? 301,
       },
       keyValueStore,

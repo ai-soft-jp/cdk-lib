@@ -20,37 +20,39 @@ describe('SimpleRedirect', () => {
     });
   });
 
-  describe('execution', () => {
-    test.each(['/', '/dead/beef', '/blah?soy=sauce'])('no keep path for %s', (path) => {
-      new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
+  describe('no keep path', () => {
+    test.each(['/', '/dead/beef', '/blah?soy=sauce'])('for %s', (path) => {
+      const func = new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
         target: 'https://redirect.test/',
       });
-      const handler = getHandler(stack, /^SimpleRedirect/);
+      const handler = getHandler(stack, func);
       expect(handler(event({ path }))).toMatchObject({
         statusCode: 301,
         headers: { location: { value: 'https://redirect.test/' } },
       });
     });
+  });
 
-    test.each(['/', '/dead/beef', '/blah?soy=sauce'])('keep path for %s', (path) => {
-      new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
+  describe('keep path', () => {
+    test.each(['/', '/dead/beef', '/blah?soy=sauce'])('for %s', (path) => {
+      const func = new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
         target: 'https://redirect.test/',
         keepPath: true,
       });
-      const handler = getHandler(stack, /^SimpleRedirect/);
+      const handler = getHandler(stack, func);
       expect(handler(event({ path }))).toMatchObject({
         statusCode: 301,
         headers: { location: { value: `https://redirect.test${path}` } },
       });
     });
+  });
 
-    test('status code 302', () => {
-      new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
-        target: 'https://redirect.test/',
-        statusCode: 302,
-      });
-      const handler = getHandler(stack, /^SimpleRedirect/);
-      expect(handler(event({}))).toMatchObject({ statusCode: 302 });
+  test('status code 302', () => {
+    const func = new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
+      target: 'https://redirect.test/',
+      statusCode: 302,
     });
+    const handler = getHandler(stack, func);
+    expect(handler(event({}))).toMatchObject({ statusCode: 302 });
   });
 });
