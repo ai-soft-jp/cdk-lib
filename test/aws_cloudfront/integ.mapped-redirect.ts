@@ -12,6 +12,7 @@ const stack = new cdk.Stack(app, 'MappedRedirectIntegTest');
 const func = new ais.cloudfront.MappedRedirect(stack, 'Redirect', {
   fallback: 'https://fallback.redirect/',
   prefixTargets: { '/prefix/': 'https://prefix.redirect/' },
+  index: ['index.html', 'index.php'],
   source: cloudfront.ImportSource.fromInline(
     JSON.stringify({ data: [{ key: '/mapped/', value: 'https://mapped.redirect/' }] }),
   ),
@@ -59,6 +60,14 @@ integ.assertions
   .invokeFunction({
     functionName: fetcher.functionName,
     payload: JSON.stringify({ url: `https://${distribution.distributionDomainName}/mapped/` }),
+  })
+  .expect(
+    ExpectedResult.objectLike({ Payload: JSON.stringify({ status: 301, location: 'https://mapped.redirect/' }) }),
+  );
+integ.assertions
+  .invokeFunction({
+    functionName: fetcher.functionName,
+    payload: JSON.stringify({ url: `https://${distribution.distributionDomainName}/mapped/index.php` }),
   })
   .expect(
     ExpectedResult.objectLike({ Payload: JSON.stringify({ status: 301, location: 'https://mapped.redirect/' }) }),

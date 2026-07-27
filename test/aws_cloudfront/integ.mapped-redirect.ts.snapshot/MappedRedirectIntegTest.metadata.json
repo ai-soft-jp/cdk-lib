@@ -138,7 +138,7 @@
       },
       "trace": [
         "    ...new Distribution2 in aws-cdk-lib...",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.mapped-redirect.ts:33:22)",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.mapped-redirect.ts:34:22)",
         "    ...node internals, ts-node, ts-node..."
       ]
     }

@@ -1,7 +1,7 @@
 /* CloudFront Simple Redirector */
 import cf from 'cloudfront';
 
-/* global PREFIX_TARGETS FALLBACK_TARGET BASE_URL STATUS_CODE */
+/* global PREFIX_TARGETS FALLBACK_TARGET INDEX BASE_URL STATUS_CODE */
 
 /**
  * @param {AWSCloudFrontFunction.Event} event
@@ -31,8 +31,12 @@ function getPrefixTarget(request) {
  */
 async function getMappedTarget(request) {
   const kvs = cf.kvs();
-  if (await kvs.exists(request.uri)) {
-    return await kvs.get(request.uri);
+  const index = INDEX?.find((s) => request.uri.endsWith(s));
+  const path = index ? request.uri.slice(0, 1 - index.length) : request.uri;
+  try {
+    return await kvs.get(path);
+  } catch (_err) {
+    // return undefined
   }
 }
 

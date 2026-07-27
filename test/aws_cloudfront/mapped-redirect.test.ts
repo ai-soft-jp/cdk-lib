@@ -9,14 +9,27 @@ describe('MappedRedirect', () => {
     stack = new cdk.Stack();
   });
 
-  test('bundles', () => {
-    new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
-      fallback: 'https://redirect.test/',
-      prefixTargets: { '/dead/': '/beef/' },
-      statusCode: 302,
+  describe('bundles', () => {
+    test('prefixTargets', () => {
+      new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: 'https://redirect.test/',
+        prefixTargets: { '/dead/': '/beef/' },
+        statusCode: 302,
+      });
+      Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
+        FunctionCode: Match.stringLikeRegexp(RegExp.escape('["/dead/", "/beef/"]')),
+      });
     });
-    Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
-      FunctionCode: Match.stringLikeRegexp('\\["/dead/", "/beef/"\\]'),
+
+    test('indices', () => {
+      new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: 'https://redirect.test/',
+        index: ['index.html', 'index.php'],
+        statusCode: 302,
+      });
+      Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
+        FunctionCode: Match.stringLikeRegexp(RegExp.escape('["/index.html", "/index.php"]')),
+      });
     });
   });
 
@@ -33,6 +46,28 @@ describe('MappedRedirect', () => {
       expect(await handler(event({ path: '/dead/beef' }))).toMatchObject({
         statusCode: 301,
         headers: { location: { value: 'https://mapped.redirect.test/soy/sauce' } },
+      });
+    });
+
+    test('absolute URI with index', async () => {
+      const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+        fallback: 'https://redirect.test/',
+        index: ['index.html', 'index.php'],
+      });
+      const handler = await getHandlerAsync(stack, func, {
+        '/dead/beef/': 'https://mapped.redirect.test/soy/sauce',
+      });
+      expect(await handler(event({ path: '/dead/beef/index.html' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://mapped.redirect.test/soy/sauce' } },
+      });
+      expect(await handler(event({ path: '/dead/beef/index.php' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://mapped.redirect.test/soy/sauce' } },
+      });
+      expect(await handler(event({ path: '/dead/beef/index.cgi' }))).toMatchObject({
+        statusCode: 301,
+        headers: { location: { value: 'https://redirect.test/' } },
       });
     });
 

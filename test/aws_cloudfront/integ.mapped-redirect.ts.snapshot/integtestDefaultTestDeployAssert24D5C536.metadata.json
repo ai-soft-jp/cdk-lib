@@ -75,6 +75,32 @@
       "data": "AssertionResultsLambdaInvoke636c2ea6eac555ed75f51512bc13eb26"
     }
   ],
+  "/integ-test/DefaultTest/DeployAssert/LambdaInvoke70969c3472f4e4ac6885b7e0d55d4f3d/Default": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/LambdaInvoke70969c3472f4e4ac6885b7e0d55d4f3d/Invoke": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdaInvoke70969c3472f4e4ac6885b7e0d55d4f3dInvoke54657850"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/LambdaInvoke70969c3472f4e4ac6885b7e0d55d4f3d/AssertionResults": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AssertionResultsLambdaInvoke70969c3472f4e4ac6885b7e0d55d4f3d"
+    }
+  ],
   "/integ-test/DefaultTest/DeployAssert/LambdaInvoke9d97495ebfeb5604358891e11123d6c3/Default": [
     {
       "type": "aws:cdk:analytics:construct",
@@ -111,6 +137,12 @@
     {
       "type": "aws:cdk:logicalId",
       "data": "LambdaInvoke636c2ea6eac555ed75f51512bc13eb26"
+    }
+  ],
+  "/integ-test/DefaultTest/DeployAssert/LambdaInvoke70969c3472f4e4ac6885b7e0d55d4f3d/Default/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LambdaInvoke70969c3472f4e4ac6885b7e0d55d4f3d"
     }
   ],
   "/integ-test/DefaultTest/DeployAssert/LambdaInvoke9d97495ebfeb5604358891e11123d6c3/Default/Default": [
