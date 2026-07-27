@@ -31,7 +31,7 @@
       }
     }
   ],
-  "/RedirectDistributionIntegTest/Simple/Resource": [
+  "/RedirectDistributionIntegTest/Simple/Distribution": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -49,7 +49,7 @@
       }
     }
   ],
-  "/RedirectDistributionIntegTest/Mapped/Resource": [
+  "/RedirectDistributionIntegTest/Mapped/Distribution": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -73,7 +73,7 @@
       "data": "CustomFuncE98DEC1D"
     }
   ],
-  "/RedirectDistributionIntegTest/Custom/Resource": [
+  "/RedirectDistributionIntegTest/Custom/Distribution": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -97,10 +97,10 @@
       "data": "SimpleRedirection406163AA"
     }
   ],
-  "/RedirectDistributionIntegTest/Simple/Resource/Resource": [
+  "/RedirectDistributionIntegTest/Simple/Distribution/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "SimpleFC08FCBB"
+      "data": "SimpleDistribution1AAFECBF"
     },
     {
       "type": "aws:cdk:acknowledged-rules",
@@ -109,7 +109,7 @@
       },
       "trace": [
         "    ...new Distribution2 in aws-cdk-lib...",
-        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:71:22)",
+        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:70:22)",
         "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.redirect-distribution.ts:9:1)",
         "    ...node internals, ts-node, ts-node..."
       ]
@@ -134,10 +134,10 @@
       }
     }
   ],
-  "/RedirectDistributionIntegTest/Mapped/Resource/Resource": [
+  "/RedirectDistributionIntegTest/Mapped/Distribution/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "MappedE6A60A01"
+      "data": "MappedDistribution94103D2F"
     },
     {
       "type": "aws:cdk:acknowledged-rules",
@@ -146,16 +146,16 @@
       },
       "trace": [
         "    ...new Distribution2 in aws-cdk-lib...",
-        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:71:22)",
+        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:70:22)",
         "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.redirect-distribution.ts:12:1)",
         "    ...node internals, ts-node, ts-node..."
       ]
     }
   ],
-  "/RedirectDistributionIntegTest/Custom/Resource/Resource": [
+  "/RedirectDistributionIntegTest/Custom/Distribution/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "CustomBCF12F71"
+      "data": "CustomDistributionA521CF7A"
     },
     {
       "type": "aws:cdk:acknowledged-rules",
@@ -164,7 +164,7 @@
       },
       "trace": [
         "    ...new Distribution2 in aws-cdk-lib...",
-        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:71:22)",
+        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:70:22)",
         "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.redirect-distribution.ts:17:1)",
         "    ...node internals, ts-node, ts-node..."
       ]

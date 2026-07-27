@@ -16,7 +16,7 @@ describe('MappedRedirect', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {
         DefaultCacheBehavior: {
-          TargetOriginId: 'DistOrigin1F296BFE1',
+          TargetOriginId: 'DistDistributionOrigin1DAE478EB',
           ViewerProtocolPolicy: 'redirect-to-https',
           FunctionAssociations: [
             {
@@ -27,7 +27,7 @@ describe('MappedRedirect', () => {
         },
         Origins: [
           {
-            Id: 'DistOrigin1F296BFE1',
+            Id: 'DistDistributionOrigin1DAE478EB',
             DomainName: 'redirect.aws',
           },
         ],
@@ -44,7 +44,7 @@ describe('MappedRedirect', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {
         DefaultCacheBehavior: {
-          TargetOriginId: 'DistOrigin1F296BFE1',
+          TargetOriginId: 'DistDistributionOrigin1DAE478EB',
           ViewerProtocolPolicy: 'allow-all',
           ResponseHeadersPolicyId: '67f7725c-6f97-4210-82d7-5512b31e9d03',
         },
@@ -59,7 +59,7 @@ describe('MappedRedirect', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {
         DefaultCacheBehavior: {
-          TargetOriginId: 'DistOrigin1F296BFE1',
+          TargetOriginId: 'DistDistributionOrigin1DAE478EB',
           ViewerProtocolPolicy: 'redirect-to-https',
           FunctionAssociations: [
             {
@@ -70,7 +70,7 @@ describe('MappedRedirect', () => {
         },
         Origins: [
           {
-            Id: 'DistOrigin1F296BFE1',
+            Id: 'DistDistributionOrigin1DAE478EB',
             DomainName: 'redirect.aws',
           },
         ],
@@ -87,7 +87,7 @@ describe('MappedRedirect', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {
         DefaultCacheBehavior: {
-          TargetOriginId: 'DistOrigin1F296BFE1',
+          TargetOriginId: 'DistDistributionOrigin1DAE478EB',
           ViewerProtocolPolicy: 'allow-all',
           ResponseHeadersPolicyId: '67f7725c-6f97-4210-82d7-5512b31e9d03',
         },
@@ -103,7 +103,7 @@ describe('MappedRedirect', () => {
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {
         DefaultCacheBehavior: {
-          TargetOriginId: 'DistOrigin1F296BFE1',
+          TargetOriginId: 'DistDistributionOrigin1DAE478EB',
           ViewerProtocolPolicy: 'redirect-to-https',
           FunctionAssociations: [
             {
@@ -114,7 +114,7 @@ describe('MappedRedirect', () => {
         },
         Origins: [
           {
-            Id: 'DistOrigin1F296BFE1',
+            Id: 'DistDistributionOrigin1DAE478EB',
             DomainName: 'redirect.aws',
           },
         ],

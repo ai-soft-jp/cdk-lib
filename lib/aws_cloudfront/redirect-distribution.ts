@@ -1,7 +1,6 @@
-import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
-import type { Construct } from 'constructs';
+import { Construct } from 'constructs';
 import type { MappedRedirectProps } from './mapped-redirect';
 import { MappedRedirect } from './mapped-redirect';
 import type { SimpleRedirectProps } from './simple-redirect';
@@ -59,7 +58,7 @@ class CustomRedirection extends Redirection {
   }
 }
 
-export class RedirectDistribution extends cdk.Resource {
+export class RedirectDistribution extends Construct {
   readonly distribution: cloudfront.Distribution;
 
   constructor(scope: Construct, id: string, props: RedirectDistributionProps) {
@@ -68,7 +67,7 @@ export class RedirectDistribution extends cdk.Resource {
     const redirection = props.redirection.bind(this);
 
     const origin = new origins.HttpOrigin('redirect.aws');
-    const resource = new cloudfront.Distribution(this, 'Resource', {
+    const resource = new cloudfront.Distribution(this, 'Distribution', {
       ...props,
       defaultBehavior: {
         origin,
