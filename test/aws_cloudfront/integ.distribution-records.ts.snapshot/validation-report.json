@@ -1,0 +1,92 @@
+{
+  "version": "54.0.0",
+  "title": "Validation Report",
+  "pluginReports": [
+    {
+      "pluginName": "CloudFormation Validate",
+      "pluginVersion": "1.5.0",
+      "conclusion": "success",
+      "violations": [
+        {
+          "ruleName": "F0001",
+          "description": "Resources section must exist and be non-empty",
+          "severity": "warning",
+          "ruleMetadata": {
+            "category": "Structure"
+          },
+          "violatingConstructs": [
+            {
+              "constructPath": "integ-test/DefaultTest/DeployAssert",
+              "constructFqn": "aws-cdk-lib.Stack",
+              "libraryVersion": "2.262.0"
+            }
+          ]
+        }
+      ],
+      "suppressedViolations": [
+        {
+          "ruleName": "E3029",
+          "description": "AliasTarget: AliasTarget cannot be used with record type 'HTTPS'",
+          "severity": "warning",
+          "ruleMetadata": {
+            "category": "Resource"
+          },
+          "violatingConstructs": [
+            {
+              "constructPath": "DistributionRecordsIntegTest/Records/HTTPS/Resource",
+              "constructFqn": "aws-cdk-lib.aws_route53.CfnRecordSet",
+              "libraryVersion": "2.262.0",
+              "cloudFormationResource": {
+                "templatePath": "DistributionRecordsIntegTest.template.json",
+                "logicalId": "RecordsHTTPS318818AE",
+                "propertyPaths": [
+                  "Properties.AliasTarget"
+                ]
+              }
+            },
+            {
+              "constructPath": "DistributionRecordsIntegTest/Weighted1/HTTPS/Resource",
+              "constructFqn": "aws-cdk-lib.aws_route53.CfnRecordSet",
+              "libraryVersion": "2.262.0",
+              "cloudFormationResource": {
+                "templatePath": "DistributionRecordsIntegTest.template.json",
+                "logicalId": "Weighted1HTTPSEA9BF5C8",
+                "propertyPaths": [
+                  "Properties.AliasTarget"
+                ]
+              }
+            },
+            {
+              "constructPath": "DistributionRecordsIntegTest/Weighted2/HTTPS/Resource",
+              "constructFqn": "aws-cdk-lib.aws_route53.CfnRecordSet",
+              "libraryVersion": "2.262.0",
+              "cloudFormationResource": {
+                "templatePath": "DistributionRecordsIntegTest.template.json",
+                "logicalId": "Weighted2HTTPSA2D420D1",
+                "propertyPaths": [
+                  "Properties.AliasTarget"
+                ]
+              }
+            },
+            {
+              "constructPath": "DistributionRecordsIntegTest/WithTtl/HTTPS/Resource",
+              "constructFqn": "aws-cdk-lib.aws_route53.CfnRecordSet",
+              "libraryVersion": "2.262.0",
+              "cloudFormationResource": {
+                "templatePath": "DistributionRecordsIntegTest.template.json",
+                "logicalId": "WithTtlHTTPS9E07246C",
+                "propertyPaths": [
+                  "Properties.AliasTarget"
+                ]
+              }
+            }
+          ],
+          "acknowledgedId": "CloudFormation-Validate::E3029",
+          "reason": "false positive",
+          "acknowledgedAt": "DistributionRecordsIntegTest/WithTtl",
+          "acknowledgedStackTrace": "    ...Validations.acknowledge in aws-cdk-lib...\n    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:89:30)\n    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:36:1)\n    ...node internals, ts-node, ts-node..."
+        }
+      ]
+    }
+  ]
+}

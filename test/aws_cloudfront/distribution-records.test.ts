@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
+import { Match, Template } from 'aws-cdk-lib/assertions';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as route53 from 'aws-cdk-lib/aws-route53';
@@ -46,7 +46,50 @@ describe('DistributionRecords', () => {
     });
   });
 
-  test('defines records with weight', () => {
+  test('TTL', () => {
+    const distribution = new cloudfront.Distribution(stack, 'Distribution', {
+      defaultBehavior: { origin: new origins.HttpOrigin('example.aws') },
+    });
+    new ais.cloudfront.DistributionRecords(stack, 'Records', {
+      zone,
+      recordName: 'www',
+      distribution,
+      ttl: cdk.Duration.seconds(10),
+    });
+
+    Template.fromStack(stack).hasResourceProperties('AWS::Route53::RecordSet', {
+      Type: 'A',
+      Name: 'www.example.com.',
+      AliasTarget: { DNSName: stack.resolve(distribution.distributionDomainName) },
+      TTL: Match.absent(),
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::Route53::RecordSet', {
+      Type: 'AAAA',
+      Name: 'www.example.com.',
+      AliasTarget: { DNSName: stack.resolve(distribution.distributionDomainName) },
+      TTL: Match.absent(),
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::Route53::RecordSet', {
+      Type: 'HTTPS',
+      Name: 'www.example.com.',
+      AliasTarget: { DNSName: stack.resolve(distribution.distributionDomainName) },
+      TTL: Match.absent(),
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::Route53::RecordSet', {
+      Type: 'MX',
+      Name: 'www.example.com.',
+      ResourceRecords: ['0 .'],
+      TTL: '10',
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::Route53::RecordSet', {
+      Type: 'TXT',
+      Name: 'www.example.com.',
+      ResourceRecords: ['"v=spf1 -all"'],
+      TTL: '10',
+    });
+  });
+
+  test('weight', () => {
     const distribution = new cloudfront.Distribution(stack, 'Distribution', {
       defaultBehavior: { origin: new origins.HttpOrigin('example.aws') },
     });
@@ -84,7 +127,7 @@ describe('DistributionRecords', () => {
     });
   });
 
-  test('defines IPv4 only records', () => {
+  test('IPv4 only', () => {
     const distribution = new cloudfront.Distribution(stack, 'Distribution', {
       defaultBehavior: { origin: new origins.HttpOrigin('example.aws') },
     });
@@ -99,7 +142,7 @@ describe('DistributionRecords', () => {
     expect(Template.fromStack(stack).findResources('AWS::Route53::RecordSet', { Type: 'AAAA' })).toStrictEqual({});
   });
 
-  test('defines IPv6 only records', () => {
+  test('IPv6 only', () => {
     const distribution = new cloudfront.Distribution(stack, 'Distribution', {
       defaultBehavior: { origin: new origins.HttpOrigin('example.aws') },
     });
@@ -114,7 +157,7 @@ describe('DistributionRecords', () => {
     expect(Template.fromStack(stack).findResources('AWS::Route53::RecordSet', { Type: 'A' })).toStrictEqual({});
   });
 
-  test('defines records without HTTPS', () => {
+  test('without HTTPS', () => {
     const distribution = new cloudfront.Distribution(stack, 'Distribution', {
       defaultBehavior: { origin: new origins.HttpOrigin('example.aws') },
     });
@@ -130,7 +173,7 @@ describe('DistributionRecords', () => {
     expect(Template.fromStack(stack).findResources('AWS::Route53::RecordSet', { Type: 'HTTPS' })).toStrictEqual({});
   });
 
-  test('defines records without MX/SPF', () => {
+  test('without MX/SPF', () => {
     const distribution = new cloudfront.Distribution(stack, 'Distribution', {
       defaultBehavior: { origin: new origins.HttpOrigin('example.aws') },
     });

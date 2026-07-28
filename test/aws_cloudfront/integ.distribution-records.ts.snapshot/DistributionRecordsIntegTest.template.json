@@ -142,6 +142,353 @@
     "TTL": "1800",
     "Type": "TXT"
    }
+  },
+  "Weighted1A026C74A0": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "SetIdentifier": "WEIGHT_1_ID_DistributionRecordsIntegTestWeighted1ABEBF7BEF",
+    "Type": "A",
+    "Weight": 1
+   }
+  },
+  "Weighted1AAAA94040D66": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "SetIdentifier": "WEIGHT_1_ID_DistributionRecordsIntegTestWeighted1AAAAE02DE528",
+    "Type": "AAAA",
+    "Weight": 1
+   }
+  },
+  "Weighted1HTTPSEA9BF5C8": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "SetIdentifier": "WEIGHT_1_ID_DistributionRecordsIntegTestWeighted1HTTPSAE1D0999",
+    "Type": "HTTPS",
+    "Weight": 1
+   }
+  },
+  "Weighted1MXC081476F": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "ResourceRecords": [
+     "0 ."
+    ],
+    "SetIdentifier": "WEIGHT_1_ID_DistributionRecordsIntegTestWeighted1MXFA435685",
+    "TTL": "1800",
+    "Type": "MX",
+    "Weight": 1
+   }
+  },
+  "Weighted1SPF5B77EF19": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "ResourceRecords": [
+     "\"v=spf1 -all\""
+    ],
+    "SetIdentifier": "WEIGHT_1_ID_DistributionRecordsIntegTestWeighted1SPF01A74A29",
+    "TTL": "1800",
+    "Type": "TXT",
+    "Weight": 1
+   }
+  },
+  "Weighted2A2E8D329C": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "SetIdentifier": "WEIGHT_2_ID_DistributionRecordsIntegTestWeighted2AB66D7364",
+    "Type": "A",
+    "Weight": 2
+   }
+  },
+  "Weighted2AAAA21DE81A8": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "SetIdentifier": "WEIGHT_2_ID_DistributionRecordsIntegTestWeighted2AAAAAC8EB7D2",
+    "Type": "AAAA",
+    "Weight": 2
+   }
+  },
+  "Weighted2HTTPSA2D420D1": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "SetIdentifier": "WEIGHT_2_ID_DistributionRecordsIntegTestWeighted2HTTPS9153B237",
+    "Type": "HTTPS",
+    "Weight": 2
+   }
+  },
+  "Weighted2MX744C2CD5": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "ResourceRecords": [
+     "0 ."
+    ],
+    "SetIdentifier": "WEIGHT_2_ID_DistributionRecordsIntegTestWeighted2MX144EEC42",
+    "TTL": "1800",
+    "Type": "MX",
+    "Weight": 2
+   }
+  },
+  "Weighted2SPFC0373A6E": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "weighted.integ.aisrvs.dev.",
+    "ResourceRecords": [
+     "\"v=spf1 -all\""
+    ],
+    "SetIdentifier": "WEIGHT_2_ID_DistributionRecordsIntegTestWeighted2SPFCF563720",
+    "TTL": "1800",
+    "Type": "TXT",
+    "Weight": 2
+   }
+  },
+  "WithTtlAFE971BEA": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "ttl.integ.aisrvs.dev.",
+    "Type": "A"
+   }
+  },
+  "WithTtlAAAAF9975DB1": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "ttl.integ.aisrvs.dev.",
+    "Type": "AAAA"
+   }
+  },
+  "WithTtlHTTPS9E07246C": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "ttl.integ.aisrvs.dev.",
+    "Type": "HTTPS"
+   }
+  },
+  "WithTtlMXB44D868D": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "ttl.integ.aisrvs.dev.",
+    "ResourceRecords": [
+     "0 ."
+    ],
+    "TTL": "10",
+    "Type": "MX"
+   }
+  },
+  "WithTtlSPFF950F9F5": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "HostedZoneId": {
+     "Ref": "HostedZoneDB99F866"
+    },
+    "Name": "ttl.integ.aisrvs.dev.",
+    "ResourceRecords": [
+     "\"v=spf1 -all\""
+    ],
+    "TTL": "10",
+    "Type": "TXT"
+   }
   }
  },
  "Mappings": {

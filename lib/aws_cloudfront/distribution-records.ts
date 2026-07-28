@@ -36,6 +36,11 @@ export interface DistributionRecordsProps {
    */
   readonly mxRecord?: boolean;
   /**
+   * The TTL of MX and SPF records
+   * @default - 1800 seconds
+   */
+  readonly ttl?: cdk.Duration;
+  /**
    * The weight of records
    * @default - No weight
    */
@@ -61,32 +66,27 @@ export class DistributionRecords extends Construct {
   constructor(scope: Construct, id: string, props: DistributionRecordsProps) {
     super(scope, id);
 
-    const { zone, recordName } = props;
+    const recordProps = { zone: props.zone, recordName: props.recordName, weight: props.weight };
     const target = route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(props.distribution));
-    const weight = props.weight != null ? { weight: props.weight } : undefined;
 
     const ipAddressType = props.ipAddressType ?? IpAddressType.DUALSTACK;
     if (ipAddressType === IpAddressType.DUALSTACK || ipAddressType === IpAddressType.IPV4_ONLY) {
-      new route53.ARecord(this, 'A', { zone, recordName, target, ...weight });
+      new route53.ARecord(this, 'A', { ...recordProps, target });
     }
     if (ipAddressType === IpAddressType.DUALSTACK || ipAddressType === IpAddressType.IPV6_ONLY) {
-      new route53.AaaaRecord(this, 'AAAA', { zone, recordName, target, ...weight });
+      new route53.AaaaRecord(this, 'AAAA', { ...recordProps, target });
     }
     if (props.httpsRecord ?? true) {
-      new route53.HttpsRecord(this, 'HTTPS', { zone, recordName, target, ...weight });
+      new route53.HttpsRecord(this, 'HTTPS', { ...recordProps, target });
     }
 
     if (props.mxRecord ?? true) {
-      new route53.MxRecord(this, 'MX', {
-        zone,
-        recordName,
-        values: [{ hostName: '.', priority: 0 }],
-        ...weight,
-      });
-      new route53.TxtRecord(this, 'SPF', { zone, recordName, values: ['v=spf1 -all'], ...weight });
+      new route53.MxRecord(this, 'MX', { ...recordProps, values: [{ hostName: '.', priority: 0 }], ttl: props.ttl });
+      new route53.TxtRecord(this, 'SPF', { ...recordProps, values: ['v=spf1 -all'], ttl: props.ttl });
     }
 
     // AliasTarget: AliasTarget cannot be used with record type 'HTTPS' (CloudFormation Validate)
+    // https://github.com/aws-cloudformation/cloudformation-validate/issues/246
     cdk.Validations.of(this).acknowledge({ id: 'CloudFormation-Validate::E3029', reason: 'false positive' });
   }
 }

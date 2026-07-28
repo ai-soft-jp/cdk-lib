@@ -16,7 +16,29 @@ const distribution = new cloudfront.Distribution(stack, 'Distribution', {
   },
 });
 
-new ais.cloudfront.DistributionRecords(stack, 'Records', { zone, recordName: 'www', distribution });
+new ais.cloudfront.DistributionRecords(stack, 'Records', {
+  zone,
+  recordName: 'www',
+  distribution,
+});
+new ais.cloudfront.DistributionRecords(stack, 'Weighted1', {
+  zone,
+  recordName: 'weighted',
+  distribution,
+  weight: 1,
+});
+new ais.cloudfront.DistributionRecords(stack, 'Weighted2', {
+  zone,
+  recordName: 'weighted',
+  distribution,
+  weight: 2,
+});
+new ais.cloudfront.DistributionRecords(stack, 'WithTtl', {
+  zone,
+  recordName: 'ttl',
+  distribution,
+  ttl: cdk.Duration.seconds(10),
+});
 
 new IntegTest(app, 'integ-test', {
   testCases: [stack],
