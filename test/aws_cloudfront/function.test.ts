@@ -1,6 +1,7 @@
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as ais from '../../lib';
 
 describe('Function', () => {
@@ -57,6 +58,16 @@ describe('Function', () => {
           'const crypto = require\\("crypto"\\);\n' +
           'const querystring = require\\("querystring"\\);',
       ),
+    });
+  });
+
+  test('functionAssociation', () => {
+    const func = new ais.cloudfront.Function(stack, 'Function', {
+      entry: path.join(__dirname, 'function/func.js'),
+    });
+    expect(func.functionAssociation(cloudfront.FunctionEventType.VIEWER_REQUEST)).toEqual({
+      eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+      function: func,
     });
   });
 });

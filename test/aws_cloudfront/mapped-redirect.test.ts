@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as ais from '../../lib';
 import { event, getHandlerAsync } from './helpers/function-event';
 
@@ -30,6 +31,16 @@ describe('MappedRedirect', () => {
       Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
         FunctionCode: Match.stringLikeRegexp(RegExp.escape('["/index.html", "/index.php"]')),
       });
+    });
+  });
+
+  test('functionAssociation', () => {
+    const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+      fallback: 'https://redirect.test/',
+    });
+    expect(func.functionAssociation()).toEqual({
+      eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+      function: func,
     });
   });
 

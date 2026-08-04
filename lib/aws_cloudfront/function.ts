@@ -38,6 +38,10 @@ export class Function extends cloudfront.Function {
       ...resProps,
     });
   }
+
+  functionAssociation(eventType: cloudfront.FunctionEventType): cloudfront.FunctionAssociation {
+    return { eventType, function: this };
+  }
 }
 
 function compile(entry: string, define: Record<string, unknown> | undefined, banner: string) {

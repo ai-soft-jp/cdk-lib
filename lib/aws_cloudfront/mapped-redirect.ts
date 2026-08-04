@@ -52,4 +52,10 @@ export class MappedRedirect extends cdk.Resource implements cloudfront.IFunction
     this.functionArn = resource.functionArn;
     this.functionName = resource.functionName;
   }
+
+  functionAssociation(
+    eventType: cloudfront.FunctionEventType = cloudfront.FunctionEventType.VIEWER_REQUEST,
+  ): cloudfront.FunctionAssociation {
+    return { eventType, function: this };
+  }
 }

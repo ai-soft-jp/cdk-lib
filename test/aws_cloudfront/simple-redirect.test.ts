@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as ais from '../../lib';
 import { event, getHandler } from './helpers/function-event';
 
@@ -17,6 +18,16 @@ describe('SimpleRedirect', () => {
     });
     Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
       FunctionCode: Match.stringLikeRegexp('https://redirect.test'),
+    });
+  });
+
+  test('functionAssociation', () => {
+    const func = new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
+      target: 'https://redirect.test/',
+    });
+    expect(func.functionAssociation()).toEqual({
+      eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+      function: func,
     });
   });
 

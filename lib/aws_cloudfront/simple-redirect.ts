@@ -1,5 +1,5 @@
 import * as path from 'node:path';
-import type * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import type { Construct } from 'constructs';
 import { Function } from './function';
 
@@ -25,5 +25,11 @@ export class SimpleRedirect extends Function {
       comment: props.comment ?? `[${scope.node.path}] SimpleRedirect: ${props.target}`,
       autoPublish: props.autoPublish,
     });
+  }
+
+  functionAssociation(
+    eventType: cloudfront.FunctionEventType = cloudfront.FunctionEventType.VIEWER_REQUEST,
+  ): cloudfront.FunctionAssociation {
+    return { eventType, function: this };
   }
 }
