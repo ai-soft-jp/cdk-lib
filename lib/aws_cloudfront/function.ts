@@ -22,6 +22,11 @@ export interface FunctionProps extends Omit<cloudfront.FunctionProps, 'code'> {
    * @default FunctionRuntime.JS_2_0
    */
   readonly runtime?: cloudfront.FunctionRuntime;
+  /**
+   * Serialize deployment to avoid rate exceeded errors
+   * @default true
+   */
+  readonly serializeDeployment?: boolean;
 }
 
 /**
@@ -37,6 +42,12 @@ export class Function extends cloudfront.Function {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
       ...resProps,
     });
+    if (props.serializeDeployment ?? true) {
+      const chain = cdk.Stack.of(this)
+        .node.findAll()
+        .findLast((c) => c !== this.node.defaultChild && cloudfront.CfnFunction.isCfnFunction(c));
+      if (chain) this.node.addDependency(chain);
+    }
   }
 
   functionAssociation(eventType: cloudfront.FunctionEventType): cloudfront.FunctionAssociation {
