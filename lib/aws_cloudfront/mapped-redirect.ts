@@ -2,6 +2,7 @@ import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import type { Construct } from 'constructs';
+import { clampString } from '../utils/string';
 import { Function } from './function';
 
 export interface MappedRedirectProps extends Pick<
@@ -43,7 +44,7 @@ export class MappedRedirect extends cdk.Resource implements cloudfront.IFunction
       },
       keyValueStore,
       functionName: props.functionName,
-      comment: props.comment ?? `[${this.node.path}] MappedRedirect: ${props.fallback}`,
+      comment: clampString(props.comment ?? `[${this.node.path}] MappedRedirect: ${props.fallback}`, 128),
       autoPublish: props.autoPublish,
     });
 

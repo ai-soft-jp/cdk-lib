@@ -44,6 +44,17 @@ describe('MappedRedirect', () => {
     });
   });
 
+  test('clamps comment to 128 characters', () => {
+    new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {
+      fallback: `https://redirect.test/${'x'.repeat(128)}`,
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
+      FunctionConfig: {
+        Comment: `[Default/MappedRedirect] MappedRedirect: https://redirect.test/${'x'.repeat(62)}...`,
+      },
+    });
+  });
+
   describe('mapped target', () => {
     test('absolute URI', async () => {
       const func = new ais.cloudfront.MappedRedirect(stack, 'MappedRedirect', {

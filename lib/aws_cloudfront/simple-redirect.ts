@@ -1,6 +1,7 @@
 import * as path from 'node:path';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import type { Construct } from 'constructs';
+import { clampString } from '../utils/string';
 import { Function } from './function';
 
 export interface SimpleRedirectProps extends Pick<
@@ -22,7 +23,7 @@ export class SimpleRedirect extends Function {
         STATUS_CODE: props.statusCode ?? 301,
       },
       functionName: props.functionName,
-      comment: props.comment ?? `[${scope.node.path}] SimpleRedirect: ${props.target}`,
+      comment: clampString(props.comment ?? `[${scope.node.path}] SimpleRedirect: ${props.target}`, 128),
       autoPublish: props.autoPublish,
     });
   }

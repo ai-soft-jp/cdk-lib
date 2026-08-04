@@ -21,6 +21,17 @@ describe('SimpleRedirect', () => {
     });
   });
 
+  test('clamps comment to 128 characters', () => {
+    new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
+      target: `https://redirect.test/${'x'.repeat(128)}`,
+    });
+    Template.fromStack(stack).hasResourceProperties('AWS::CloudFront::Function', {
+      FunctionConfig: {
+        Comment: `[Default] SimpleRedirect: https://redirect.test/${'x'.repeat(77)}...`,
+      },
+    });
+  });
+
   test('functionAssociation', () => {
     const func = new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', {
       target: 'https://redirect.test/',
