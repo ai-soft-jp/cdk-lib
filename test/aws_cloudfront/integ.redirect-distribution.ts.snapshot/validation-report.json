@@ -4,13 +4,13 @@
   "pluginReports": [
     {
       "pluginName": "CloudFormation Validate",
-      "pluginVersion": "1.5.0",
-      "conclusion": "success",
+      "pluginVersion": "1.6.0",
+      "conclusion": "failure",
       "violations": [
         {
           "ruleName": "F0001",
           "description": "Resources section must exist and be non-empty",
-          "severity": "warning",
+          "severity": "error",
           "ruleMetadata": {
             "category": "Structure"
           },
@@ -18,7 +18,7 @@
             {
               "constructPath": "integ-test/DefaultTest/DeployAssert",
               "constructFqn": "aws-cdk-lib.Stack",
-              "libraryVersion": "2.262.0"
+              "libraryVersion": "2.263.0"
             }
           ]
         }

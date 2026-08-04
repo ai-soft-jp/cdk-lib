@@ -98,7 +98,10 @@
       ]
      ]
     }
-   }
+   },
+   "DependsOn": [
+    "SimpleRedirection406163AA"
+   ]
   },
   "MappedDistribution94103D2F": {
    "Type": "AWS::CloudFront::Distribution",

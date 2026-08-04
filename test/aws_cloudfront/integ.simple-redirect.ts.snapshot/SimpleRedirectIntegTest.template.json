@@ -42,7 +42,10 @@
       ]
      ]
     }
-   }
+   },
+   "DependsOn": [
+    "RedirectNoKeepBECB29B3"
+   ]
   },
   "Redirect3027D140695": {
    "Type": "AWS::CloudFront::Function",
@@ -64,7 +67,10 @@
       ]
      ]
     }
-   }
+   },
+   "DependsOn": [
+    "RedirectKeep29F19F9E"
+   ]
   },
   "FetcherServiceRole4B89FD47": {
    "Type": "AWS::IAM::Role",

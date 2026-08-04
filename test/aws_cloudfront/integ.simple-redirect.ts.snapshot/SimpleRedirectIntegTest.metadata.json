@@ -163,17 +163,6 @@
     {
       "type": "aws:cdk:logicalId",
       "data": "Distribution830FAC52"
-    },
-    {
-      "type": "aws:cdk:acknowledged-rules",
-      "data": {
-        "CloudFormation-Validate::W9009": "distributionConfig is deprecated, but still in use for historical reasons"
-      },
-      "trace": [
-        "    ...new Distribution2 in aws-cdk-lib...",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.simple-redirect.ts:33:22)",
-        "    ...node internals, ts-node, ts-node..."
-      ]
     }
   ],
   "/SimpleRedirectIntegTest/Publish/Output{\"Ref\":\"FetcherEE1BEC21\"}": [

@@ -101,18 +101,6 @@
     {
       "type": "aws:cdk:logicalId",
       "data": "SimpleDistribution1AAFECBF"
-    },
-    {
-      "type": "aws:cdk:acknowledged-rules",
-      "data": {
-        "CloudFormation-Validate::W9009": "distributionConfig is deprecated, but still in use for historical reasons"
-      },
-      "trace": [
-        "    ...new Distribution2 in aws-cdk-lib...",
-        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:70:22)",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.redirect-distribution.ts:9:1)",
-        "    ...node internals, ts-node, ts-node..."
-      ]
     }
   ],
   "/RedirectDistributionIntegTest/Mapped/Redirection/KeyValueStore": [
@@ -138,36 +126,12 @@
     {
       "type": "aws:cdk:logicalId",
       "data": "MappedDistribution94103D2F"
-    },
-    {
-      "type": "aws:cdk:acknowledged-rules",
-      "data": {
-        "CloudFormation-Validate::W9009": "distributionConfig is deprecated, but still in use for historical reasons"
-      },
-      "trace": [
-        "    ...new Distribution2 in aws-cdk-lib...",
-        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:70:22)",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.redirect-distribution.ts:12:1)",
-        "    ...node internals, ts-node, ts-node..."
-      ]
     }
   ],
   "/RedirectDistributionIntegTest/Custom/Distribution/Resource": [
     {
       "type": "aws:cdk:logicalId",
       "data": "CustomDistributionA521CF7A"
-    },
-    {
-      "type": "aws:cdk:acknowledged-rules",
-      "data": {
-        "CloudFormation-Validate::W9009": "distributionConfig is deprecated, but still in use for historical reasons"
-      },
-      "trace": [
-        "    ...new Distribution2 in aws-cdk-lib...",
-        "    at new RedirectDistribution (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/redirect-distribution.ts:70:22)",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.redirect-distribution.ts:17:1)",
-        "    ...node internals, ts-node, ts-node..."
-      ]
     }
   ],
   "/RedirectDistributionIntegTest/Mapped/Redirection/KeyValueStore/Resource": [

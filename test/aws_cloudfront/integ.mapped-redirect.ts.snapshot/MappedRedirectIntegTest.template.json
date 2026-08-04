@@ -95,7 +95,10 @@
       ]
      ]
     }
-   }
+   },
+   "DependsOn": [
+    "Redirect90F84D65"
+   ]
   },
   "FetcherServiceRole4B89FD47": {
    "Type": "AWS::IAM::Role",
