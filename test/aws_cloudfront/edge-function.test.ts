@@ -32,7 +32,7 @@ describe('EdgeFunction', () => {
         Environment: Match.absent(),
       });
       Template.fromStack(stack).hasResourceProperties('AWS::Lambda::Version', {
-        FunctionName: { Ref: 'EdgeFunctionHandler45772967' },
+        FunctionName: { Ref: 'FunctionEdgeFunctionHandler7FFDACBB' },
       });
     });
 
@@ -80,7 +80,7 @@ describe('EdgeFunction', () => {
         Environment: Match.absent(),
       });
       Template.fromStack(edgeStack).hasResourceProperties('AWS::Lambda::Version', {
-        FunctionName: { Ref: 'EdgeFunctionc8c1c576f126cdf8046ee92318cc82dc1fafc95df6HandlerC6C936D7' },
+        FunctionName: { Ref: 'Functionc8c1c576f126cdf8046ee92318cc82dc1fafc95df6apnortheast1Handler5414AEF2' },
       });
     });
 

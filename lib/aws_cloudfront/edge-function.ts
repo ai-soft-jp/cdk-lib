@@ -25,10 +25,10 @@ export class EdgeFunction extends Construct implements iam.IGrantable {
 
     const scopeStack = cdk.Stack.of(scope);
     const crossEnv = scopeStack.region !== 'us-east-1';
-    const edgeStack = crossEnv ? VirginiaStack.lookup(scopeStack, 'EdgeFunctions') : scopeStack;
-    const edgeId = crossEnv ? `EdgeFunction-${this.node.addr}` : 'EdgeFunction';
+    const edgeScope = crossEnv ? VirginiaStack.lookup(scopeStack, 'EdgeFunctions') : this;
+    const edgeId = crossEnv ? `${id}:${this.node.addr}:${scopeStack.region}` : 'EdgeFunction';
 
-    this.body = new EdgeFunctionBody(edgeStack, edgeId, props);
+    this.body = new EdgeFunctionBody(edgeScope, edgeId, props);
   }
 
   get functionVersion() {
