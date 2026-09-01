@@ -39,7 +39,7 @@ export class InstanceConnectEndpoint extends cdk.Resource implements ec2.IConnec
       subnetType: ec2.SubnetType.PUBLIC,
       onePerAz: true,
     });
-    const subnetId = subnets.isPendingLookup ? 'subnet-deadbeef' : subnets.subnetIds[0]!;
+    const subnetId = subnets.subnetIds[0] ?? 'subnet-deadbeef';
 
     const securityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
       vpc: props.vpc,
