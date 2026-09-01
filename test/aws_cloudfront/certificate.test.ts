@@ -48,10 +48,12 @@ describe('Certificate', () => {
       );
     });
 
-    test('consume certificateId', () => {
+    test('consume certificateArn', () => {
       const certificate = new ais.cloudfront.Certificate(stack, 'Certificate', { zone, domainName: 'www.example.com' });
-      const consumeStack = new cdk.Stack(app, 'ComsumeStack', { env: { region: 'ap-northeast-1' } });
-      new ssm.StringParameter(consumeStack, 'CertificateId', { stringValue: certificate.certificateRef.certificateId });
+      const consumeStack = new cdk.Stack(app, 'ConsumeStack', { env: { region: 'ap-northeast-1' } });
+      new ssm.StringParameter(consumeStack, 'CertificateArn', {
+        stringValue: certificate.certificateRef.certificateArn,
+      });
       Template.fromStack(consumeStack).hasResourceProperties('AWS::SSM::Parameter', {
         Type: 'String',
         Value: {

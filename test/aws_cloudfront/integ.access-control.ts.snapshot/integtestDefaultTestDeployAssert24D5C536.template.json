@@ -36,7 +36,7 @@
     },
     "expected": "{\"$ObjectLike\":{\"status\":200}}",
     "flattenResponse": "false",
-    "salt": "1784096506309"
+    "salt": "1788242464027"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
@@ -123,7 +123,7 @@
     },
     "expected": "{\"$ObjectLike\":{\"status\":401}}",
     "flattenResponse": "false",
-    "salt": "1784096506312"
+    "salt": "1788242464028"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"

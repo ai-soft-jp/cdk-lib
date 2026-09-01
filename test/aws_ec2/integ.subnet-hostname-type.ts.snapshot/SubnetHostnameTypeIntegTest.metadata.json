@@ -63,10 +63,6 @@
     {
       "type": "aws:cdk:analytics:method",
       "data": {}
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {}
     }
   ],
   "/SubnetHostnameTypeIntegTest/Vpc/PublicSubnet2": [
@@ -91,10 +87,6 @@
         "ipv6CidrBlock": "*",
         "assignIpv6AddressOnCreation": true
       }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {}
     },
     {
       "type": "aws:cdk:analytics:method",

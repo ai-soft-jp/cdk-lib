@@ -169,10 +169,6 @@
     {
       "type": "aws:cdk:analytics:method",
       "data": {}
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {}
     }
   ],
   "/PublicDnsNameIntegTest/Vpc/PublicSubnet2": [
@@ -197,10 +193,6 @@
         "ipv6CidrBlock": "*",
         "assignIpv6AddressOnCreation": true
       }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {}
     },
     {
       "type": "aws:cdk:analytics:method",

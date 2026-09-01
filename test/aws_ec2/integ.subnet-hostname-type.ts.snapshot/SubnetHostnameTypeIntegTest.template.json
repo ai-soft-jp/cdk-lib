@@ -146,7 +146,8 @@
     }
    },
    "DependsOn": [
-    "Vpcipv6cidr40D3CB78"
+    "Vpcipv6cidr40D3CB78",
+    "VpcVPCGWBF912B6E"
    ]
   },
   "VpcPublicSubnet2Subnet691E08A3": {
@@ -271,7 +272,8 @@
     }
    },
    "DependsOn": [
-    "Vpcipv6cidr40D3CB78"
+    "Vpcipv6cidr40D3CB78",
+    "VpcVPCGWBF912B6E"
    ]
   },
   "VpcIsolatedSubnet1SubnetE48C5737": {
