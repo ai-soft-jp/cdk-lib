@@ -34,12 +34,12 @@ export interface CertificateProps {
   readonly certificateName?: string;
   /**
    * Specifies the algorithm of the public and private key pair that your certificate uses to encrypt data.
-   * @default KeyAlgorithm.RSA_2048
+   * @default KeyAlgorithm.EC_PRIME256V1
    */
   readonly keyAlgorithm?: acm.KeyAlgorithm;
   /**
    * Specifies the removal policy.
-   * @default RemovalPolicy.DESTROY
+   * @default RemovalPolicy.RETAIN_ON_UPDATE_OR_DELETE
    */
   readonly removalPolicy?: cdk.RemovalPolicy;
   /**
@@ -71,9 +71,9 @@ export class Certificate extends Construct implements acm.ICertificateRef {
         ? acm.CertificateValidation.fromDnsMultiZone(props.zones)
         : acm.CertificateValidation.fromDns(props.zone),
       certificateName: props.certificateName ?? this.node.path,
-      keyAlgorithm: props.keyAlgorithm,
+      keyAlgorithm: props.keyAlgorithm ?? acm.KeyAlgorithm.EC_PRIME256V1,
     });
-    if (props.removalPolicy) certificate.applyRemovalPolicy(props.removalPolicy);
+    certificate.applyRemovalPolicy(props.removalPolicy ?? cdk.RemovalPolicy.RETAIN_ON_UPDATE_OR_DELETE);
     cdk.CrossStackReferences.of(certificate).produce(props.crossStackReferehceStrength ?? cdk.ReferenceStrength.WEAK);
 
     this.env = certificate.env;

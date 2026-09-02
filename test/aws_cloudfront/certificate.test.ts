@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import * as ais from '../../lib';
@@ -63,6 +64,60 @@ describe('Certificate', () => {
             StackName: 'TestStackCertificateStackFBF44F33',
           },
         },
+      });
+    });
+  });
+
+  describe('props', () => {
+    let stack: cdk.Stack;
+    beforeEach(() => {
+      stack = new cdk.Stack(undefined, undefined, { env: { region: 'us-east-1' } });
+    });
+
+    test('keyAlgorithm is prime256v1 by default', () => {
+      new ais.cloudfront.Certificate(stack, 'Certificate', { domainName: 'www.example.com' });
+      Template.fromStack(stack).hasResourceProperties('AWS::CertificateManager::Certificate', {
+        KeyAlgorithm: 'EC_prime256v1',
+      });
+    });
+
+    test('keyAlgorithm can be rsa 2048', () => {
+      new ais.cloudfront.Certificate(stack, 'Certificate', {
+        domainName: 'www.example.com',
+        keyAlgorithm: acm.KeyAlgorithm.RSA_2048,
+      });
+      Template.fromStack(stack).hasResourceProperties('AWS::CertificateManager::Certificate', {
+        KeyAlgorithm: 'RSA_2048',
+      });
+    });
+
+    test('removalPolicy is RetainExceptOnCreate by default', () => {
+      new ais.cloudfront.Certificate(stack, 'Certificate', { domainName: 'www.example.com' });
+      Template.fromStack(stack).hasResource('AWS::CertificateManager::Certificate', {
+        UpdateReplacePolicy: 'Retain',
+        DeletionPolicy: 'RetainExceptOnCreate',
+      });
+    });
+
+    test('removalPolicy can be Destroy', () => {
+      new ais.cloudfront.Certificate(stack, 'Certificate', {
+        domainName: 'www.example.com',
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      });
+      Template.fromStack(stack).hasResource('AWS::CertificateManager::Certificate', {
+        UpdateReplacePolicy: 'Delete',
+        DeletionPolicy: 'Delete',
+      });
+    });
+
+    test('removalPolicy can be Retain', () => {
+      new ais.cloudfront.Certificate(stack, 'Certificate', {
+        domainName: 'www.example.com',
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
+      });
+      Template.fromStack(stack).hasResource('AWS::CertificateManager::Certificate', {
+        UpdateReplacePolicy: 'Retain',
+        DeletionPolicy: 'Retain',
       });
     });
   });
