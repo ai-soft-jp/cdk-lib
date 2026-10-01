@@ -6,6 +6,7 @@ import * as ais from '../../dist';
 
 const app = new cdk.App();
 const stack = new cdk.Stack(app, 'QuotaAlarmsIntegTest');
+cdk.Validations.of(app).acknowledge({ id: 'CloudFormation-Validate::F0001', reason: 'no assertions' });
 
 const topic = new sns.Topic(stack, 'Topic');
 const alarms = new ais.ses.QuotaAlarms(stack, 'QuotaAlarms', { version: 'IntegTest' });
