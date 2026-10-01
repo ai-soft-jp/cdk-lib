@@ -36,7 +36,7 @@
     },
     "expected": "{\"$ObjectLike\":{\"status\":200}}",
     "flattenResponse": "false",
-    "salt": "1788242464027"
+    "salt": "1790841905548"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
@@ -71,7 +71,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6ffc47b88143a52aa50e26c31da776854b28dff0e45b1a97d7c1e530d59590ad.zip"
+     "S3Key": "1cb5e40306bc513c36dbb4ed026180fe885d152140a0f128cd7eed538f3b9420.zip"
     },
     "Timeout": 120,
     "Handler": "index.handler",
@@ -123,7 +123,7 @@
     },
     "expected": "{\"$ObjectLike\":{\"status\":401}}",
     "flattenResponse": "false",
-    "salt": "1788242464028"
+    "salt": "1790841905549"
    },
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"

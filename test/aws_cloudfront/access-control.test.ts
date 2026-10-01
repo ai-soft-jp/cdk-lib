@@ -185,6 +185,35 @@ describe('AccessControl', () => {
       });
     });
 
+    test('paths', () => {
+      const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
+        basicAuth: ['root:pass'],
+        paths: [
+          { path: '/no-restrict/**' },
+          { path: '/auth1/**', basicAuth: ['user:pass'] },
+          { path: '/auth2/**', basicAuth: ['another:p@ss'] },
+          { path: '/ip1/**', remoteIp: ['192.0.2.0/24'] },
+          { path: '/ip2/**', remoteIp: ['2001:db8:1::/56'] },
+        ],
+      });
+      const handler = getHandler(stack, func);
+      expect(handler(event({ path: '/fallback' }))).toMatchObject({ statusCode: 401 });
+      expect(handler(event({ path: '/fallback', auth: 'root:pass' }))).toMatchObject({ method: 'GET' });
+      expect(handler(event({ path: '/no-restrict/' }))).toMatchObject({ method: 'GET' });
+      expect(handler(event({ path: '/auth1/foo' }))).toMatchObject({ statusCode: 401 });
+      expect(handler(event({ path: '/auth1/foo', auth: 'user:pass' }))).toMatchObject({});
+      expect(handler(event({ path: '/auth1/foo', auth: 'another:p@ss' }))).toMatchObject({ statusCode: 401 });
+      expect(handler(event({ path: '/auth2/foo' }))).toMatchObject({ statusCode: 401 });
+      expect(handler(event({ path: '/auth2/foo', auth: 'user:pass' }))).toMatchObject({ statusCode: 401 });
+      expect(handler(event({ path: '/auth2/foo', auth: 'another:p@ss' }))).toMatchObject({ method: 'GET' });
+      expect(handler(event({ path: '/ip1/foo' }))).toMatchObject({ statusCode: 403 });
+      expect(handler(event({ path: '/ip1/foo', ip: '192.0.2.1' }))).toMatchObject({ method: 'GET' });
+      expect(handler(event({ path: '/ip1/foo', ip: '2001:db8:1::2' }))).toMatchObject({ statusCode: 403 });
+      expect(handler(event({ path: '/ip2/foo' }))).toMatchObject({ statusCode: 403 });
+      expect(handler(event({ path: '/ip2/foo', ip: '192.0.2.1' }))).toMatchObject({ statusCode: 403 });
+      expect(handler(event({ path: '/ip2/foo', ip: '2001:db8:1::2' }))).toMatchObject({ method: 'GET' });
+    });
+
     test('custom 403 html', () => {
       const func = new ais.cloudfront.AccessControl(stack, 'AccessControl', {
         remoteIp: ['192.0.2.0/24'],

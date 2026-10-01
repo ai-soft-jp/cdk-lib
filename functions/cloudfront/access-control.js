@@ -1,11 +1,7 @@
 /* CloudFront Access Control */
 
-/* global __BASIC_AUTH __REMOTE_IP __SATISFY FORBIDDEN_HTML UNAUTHORIZED_HTML */
-const BASIC_AUTH = __BASIC_AUTH;
-const REMOTE_IP = __REMOTE_IP;
-const SATISFY = __SATISFY;
-const REMOTE_IPv4 = REMOTE_IP && REMOTE_IP[4] ? new RegExp(REMOTE_IP[4]) : null;
-const REMOTE_IPv6 = REMOTE_IP && REMOTE_IP[6] ? new RegExp(REMOTE_IP[6]) : null;
+/* global PATHS FORBIDDEN_HTML UNAUTHORIZED_HTML */
+const PATHS_RE = PATHS.map((path) => [new RegExp(path[0]), path[1]]);
 
 const FORBIDDEN_RESPONSE = {
   statusCode: 403,
@@ -27,41 +23,67 @@ const UNAUTHORIZED_RESPONSE = {
 function handler(event) {
   const request = event.request;
 
-  const ipValid = REMOTE_IP ? checkRemoteIp(event.viewer.ip) : true;
-  const authValid = BASIC_AUTH ? checkBasicAuth(request) : true;
-  if (SATISFY === 'ANY') {
-    if (!ipValid && !authValid) return UNAUTHORIZED_RESPONSE;
-  } else {
-    if (!ipValid) return FORBIDDEN_RESPONSE;
-    if (!authValid) return UNAUTHORIZED_RESPONSE;
+  for (let i = 0; i < PATHS_RE.length; ++i) {
+    if (PATHS_RE[i][0].test(request.uri)) {
+      return check(event, PATHS_RE[i][1]) ?? request;
+    }
   }
 
   return request;
 }
 
 /**
- * @param {AWSCloudFrontFunction.Request} request
+ * @param {AWSCloudFrontFunction.Event} event
+ * @param {{basicAuth:string[],remoteIp:{4?:string,6?:string},satisfy:string}} options
  */
-function checkBasicAuth(request) {
+function check(event, options) {
+  if (!options) return;
+  const ipValid = options.remoteIp ? checkRemoteIp(event.viewer.ip, canonicalizeRemoteIp(options.remoteIp)) : true;
+  const authValid = options.basicAuth ? checkBasicAuth(event.request, options.basicAuth) : true;
+  if (options.satisfy === 'ANY') {
+    if (!ipValid && !authValid) return UNAUTHORIZED_RESPONSE;
+  } else {
+    if (!ipValid) return FORBIDDEN_RESPONSE;
+    if (!authValid) return UNAUTHORIZED_RESPONSE;
+  }
+}
+
+/**
+ * @param {AWSCloudFrontFunction.Request} request
+ * @param {string[]} basicAuth
+ */
+function checkBasicAuth(request, basicAuth) {
   const authorization = request.headers.authorization;
   if (authorization) {
     const auth = authorization.value.split(/\s+/);
-    return auth.length === 2 && auth[0].toLowerCase() === 'basic' && matchAuth(auth[1]);
+    return auth.length === 2 && auth[0].toLowerCase() === 'basic' && matchAuth(auth[1], basicAuth);
   }
 }
 
 /**
  * @param {string} actual
+ * @param {string[]} basicAuth
  */
-function matchAuth(actual) {
-  return BASIC_AUTH.some((expected) => expected === actual);
+function matchAuth(actual, basicAuth) {
+  return basicAuth.some((expected) => expected === actual);
+}
+
+/**
+ * @param {{4?:string,6?:string}} remoteIp
+ * @returns {{4?:RegExp,6?:RegExp}}
+ */
+function canonicalizeRemoteIp(remoteIp) {
+  if (remoteIp[4] && typeof remoteIp[4] === 'string') remoteIp[4] = new RegExp(remoteIp[4]);
+  if (remoteIp[6] && typeof remoteIp[6] === 'string') remoteIp[6] = new RegExp(remoteIp[6]);
+  return remoteIp;
 }
 
 /**
  * @param {string} ip
+ * @param {{4?:RegExp,6?:RegExp}} remoteIp
  */
-function checkRemoteIp(ip) {
-  return ip.includes(':') ? REMOTE_IPv6 && REMOTE_IPv6.test(ip6bin(ip)) : REMOTE_IPv4 && REMOTE_IPv4.test(ip4bin(ip));
+function checkRemoteIp(ip, remoteIp) {
+  return ip.includes(':') ? remoteIp[6]?.test(ip6bin(ip)) : remoteIp[4]?.test(ip4bin(ip));
 }
 
 /**
