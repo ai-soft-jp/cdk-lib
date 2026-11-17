@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import * as cdk from 'aws-cdk-lib';
-import type * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import type { Construct } from 'constructs';
 import { makeRe } from 'minimatch';
@@ -98,6 +98,12 @@ export class AccessControl extends Function {
     if (pathsOptions.length === 0) {
       throw new cdk.ValidationError(lit`AccessControlRequired`, 'The access control options must be specified.', this);
     }
+  }
+
+  functionAssociation(
+    eventType: cloudfront.FunctionEventType = cloudfront.FunctionEventType.VIEWER_REQUEST,
+  ): cloudfront.FunctionAssociation {
+    return { eventType, function: this };
   }
 }
 
