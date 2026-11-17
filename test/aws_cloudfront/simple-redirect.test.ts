@@ -77,4 +77,10 @@ describe('SimpleRedirect', () => {
     const handler = getHandler(stack, func);
     expect(handler(event({}))).toMatchObject({ statusCode: 302 });
   });
+
+  test('throws on invalid target URL', () => {
+    expect(() => {
+      new ais.cloudfront.SimpleRedirect(stack, 'SimpleRedirect', { target: 'redirect.test' });
+    }).toThrow('Invalid URL');
+  });
 });

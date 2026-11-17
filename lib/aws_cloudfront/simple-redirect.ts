@@ -15,6 +15,9 @@ export interface SimpleRedirectProps extends Pick<
 
 export class SimpleRedirect extends Function {
   constructor(scope: Construct, id: string, props: SimpleRedirectProps) {
+    // Validate target URL
+    new URL(props.target);
+
     super(scope, id, {
       entry: path.resolve(__dirname, '../../functions/cloudfront/simple-redirect.js'),
       define: {
