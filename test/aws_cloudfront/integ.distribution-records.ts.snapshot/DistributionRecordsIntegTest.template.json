@@ -14,7 +14,7 @@
       "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
       "Compress": true,
       "TargetOriginId": "DistributionRecordsIntegTestDistributionOrigin1E402EF3C",
-      "ViewerProtocolPolicy": "allow-all"
+      "ViewerProtocolPolicy": "redirect-to-https"
      },
      "Enabled": true,
      "HttpVersion": "http2",

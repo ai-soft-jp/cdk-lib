@@ -197,7 +197,7 @@
        ],
        "PathPattern": "/redirect-302/*",
        "TargetOriginId": "MappedRedirectIntegTestDistributionOrigin10759E57B",
-       "ViewerProtocolPolicy": "allow-all"
+       "ViewerProtocolPolicy": "redirect-to-https"
       }
      ],
      "DefaultCacheBehavior": {
@@ -215,7 +215,7 @@
        }
       ],
       "TargetOriginId": "MappedRedirectIntegTestDistributionOrigin10759E57B",
-      "ViewerProtocolPolicy": "allow-all"
+      "ViewerProtocolPolicy": "redirect-to-https"
      },
      "DefaultRootObject": "index.html",
      "Enabled": true,

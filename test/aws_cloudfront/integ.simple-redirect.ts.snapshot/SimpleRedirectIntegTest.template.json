@@ -169,7 +169,7 @@
        ],
        "PathPattern": "/keep-path/*",
        "TargetOriginId": "SimpleRedirectIntegTestDistributionOrigin17F2C0D87",
-       "ViewerProtocolPolicy": "allow-all"
+       "ViewerProtocolPolicy": "redirect-to-https"
       },
       {
        "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
@@ -187,7 +187,7 @@
        ],
        "PathPattern": "/redirect-302/*",
        "TargetOriginId": "SimpleRedirectIntegTestDistributionOrigin17F2C0D87",
-       "ViewerProtocolPolicy": "allow-all"
+       "ViewerProtocolPolicy": "redirect-to-https"
       }
      ],
      "DefaultCacheBehavior": {
@@ -205,7 +205,7 @@
        }
       ],
       "TargetOriginId": "SimpleRedirectIntegTestDistributionOrigin17F2C0D87",
-      "ViewerProtocolPolicy": "allow-all"
+      "ViewerProtocolPolicy": "redirect-to-https"
      },
      "DefaultRootObject": "index.html",
      "Enabled": true,

@@ -1,5 +1,5 @@
 {
-  "version": "54.0.0",
+  "version": "55.0.0",
   "files": {
     "1df1e0b31b8e79a4e53a20b3afcf25558f47d0533e9785f7b6ddddae347c7a85": {
       "displayName": "KVS/ImportSource",
@@ -15,16 +15,16 @@
         }
       }
     },
-    "f6f40184f3df03c4745583e45dabbb95f28b46d04bb0b34ac96e95204482d6d3": {
+    "69b295190f9a500222d098c36923c8195daa7f13991e1a9e9e06efcf3c769b71": {
       "displayName": "CloudFrontFunctionIntegTest Template",
       "source": {
         "path": "CloudFrontFunctionIntegTest.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-current_region-0e3ad313": {
+        "current_account-current_region-a23424d2": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "f6f40184f3df03c4745583e45dabbb95f28b46d04bb0b34ac96e95204482d6d3.json",
+          "objectKey": "69b295190f9a500222d098c36923c8195daa7f13991e1a9e9e06efcf3c769b71.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

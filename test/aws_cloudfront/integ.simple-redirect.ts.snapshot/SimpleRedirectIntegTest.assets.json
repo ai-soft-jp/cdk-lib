@@ -1,5 +1,5 @@
 {
-  "version": "54.0.0",
+  "version": "55.0.0",
   "files": {
     "0591298ed39d2513c948616ce4d699a46bb8dc8e0b5c7b266987f0e00a899c00": {
       "displayName": "Fetcher/Code",
@@ -15,16 +15,16 @@
         }
       }
     },
-    "56e4211292ef4d61f7620258ee10333f7945ae7a4f6ff51154d743d150d427d0": {
+    "6c457a1dd21910272f6eb04e79cdd06960c91ba12b174821533effe8eac427cc": {
       "displayName": "SimpleRedirectIntegTest Template",
       "source": {
         "path": "SimpleRedirectIntegTest.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-current_region-88350961": {
+        "current_account-current_region-4fba989c": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "56e4211292ef4d61f7620258ee10333f7945ae7a4f6ff51154d743d150d427d0.json",
+          "objectKey": "6c457a1dd21910272f6eb04e79cdd06960c91ba12b174821533effe8eac427cc.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

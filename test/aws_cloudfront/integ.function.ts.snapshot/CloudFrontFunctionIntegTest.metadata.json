@@ -1,4 +1,10 @@
 {
+  "/CloudFrontFunctionIntegTest": [
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "CloudFrontFunctionIntegTest.template.json"
+    }
+  ],
   "/CloudFrontFunctionIntegTest/KVS": [
     {
       "type": "aws:cdk:analytics:construct",

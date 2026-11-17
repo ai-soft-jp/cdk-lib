@@ -1,5 +1,5 @@
 {
-  "version": "54.0.0",
+  "version": "55.0.0",
   "artifacts": {
     "VpcOriginSecurityGroupIntegTest.assets": {
       "type": "cdk:asset-manifest",
@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/d36de9cb2a039d0c7ca0d8616226cffab11e30b3c6270331a58cef2b43b76516.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/de85f5d3ba34060cfc9af3448fe7b657634f62a05cd024df19f43e86e12b4dc0.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -53,7 +53,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/8d1ac77fb29f74b4bda57d7bbc016e9e0b580b247a9059fbba95a7166d8569ab.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/91eb6bfb215241bed5237856b7259bbb316c4c86249521896d65d26acdfbac34.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -607,14 +607,41 @@
           "@aws-cdk/core:defaultCrossStackReferences": {
             "userValue": "weak",
             "recommendedValue": "weak",
-            "explanation": "Controls whether cross-region stack references are strong, weak, or both",
+            "explanation": "Controls whether cross-stack references are strong, weak, or both",
             "unconfiguredBehavesLike": {
               "v2": "strong"
+            }
+          },
+          "@aws-cdk/core:validateAgainstDefaultRules": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Treat CloudFormation Validate findings as errors"
+          },
+          "@aws-cdk/aws-ecs:removeEmptyLoadBalancers": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Render an empty `LoadBalancers` array on an ECS service that has no target groups"
+          },
+          "@aws-cdk/aws-cloudfront:defaultViewerProtocolPolicyRedirectToHttps": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Default Distribution cache behaviors to redirect HTTP viewer requests to HTTPS"
+          },
+          "@aws-cdk/aws-apigateway:logGroupDestinationArnWithoutWildcard": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Render the API Gateway access log destination ARN without the trailing `:*`"
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:evaluateExpressionDedicatedFunction": {
+            "recommendedValue": true,
+            "explanation": "When enabled, each EvaluateExpression task gets its own Lambda function",
+            "unconfiguredBehavesLike": {
+              "v2": true
             }
           }
         }
       }
     }
   },
-  "minimumCliVersion": "2.1131.0"
+  "minimumCliVersion": "2.1148.1"
 }

@@ -1,4 +1,10 @@
 {
+  "/AccessControlIntegTest": [
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "AccessControlIntegTest.template.json"
+    }
+  ],
   "/AccessControlIntegTest/Bucket": [
     {
       "type": "aws:cdk:analytics:construct",

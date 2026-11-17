@@ -1,4 +1,10 @@
 {
+  "/MappedRedirectIntegTest": [
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "MappedRedirectIntegTest.template.json"
+    }
+  ],
   "/MappedRedirectIntegTest/Fetcher": [
     {
       "type": "aws:cdk:analytics:construct",

@@ -86,7 +86,7 @@
        }
       ],
       "TargetOriginId": "CloudFrontFunctionIntegTestDistributionOrigin1D2C753C9",
-      "ViewerProtocolPolicy": "allow-all"
+      "ViewerProtocolPolicy": "redirect-to-https"
      },
      "Enabled": true,
      "HttpVersion": "http2",

@@ -161,7 +161,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+     "S3Key": "6dba3da2af96b69a187d689b326e5272b9abc8671c0427845a8bed243e02877d.zip"
     },
     "Timeout": 900,
     "MemorySize": 128,
@@ -218,9 +218,6 @@
     ],
     "SourceObjectKeys": [
      "ccf5970575b8a0b1bf6dc3190dd22c1f2da26de0a5273574c9a9e8e282790de9.zip"
-    ],
-    "SourceMarkers": [
-     {}
     ],
     "DestinationBucketName": {
      "Ref": "Bucket83908E77"
@@ -367,7 +364,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "35328da138f26fbd9160297abc9a2522d93dbf75878cd5114a9c050419fc1ce0.zip"
+     "S3Key": "a12efc822af4855efaddc35cac5d42dfa7a132ded579c17dbca95a4a89d0db43.zip"
     },
     "Environment": {
      "Variables": {
@@ -466,7 +463,7 @@
        }
       ],
       "TargetOriginId": "AccessControlIntegTestDistributionOrigin149717C44",
-      "ViewerProtocolPolicy": "allow-all"
+      "ViewerProtocolPolicy": "redirect-to-https"
      },
      "DefaultRootObject": "index.html",
      "Enabled": true,

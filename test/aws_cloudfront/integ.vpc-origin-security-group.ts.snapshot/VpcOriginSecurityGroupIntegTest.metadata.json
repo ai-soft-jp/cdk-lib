@@ -1,4 +1,21 @@
 {
+  "/VpcOriginSecurityGroupIntegTest": [
+    {
+      "type": "aws:cdk:acknowledged-rules",
+      "data": {
+        "CloudFormation-Validate::W3010": "Literal AZs in template are the result of accessing stack.availabilityZones, this is expected and safe"
+      },
+      "trace": [
+        "    ...new Vpc2 in aws-cdk-lib...",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.vpc-origin-security-group.ts:11:13)",
+        "    ...node internals, ts-node, ts-node..."
+      ]
+    },
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "VpcOriginSecurityGroupIntegTest.template.json"
+    }
+  ],
   "/VpcOriginSecurityGroupIntegTest/Vpc": [
     {
       "type": "aws:cdk:analytics:construct",
@@ -126,7 +143,10 @@
       "type": "aws:cdk:analytics:method",
       "data": {
         "addNatGateway": [
-          "*"
+          "*",
+          {
+            "maxDrainDuration": "*"
+          }
         ]
       }
     }

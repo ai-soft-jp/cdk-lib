@@ -1,5 +1,5 @@
 {
-  "version": "54.0.0",
+  "version": "55.0.0",
   "files": {
     "71f17da8a2e6eabcdf3baf4c014de470165f2e83cf414be0b5025c3ee24db767": {
       "displayName": "Redirect/KeyValueStore/ImportSource",
@@ -29,16 +29,16 @@
         }
       }
     },
-    "dd381e1c7ad6fb2580556022f8ae0ba34caaae51a43d32a8d8a395180250b730": {
+    "af4ab336228588e457d7b3c8bdf758803d8059b80f1f4b3a845d66d1ce0d665f": {
       "displayName": "MappedRedirectIntegTest Template",
       "source": {
         "path": "MappedRedirectIntegTest.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-current_region-caf47b4d": {
+        "current_account-current_region-8c74da1b": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "dd381e1c7ad6fb2580556022f8ae0ba34caaae51a43d32a8d8a395180250b730.json",
+          "objectKey": "af4ab336228588e457d7b3c8bdf758803d8059b80f1f4b3a845d66d1ce0d665f.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

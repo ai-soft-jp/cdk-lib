@@ -1,4 +1,10 @@
 {
+  "/SimpleRedirectIntegTest": [
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "SimpleRedirectIntegTest.template.json"
+    }
+  ],
   "/SimpleRedirectIntegTest/RedirectNoKeep": [
     {
       "type": "aws:cdk:analytics:construct",

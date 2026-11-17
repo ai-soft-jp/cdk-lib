@@ -1,4 +1,10 @@
 {
+  "/DistributionRecordsIntegTest": [
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "DistributionRecordsIntegTest.template.json"
+    }
+  ],
   "/DistributionRecordsIntegTest/HostedZone": [
     {
       "type": "aws:cdk:analytics:construct",
@@ -25,8 +31,8 @@
       },
       "trace": [
         "    ...Validations.acknowledge in aws-cdk-lib...",
-        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:89:30)",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:19:1)",
+        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:90:30)",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:20:1)",
         "    ...node internals, ts-node, ts-node..."
       ]
     }
@@ -45,8 +51,8 @@
       },
       "trace": [
         "    ...Validations.acknowledge in aws-cdk-lib...",
-        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:89:30)",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:24:1)",
+        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:90:30)",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:25:1)",
         "    ...node internals, ts-node, ts-node..."
       ]
     }
@@ -59,8 +65,8 @@
       },
       "trace": [
         "    ...Validations.acknowledge in aws-cdk-lib...",
-        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:89:30)",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:30:1)",
+        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:90:30)",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:31:1)",
         "    ...node internals, ts-node, ts-node..."
       ]
     }
@@ -73,8 +79,8 @@
       },
       "trace": [
         "    ...Validations.acknowledge in aws-cdk-lib...",
-        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:89:30)",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:36:1)",
+        "    at new DistributionRecords (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_cloudfront/distribution-records.ts:90:30)",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:37:1)",
         "    ...node internals, ts-node, ts-node..."
       ]
     }
@@ -101,17 +107,6 @@
     {
       "type": "aws:cdk:logicalId",
       "data": "Distribution830FAC52"
-    },
-    {
-      "type": "aws:cdk:acknowledged-rules",
-      "data": {
-        "CloudFormation-Validate::W9009": "distributionConfig is deprecated, but still in use for historical reasons"
-      },
-      "trace": [
-        "    ...new Distribution2 in aws-cdk-lib...",
-        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_cloudfront/integ.distribution-records.ts:13:22)",
-        "    ...node internals, ts-node, ts-node..."
-      ]
     }
   ],
   "/DistributionRecordsIntegTest/Records/A": [
