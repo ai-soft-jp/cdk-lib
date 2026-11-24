@@ -3,7 +3,7 @@
   "TopicBFC7AF6E": {
    "Type": "AWS::SNS::Topic"
   },
-  "QuotaAlarmsHandlerServiceRoleFCC0E156": {
+  "FuncServiceRole49680D06": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -34,54 +34,26 @@
     ]
    }
   },
-  "QuotaAlarmsHandlerServiceRoleDefaultPolicy1DBA1005": {
-   "Type": "AWS::IAM::Policy",
-   "Properties": {
-    "PolicyDocument": {
-     "Statement": [
-      {
-       "Action": "ses:GetAccount",
-       "Effect": "Allow",
-       "Resource": "*"
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "PolicyName": "QuotaAlarmsHandlerServiceRoleDefaultPolicy1DBA1005",
-    "Roles": [
-     {
-      "Ref": "QuotaAlarmsHandlerServiceRoleFCC0E156"
-     }
-    ]
-   }
-  },
-  "QuotaAlarmsHandler991932B0": {
+  "Func217E03A4": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
-    "Architectures": [
-     "arm64"
-    ],
     "Code": {
-     "S3Bucket": {
-      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-     },
-     "S3Key": "d727afe18719eb102b970671b620855e4a4408f6b7e7b140eaf1aef6a6d1a891.zip"
+     "ZipFile": "export const handler = async () => 0"
     },
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "QuotaAlarmsHandlerServiceRoleFCC0E156",
+      "FuncServiceRole49680D06",
       "Arn"
      ]
     },
     "Runtime": "nodejs24.x"
    },
    "DependsOn": [
-    "QuotaAlarmsHandlerServiceRoleDefaultPolicy1DBA1005",
-    "QuotaAlarmsHandlerServiceRoleFCC0E156"
+    "FuncServiceRole49680D06"
    ]
   },
-  "QuotaAlarmsHandlerLogGroupC37B3B99": {
+  "FuncLogGroup12161788": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "LogGroupName": {
@@ -90,176 +62,142 @@
       [
        "/aws/lambda/",
        {
-        "Ref": "QuotaAlarmsHandler991932B0"
+        "Ref": "Func217E03A4"
        }
       ]
      ]
     },
     "RetentionInDays": 731
-   },
-   "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete"
-  },
-  "QuotaAlarmsProviderframeworkonEventServiceRole886D86FE": {
-   "Type": "AWS::IAM::Role",
-   "Properties": {
-    "AssumeRolePolicyDocument": {
-     "Statement": [
-      {
-       "Action": "sts:AssumeRole",
-       "Effect": "Allow",
-       "Principal": {
-        "Service": "lambda.amazonaws.com"
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "ManagedPolicyArns": [
-     {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-       ]
-      ]
-     }
-    ]
-   }
-  },
-  "QuotaAlarmsProviderframeworkonEventServiceRoleDefaultPolicy85DB2CDD": {
-   "Type": "AWS::IAM::Policy",
-   "Properties": {
-    "PolicyDocument": {
-     "Statement": [
-      {
-       "Action": "lambda:InvokeFunction",
-       "Effect": "Allow",
-       "Resource": [
-        {
-         "Fn::GetAtt": [
-          "QuotaAlarmsHandler991932B0",
-          "Arn"
-         ]
-        },
-        {
-         "Fn::Join": [
-          "",
-          [
-           {
-            "Fn::GetAtt": [
-             "QuotaAlarmsHandler991932B0",
-             "Arn"
-            ]
-           },
-           ":*"
-          ]
-         ]
-        }
-       ]
-      },
-      {
-       "Action": "lambda:GetFunction",
-       "Effect": "Allow",
-       "Resource": {
-        "Fn::GetAtt": [
-         "QuotaAlarmsHandler991932B0",
-         "Arn"
-        ]
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "PolicyName": "QuotaAlarmsProviderframeworkonEventServiceRoleDefaultPolicy85DB2CDD",
-    "Roles": [
-     {
-      "Ref": "QuotaAlarmsProviderframeworkonEventServiceRole886D86FE"
-     }
-    ]
-   }
-  },
-  "QuotaAlarmsProviderframeworkonEvent7C4D3D76": {
-   "Type": "AWS::Lambda::Function",
-   "Properties": {
-    "Code": {
-     "S3Bucket": {
-      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-     },
-     "S3Key": "e16ffb3b34af185b8b30c88fdb19faa13b6c42bb38580485c4e84b384ee48b63.zip"
-    },
-    "Description": "AWS CDK resource provider framework - onEvent (QuotaAlarmsIntegTest/QuotaAlarms/Provider)",
-    "Environment": {
-     "Variables": {
-      "USER_ON_EVENT_FUNCTION_ARN": {
-       "Fn::GetAtt": [
-        "QuotaAlarmsHandler991932B0",
-        "Arn"
-       ]
-      }
-     }
-    },
-    "Handler": "framework.onEvent",
-    "LoggingConfig": {
-     "ApplicationLogLevel": "FATAL",
-     "LogFormat": "JSON"
-    },
-    "Role": {
-     "Fn::GetAtt": [
-      "QuotaAlarmsProviderframeworkonEventServiceRole886D86FE",
-      "Arn"
-     ]
-    },
-    "Runtime": "nodejs24.x",
-    "Timeout": 900
-   },
-   "DependsOn": [
-    "QuotaAlarmsProviderframeworkonEventServiceRoleDefaultPolicy85DB2CDD",
-    "QuotaAlarmsProviderframeworkonEventServiceRole886D86FE"
-   ]
-  },
-  "QuotaAlarmsProviderframeworkonEventLogGroupFB83EFCE": {
-   "Type": "AWS::Logs::LogGroup",
-   "Properties": {
-    "LogGroupName": {
-     "Fn::Join": [
-      "",
-      [
-       "/aws/lambda/",
-       {
-        "Ref": "QuotaAlarmsProviderframeworkonEvent7C4D3D76"
-       }
-      ]
-     ]
-    },
-    "RetentionInDays": 731
-   },
-   "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete"
-  },
-  "QuotaAlarmsGetQuotaA0505BE9": {
-   "Type": "Custom::GetSesQuota",
-   "Properties": {
-    "ServiceToken": {
-     "Fn::GetAtt": [
-      "QuotaAlarmsProviderframeworkonEvent7C4D3D76",
-      "Arn"
-     ]
-    },
-    "ServiceTimeout": "60",
-    "version": "IntegTest"
    },
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain"
+  },
+  "FuncHighBounceRateAlarmAlarmPermission308C99A4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Func217E03A4",
+      "Arn"
+     ]
+    },
+    "Principal": "lambda.alarms.cloudwatch.amazonaws.com",
+    "SourceAccount": {
+     "Ref": "AWS::AccountId"
+    },
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "QuotaAlarmsHighBounceRateAlarm4F3C87A5",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "FuncHighComplaintRateAlarmAlarmPermission056E65FD": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Func217E03A4",
+      "Arn"
+     ]
+    },
+    "Principal": "lambda.alarms.cloudwatch.amazonaws.com",
+    "SourceAccount": {
+     "Ref": "AWS::AccountId"
+    },
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "QuotaAlarmsHighComplaintRateAlarmE122D6B6",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "FuncSendQuotaAlarmResourceAlarmPermissionF395390C": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Func217E03A4",
+      "Arn"
+     ]
+    },
+    "Principal": "lambda.alarms.cloudwatch.amazonaws.com",
+    "SourceAccount": {
+     "Ref": "AWS::AccountId"
+    },
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":cloudwatch:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":alarm:QuotaAlarmsIntegTest-QuotaAlarms-SendQuotaAlarm-2DE6E393"
+      ]
+     ]
+    }
+   }
+  },
+  "FuncSendRateAlarmResourceAlarmPermission3AC59D29": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "Func217E03A4",
+      "Arn"
+     ]
+    },
+    "Principal": "lambda.alarms.cloudwatch.amazonaws.com",
+    "SourceAccount": {
+     "Ref": "AWS::AccountId"
+    },
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":cloudwatch:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":alarm:QuotaAlarmsIntegTest-QuotaAlarms-SendRateAlarm-8D20EB5B"
+      ]
+     ]
+    }
+   }
   },
   "QuotaAlarmsHighBounceRateAlarm4F3C87A5": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
     "AlarmActions": [
+     {
+      "Fn::GetAtt": [
+       "Func217E03A4",
+       "Arn"
+      ]
+     },
      {
       "Ref": "TopicBFC7AF6E"
      }
@@ -269,6 +207,14 @@
     "EvaluationPeriods": 1,
     "MetricName": "Reputation.BounceRate",
     "Namespace": "AWS/SES",
+    "OKActions": [
+     {
+      "Fn::GetAtt": [
+       "Func217E03A4",
+       "Arn"
+      ]
+     }
+    ],
     "Period": 300,
     "Statistic": "Maximum",
     "Threshold": 0.05,
@@ -280,6 +226,12 @@
    "Properties": {
     "AlarmActions": [
      {
+      "Fn::GetAtt": [
+       "Func217E03A4",
+       "Arn"
+      ]
+     },
+     {
       "Ref": "TopicBFC7AF6E"
      }
     ],
@@ -288,89 +240,316 @@
     "EvaluationPeriods": 1,
     "MetricName": "Reputation.ComplaintRate",
     "Namespace": "AWS/SES",
+    "OKActions": [
+     {
+      "Fn::GetAtt": [
+       "Func217E03A4",
+       "Arn"
+      ]
+     }
+    ],
     "Period": 300,
     "Statistic": "Maximum",
     "Threshold": 0.001,
     "TreatMissingData": "notBreaching"
    }
   },
-  "QuotaAlarmsSendQuotaAlarmC30E4B8C": {
-   "Type": "AWS::CloudWatch::Alarm",
+  "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRole6B499F75": {
+   "Type": "AWS::IAM::Role",
    "Properties": {
-    "AlarmActions": [
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
      {
-      "Ref": "TopicBFC7AF6E"
-     }
-    ],
-    "AlarmDescription": {
-     "Fn::Join": [
-      "",
-      [
-       "SES SendQuota > 80% (max ",
-       {
-        "Fn::GetAtt": [
-         "QuotaAlarmsGetQuotaA0505BE9",
-         "Max24HourSend"
-        ]
-       },
-       "/day)"
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicDurableExecutionRolePolicy"
+       ]
       ]
-     ]
-    },
-    "ComparisonOperator": "GreaterThanThreshold",
-    "DatapointsToAlarm": 1,
-    "EvaluationPeriods": 1,
-    "MetricName": "Send",
-    "Namespace": "AWS/SES",
-    "Period": 86400,
-    "Statistic": "Sum",
-    "Threshold": {
-     "Fn::GetAtt": [
-      "QuotaAlarmsGetQuotaA0505BE9",
-      "Max24HourSendThreshold"
-     ]
-    },
-    "TreatMissingData": "notBreaching"
+     }
+    ]
    }
   },
-  "QuotaAlarmsSendRateAlarm6C1E1073": {
-   "Type": "AWS::CloudWatch::Alarm",
+  "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRoleDefaultPolicyF03AF1D5": {
+   "Type": "AWS::IAM::Policy",
    "Properties": {
-    "AlarmActions": [
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "servicequotas:GetRequestedServiceQuotaChange",
+        "ses:GetAccount"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "cloudwatch:DeleteAlarms",
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:PutMetricAlarm"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":cloudwatch:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":alarm:QuotaAlarmsIntegTest-QuotaAlarms-SendQuotaAlarm-2DE6E393"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":cloudwatch:",
+           {
+            "Ref": "AWS::Region"
+           },
+           ":",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":alarm:QuotaAlarmsIntegTest-QuotaAlarms-SendRateAlarm-8D20EB5B"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRoleDefaultPolicyF03AF1D5",
+    "Roles": [
      {
-      "Ref": "TopicBFC7AF6E"
+      "Ref": "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRole6B499F75"
      }
+    ]
+   }
+  },
+  "QuotaAlarmsServiceQuotaRuleEventHandler8F3226AC": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
     ],
-    "AlarmDescription": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "27ae2e376effff48fea78d857270779f736b730db1185db578cc55e7ad7bfa16.zip"
+    },
+    "DurableConfig": {
+     "ExecutionTimeout": 2592000
+    },
+    "Environment": {
+     "Variables": {
+      "SEND_QUOTA_ALARM_NAME": "QuotaAlarmsIntegTest-QuotaAlarms-SendQuotaAlarm-2DE6E393",
+      "SEND_RATE_ALARM_NAME": "QuotaAlarmsIntegTest-QuotaAlarms-SendRateAlarm-8D20EB5B",
+      "ALARM_ACTION_ARNS": {
+       "Fn::Join": [
+        ",",
+        [
+         {
+          "Fn::GetAtt": [
+           "Func217E03A4",
+           "Arn"
+          ]
+         },
+         {
+          "Ref": "TopicBFC7AF6E"
+         }
+        ]
+       ]
+      },
+      "OK_ACTION_ARNS": {
+       "Fn::GetAtt": [
+        "Func217E03A4",
+        "Arn"
+       ]
+      }
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRole6B499F75",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x"
+   },
+   "DependsOn": [
+    "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRoleDefaultPolicyF03AF1D5",
+    "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRole6B499F75"
+   ]
+  },
+  "QuotaAlarmsServiceQuotaRuleEventHandlerLogGroup8C00CDFE": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
      "Fn::Join": [
       "",
       [
-       "SES SendRate > 90% (max ",
+       "/aws/lambda/",
        {
-        "Fn::GetAtt": [
-         "QuotaAlarmsGetQuotaA0505BE9",
-         "MaxSendRate"
-        ]
-       },
-       "/sec)"
+        "Ref": "QuotaAlarmsServiceQuotaRuleEventHandler8F3226AC"
+       }
       ]
      ]
     },
-    "ComparisonOperator": "GreaterThanThreshold",
-    "DatapointsToAlarm": 1,
-    "EvaluationPeriods": 1,
-    "MetricName": "Send",
-    "Namespace": "AWS/SES",
-    "Period": 300,
-    "Statistic": "Sum",
-    "Threshold": {
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "QuotaAlarmsServiceQuotaRuleDA171EA8": {
+   "Type": "AWS::Events::Rule",
+   "Properties": {
+    "EventPattern": {
+     "source": [
+      "aws.servicequotas"
+     ],
+     "detail-type": [
+      "AWS API Call via CloudTrail"
+     ],
+     "detail": {
+      "eventName": [
+       "RequestServiceQuotaIncrease"
+      ],
+      "responseElements": {
+       "requestedQuota": {
+        "serviceCode": [
+         "ses"
+        ],
+        "quotaName": [
+         "Sending rate",
+         "Sending quota"
+        ]
+       }
+      }
+     }
+    },
+    "State": "ENABLED",
+    "Targets": [
+     {
+      "Arn": {
+       "Fn::Join": [
+        "",
+        [
+         {
+          "Fn::GetAtt": [
+           "QuotaAlarmsServiceQuotaRuleEventHandler8F3226AC",
+           "Arn"
+          ]
+         },
+         ":$LATEST"
+        ]
+       ]
+      },
+      "Id": "Target0"
+     }
+    ]
+   }
+  },
+  "QuotaAlarmsServiceQuotaRuleAllowEventRulesQuotaAlarmsIntegTestQuotaAlarmsServiceQuotaRuleEventHandler9EC5C33CC1E74B98": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
      "Fn::GetAtt": [
-      "QuotaAlarmsGetQuotaA0505BE9",
-      "MaxSendRateThreshold"
+      "QuotaAlarmsServiceQuotaRuleEventHandler8F3226AC",
+      "Arn"
      ]
     },
-    "TreatMissingData": "notBreaching"
+    "Principal": "events.amazonaws.com",
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "QuotaAlarmsServiceQuotaRuleDA171EA8",
+      "Arn"
+     ]
+    }
    }
+  },
+  "QuotaAlarmsCreateAlarms6555CE49": {
+   "Type": "AWS::CloudFormation::CustomResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::Join": [
+      "",
+      [
+       {
+        "Fn::GetAtt": [
+         "QuotaAlarmsServiceQuotaRuleEventHandler8F3226AC",
+         "Arn"
+        ]
+       },
+       ":$LATEST"
+      ]
+     ]
+    },
+    "ServiceTimeout": "10"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "QuotaAlarmsMuteRuleBA7C901D": {
+   "Type": "AWS::CloudWatch::AlarmMuteRule",
+   "Properties": {
+    "MuteTargets": {
+     "AlarmNames": [
+      {
+       "Ref": "QuotaAlarmsHighBounceRateAlarm4F3C87A5"
+      },
+      {
+       "Ref": "QuotaAlarmsHighComplaintRateAlarmE122D6B6"
+      },
+      "QuotaAlarmsIntegTest-QuotaAlarms-SendQuotaAlarm-2DE6E393",
+      "QuotaAlarmsIntegTest-QuotaAlarms-SendRateAlarm-8D20EB5B"
+     ]
+    },
+    "Rule": {
+     "Schedule": {
+      "Duration": "PT1H",
+      "Expression": "cron(0 0 * * *)"
+     }
+    }
+   },
+   "DependsOn": [
+    "QuotaAlarmsCreateAlarms6555CE49"
+   ]
   }
  },
  "Parameters": {

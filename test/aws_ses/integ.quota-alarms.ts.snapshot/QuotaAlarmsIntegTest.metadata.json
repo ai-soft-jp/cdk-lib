@@ -1,8 +1,24 @@
 {
+  "/QuotaAlarmsIntegTest": [
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "QuotaAlarmsIntegTest.template.json"
+    }
+  ],
   "/QuotaAlarmsIntegTest/Topic": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": "*"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "code": "*",
+        "runtime": "*",
+        "handler": "*"
+      }
     }
   ],
   "/QuotaAlarmsIntegTest/BootstrapVersion": [
@@ -23,45 +39,58 @@
       "data": "TopicBFC7AF6E"
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler": [
+  "/QuotaAlarmsIntegTest/Func/ServiceRole": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
-        "code": "*",
-        "runtime": "*",
-        "architecture": "*",
-        "handler": "*"
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
       }
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/GetQuota": [
+  "/QuotaAlarmsIntegTest/Func/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Func217E03A4"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func/LogGroup": [
     {
       "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    },
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func/HighBounceRateAlarmAlarmPermission": [
     {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
+      "type": "aws:cdk:logicalId",
+      "data": "FuncHighBounceRateAlarmAlarmPermission308C99A4"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func/HighComplaintRateAlarmAlarmPermission": [
     {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
+      "type": "aws:cdk:logicalId",
+      "data": "FuncHighComplaintRateAlarmAlarmPermission056E65FD"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func/SendQuotaAlarmResourceAlarmPermission": [
     {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
+      "type": "aws:cdk:logicalId",
+      "data": "FuncSendQuotaAlarmResourceAlarmPermissionF395390C"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func/SendRateAlarmResourceAlarmPermission": [
     {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
+      "type": "aws:cdk:logicalId",
+      "data": "FuncSendRateAlarmResourceAlarmPermission3AC59D29"
     }
   ],
   "/QuotaAlarmsIntegTest/QuotaAlarms/HighBounceRateAlarm": [
@@ -82,7 +111,8 @@
       "type": "aws:cdk:analytics:method",
       "data": {
         "addAlarmAction": [
-          {}
+          {},
+          "*"
         ]
       }
     }
@@ -105,133 +135,51 @@
       "type": "aws:cdk:analytics:method",
       "data": {
         "addAlarmAction": [
-          {}
-        ]
-      }
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/SendQuotaAlarm": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "alarmDescription": "*",
-        "metric": {
-          "warnings": "*",
-          "warningsV2": "*"
-        },
-        "evaluationPeriods": "*",
-        "datapointsToAlarm": "*",
-        "threshold": "*",
-        "comparisonOperator": "*",
-        "treatMissingData": "notBreaching"
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "addAlarmAction": [
-          {}
-        ]
-      }
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/SendRateAlarm": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "alarmDescription": "*",
-        "metric": {
-          "warnings": "*",
-          "warningsV2": "*"
-        },
-        "evaluationPeriods": "*",
-        "datapointsToAlarm": "*",
-        "threshold": "*",
-        "comparisonOperator": "*",
-        "treatMissingData": "notBreaching"
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "addAlarmAction": [
-          {}
-        ]
-      }
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/ServiceRole": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "assumedBy": {
-          "principalAccount": "*",
-          "assumeRoleAction": "*"
-        },
-        "managedPolicies": [
-          {
-            "managedPolicyArn": "*"
-          }
-        ]
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "addToPrincipalPolicy": [
-          {}
-        ]
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "attachInlinePolicy": [
-          "*"
-        ]
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "attachInlinePolicy": [
+          {},
           "*"
         ]
       }
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsHandler991932B0"
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/LogGroup": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "logGroupName": "*"
-      }
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
         "code": "*",
-        "description": "*",
         "runtime": "*",
+        "architecture": "*",
         "handler": "*",
-        "timeout": "*",
-        "loggingFormat": "JSON",
-        "applicationLogLevelV2": "FATAL",
-        "logGroup": "*",
-        "vpc": "*",
-        "vpcSubnets": "*",
-        "securityGroups": "*",
-        "role": "*",
-        "functionName": "*",
-        "environmentEncryption": "*"
+        "durableConfig": {
+          "executionTimeout": "*"
+        },
+        "environment": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addEnvironment": [
+          "*",
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addEnvironment": [
+          "*",
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addEnvironment": [
+          "*",
+          "*"
+        ]
       }
     },
     {
@@ -244,10 +192,109 @@
       }
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/GetQuota/Default": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRule": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "eventPattern": {
+          "source": "*",
+          "detailType": "*",
+          "detail": "*"
+        },
+        "targets": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addEventPattern": [
+          {
+            "source": "*",
+            "detailType": "*",
+            "detail": "*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addTarget": [
+          {}
+        ]
+      }
+    }
+  ],
+  "/QuotaAlarmsIntegTest/QuotaAlarms/CreateAlarms": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:acknowledged-rules",
+      "data": {
+        "CloudFormation-Validate::W9003": "ServiceTimeout is converted to string"
+      },
+      "trace": [
+        "    ...Validations.acknowledge in aws-cdk-lib...",
+        "    at new QuotaAlarms (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_ses/quota-alarms.ts:127:39)",
+        "    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_ses/integ.quota-alarms.ts:19:16)",
+        "    ...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/QuotaAlarmsIntegTest/QuotaAlarms/MuteRule": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "schedule": "*",
+        "duration": "*",
+        "alarms": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addAlarm": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addAlarm": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addAlarm": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addAlarm": [
+          "*"
+        ]
+      }
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func/ServiceRole/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsGetQuotaA0505BE9"
+      "data": "FuncServiceRole49680D06"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/Func/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FuncLogGroup12161788"
     }
   ],
   "/QuotaAlarmsIntegTest/QuotaAlarms/HighBounceRateAlarm/Resource": [
@@ -262,67 +309,7 @@
       "data": "QuotaAlarmsHighComplaintRateAlarmE122D6B6"
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/SendQuotaAlarm/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsSendQuotaAlarmC30E4B8C"
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/SendRateAlarm/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsSendRateAlarm6C1E1073"
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/ServiceRole/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsHandlerServiceRoleFCC0E156"
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/ServiceRole/DefaultPolicy": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "attachToRole": [
-          "*"
-        ]
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "attachToRole": [
-          "*"
-        ]
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {
-        "addStatements": [
-          {}
-        ]
-      }
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/Code/AssetBucket": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/LogGroup/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsHandlerLogGroupC37B3B99"
-    }
-  ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/ServiceRole": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/ServiceRole": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -370,13 +357,13 @@
       }
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/Resource": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsProviderframeworkonEvent7C4D3D76"
+      "data": "QuotaAlarmsServiceQuotaRuleEventHandler8F3226AC"
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/LogGroup": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/LogGroup": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -384,19 +371,37 @@
       }
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Handler/ServiceRole/DefaultPolicy/Resource": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRule/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsHandlerServiceRoleDefaultPolicy1DBA1005"
+      "data": "QuotaAlarmsServiceQuotaRuleDA171EA8"
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/ServiceRole/Resource": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRule/AllowEventRulesQuotaAlarmsIntegTestQuotaAlarmsServiceQuotaRuleEventHandler9EC5C33C": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsProviderframeworkonEventServiceRole886D86FE"
+      "data": "QuotaAlarmsServiceQuotaRuleAllowEventRulesQuotaAlarmsIntegTestQuotaAlarmsServiceQuotaRuleEventHandler9EC5C33CC1E74B98"
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/ServiceRole/DefaultPolicy": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/CreateAlarms/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QuotaAlarmsCreateAlarms6555CE49"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/QuotaAlarms/MuteRule/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QuotaAlarmsMuteRuleBA7C901D"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRole6B499F75"
+    }
+  ],
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/ServiceRole/DefaultPolicy": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": "*"
@@ -434,22 +439,22 @@
       }
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/Code/AssetBucket": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/Code/AssetBucket": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": "*"
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/LogGroup/Resource": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/LogGroup/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsProviderframeworkonEventLogGroupFB83EFCE"
+      "data": "QuotaAlarmsServiceQuotaRuleEventHandlerLogGroup8C00CDFE"
     }
   ],
-  "/QuotaAlarmsIntegTest/QuotaAlarms/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
+  "/QuotaAlarmsIntegTest/QuotaAlarms/ServiceQuotaRuleEventHandler/ServiceRole/DefaultPolicy/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "QuotaAlarmsProviderframeworkonEventServiceRoleDefaultPolicy85DB2CDD"
+      "data": "QuotaAlarmsServiceQuotaRuleEventHandlerServiceRoleDefaultPolicyF03AF1D5"
     }
   ]
 }

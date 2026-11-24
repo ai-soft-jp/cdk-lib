@@ -1,0 +1,58 @@
+{
+  "version": "55.0.0",
+  "title": "Validation Report",
+  "pluginReports": [
+    {
+      "pluginName": "CloudFormation Validate",
+      "pluginVersion": "1.17.1",
+      "conclusion": "success",
+      "violations": [],
+      "suppressedViolations": [
+        {
+          "ruleName": "W9003",
+          "description": "ServiceTimeout: '10' is not of type 'integer' - automatically coerced (string to integer)",
+          "severity": "warning",
+          "ruleMetadata": {
+            "category": "Best Practice"
+          },
+          "violatingConstructs": [
+            {
+              "constructPath": "QuotaAlarmsIntegTest/QuotaAlarms/CreateAlarms/Default",
+              "constructFqn": "aws-cdk-lib.CfnResource",
+              "libraryVersion": "2.278.0",
+              "cloudFormationResource": {
+                "templatePath": "QuotaAlarmsIntegTest.template.json",
+                "logicalId": "QuotaAlarmsCreateAlarms6555CE49",
+                "propertyPaths": [
+                  "Properties.ServiceTimeout"
+                ]
+              }
+            }
+          ],
+          "acknowledgedId": "CloudFormation-Validate::W9003",
+          "reason": "ServiceTimeout is converted to string",
+          "acknowledgedAt": "QuotaAlarmsIntegTest/QuotaAlarms/CreateAlarms",
+          "acknowledgedStackTrace": "    ...Validations.acknowledge in aws-cdk-lib...\n    at new QuotaAlarms (/home/tietew/projects/ai-soft/cdk-lib/lib/aws_ses/quota-alarms.ts:127:39)\n    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_ses/integ.quota-alarms.ts:19:16)\n    ...node internals, ts-node, ts-node..."
+        },
+        {
+          "ruleName": "F0001",
+          "description": "Resources: Resources section must exist and be non-empty",
+          "severity": "error",
+          "ruleMetadata": {
+            "category": "Structure"
+          },
+          "violatingConstructs": [
+            {
+              "constructPath": "integ-test/DefaultTest/DeployAssert",
+              "constructFqn": "aws-cdk-lib.Stack",
+              "libraryVersion": "2.278.0"
+            }
+          ],
+          "acknowledgedId": "CloudFormation-Validate::F0001",
+          "reason": "no assertions",
+          "acknowledgedStackTrace": "    ...Validations.acknowledge in aws-cdk-lib...\n    at <anonymous> (/home/tietew/projects/ai-soft/cdk-lib/test/aws_ses/integ.quota-alarms.ts:11:25)\n    ...node internals, ts-node, ts-node..."
+        }
+      ]
+    }
+  ]
+}
