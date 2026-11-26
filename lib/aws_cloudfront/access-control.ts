@@ -3,7 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { lit } from 'aws-cdk-lib/core/lib/helpers-internal';
 import type { Construct } from 'constructs';
-import { makeRe } from 'minimatch';
+import { makeRe } from 'picomatch';
 import { cidrs2pattern } from '../utils/ipaddress';
 import { Function } from './function';
 
